@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="canonical" href="https://infinite-happiness.github.io/Ananda-Marga-Fasting-Calendar/" />
+
+	<script defer src="js/alpine3.min.js"></script>
+	<script src="js/luxon.min.js"></script>
+	<script src="js/astronomy.browser.js"></script>
+	<!--<link href="css/beer.min.css" rel="stylesheet">
+
+-->
+	<!-- requires web server<script type="module" src="js/beer.min.js"></script>
+	<script type="module" src="js/material-dynamic-colors.min.js"></script>-->
+
+</head>
+
+<body>
+	<header id="header"></header>
+	<script src="js/layout.js"></script>
+	<script src="js/calc-advanced.js"></script>
+	<script src="js/tithi.js?v1"></script>
+	<!--<script src="data/World_Cities_Location_table.js"></script>-->
+	<script src="data/AM_Fasting_Days_2024.js"></script>
+
+	<script>
+		// https://github.com/RWDevelopment/alpine_js_searchable_input?tab=readme-ov-file
+		// https://www.alpinetoolbox.com/
+		// https://codepen.io/ScottWindon/pen/oNbOzQj
+		let DateTime = luxon.DateTime;
+
+
+		// https://stackoverflow.com/a/2856602
+		function fireEvent(element) {
+			// set element to startDateInput to re-calculate tithis
+			if ("createEvent" in document) {
+				var evt = document.createEvent("HTMLEvents"); evt.initEvent("change", false, true);
+				element.dispatchEvent(evt);
+			} else element.fireEvent("onchange");
+		}
+		function calculator() {
+			let dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+			let dateTimeOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+			let timeZoneList = Intl.supportedValuesOf('timeZone');
+			timeZoneList.push('UTC');
+			let varanasiTimeZone = timeZoneList.includes("Asia/Kolkata") ? "Asia/Kolkata" : "Asia/Calcutta";
+			console.log("Selected default time zone:", varanasiTimeZone);
+
+			return {
+				rows: [],
+				matches: 1, // prevent divide by 0 by not setting to 0
+				errors: 0,
+				timeZoneList: timeZoneList,
+				varanasiTimeZone: varanasiTimeZone,
+				selectedTimeZone: varanasiTimeZone,
+				dayStartList: ["Sunrise 0°", "Sunrise", "Civil Dawn 6°", "Nautical Dawn 12°", "Astronomical Dawn 18°"],
+				selectedDayStart: "Sunrise",
+				advancedDlgIsOpen: false,
+				advancedDlgIsOpenedAt: 0, // https://stackoverflow.com/questions/71025866/alpinejs-triggering-a-click-outside-event-when-adding-modal
+				showTithiDetails: false,
+				//worldCities: World_Cities, // slow, only load if needed
+				// default to varanasi - https://www.latlong.net/place/varanasi-uttar-pradesh-india-2395.html - https://en.wikipedia.org/wiki/Varanasi
+				latitude: 25.321684,
+				longitude: 82.987289,
+				elevation: 80.71,
+				aboveGround: 1, // sunrise has to be observed above ground (in meters), here 1m (meditation posture perspective)
+				testData: AM_Fasting_Days_2024,
+				showTestDataErrors: false,
+				calculateTithis(startDate, endDate) {
+					result = tithi.calculateTithis(this.selectedTimeZone, startDate, endDate, this.latitude, this.longitude, this.elevation, this.aboveGround, this.testData);
+					this.rows = result.rows;
+					this.matches = result.matches;
+					this.errors = result.errors;
+				},
+				formatDatez(date) { return date.toLocaleDateString("en-US", dateOptions) },
+				formatDatex(date) { return date.toISOString().substring(0, 10); },
+				formatDate(date) { return date; },
+				formatDateTime(date) { return date.toLocaleDateString("en-US", dateTimeOptions) },
+				formatTimeDiff(timeDiff) {
+					return new Date(timeDiff).toISOString().slice(11, 19)   // HH:MM:SS
+				},
+				/*
+				// not working in serverless mode
+				async getTestData() {
+					const response = await fetch("data/AM_Fasting_Days_2024.json");
+					const json = await response.json();
+					console.log(json);
+				},
+				*/
+			}
+		}
+	</script>
+
+	<main class="responsive">
+		<div id="calculator" x-data="calculator()">
+			<h6 class="margin">Ananda Marga Fasting Calendar
+				<button @click="advancedDlgIsOpen = !advancedDlgIsOpen; advancedDlgIsOpenedAt=Date.now();"
+					class="yellow10 margin">Advanced</button>
+			</h6>
+			<div class="field label border">
+				<label for="start_date" class="active">Start Date</label>
+				<input type="date" id="start_date" class="active"
+					@change="calculateTithis($refs.start_date.value, $refs.end_date.value)"
+					x-init="calculateTithis($refs.start_date.value, $refs.end_date.value)" x-ref="start_date" />
+			</div>
+
+			<div class="field label border">
+				<label for="end_date" class="active">End Date</label>
+				<input type="date" id="end_date" class="active"
+					@change="calculateTithis($refs.start_date.value, $refs.end_date.value)" x-ref="end_date" />
+			</div>
+			<!--<small style="display:block; width:250px;">Please note! If you select a long time span this page may be
+				unresponsive for
+				some time!</small>-->
+			<script>
+				/*
+				The date inputs in the gui should be understood as representing the selected time zone.
+				However, DateTimes and time zones are handled elsewhere, as date type inputs use date strings as values.
+
+				Below, make sure endDateInput is always a dater later than startDateInput.
+				*/
+				const startDateInput = document.getElementById('start_date');
+				const endDateInput = document.getElementById('end_date');
+				startDateInput.value = new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toISOString().substring(0, 10);
+				endDateInput.value = new Date(Date.now() + 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10);
+
+				// ensure end date is always after start date
+				const handleDateRangeChange = () => {
+					const maxDate = new Date(endDateInput.value);
+					const minDate = new Date(startDateInput.value);
+					maxDate.setHours(maxDate.getHours() - 24);
+					startDateInput.max = maxDate.toISOString().substring(0, 10);
+					minDate.setHours(minDate.getHours() + 24);
+					endDateInput.min = minDate.toISOString().substring(0, 10);
+
+
+				};
+				handleDateRangeChange();
+				startDateInput.addEventListener('change', handleDateRangeChange);
+				endDateInput.addEventListener('change', handleDateRangeChange);
+			</script>
+
+			<div id="calculator_advanced">
+			</div>
+
+			<table class="stripes yellow2">
+				<tbody>
+					<template x-for="row in rows">
+						<tr>
+							<td x-text="row.tithi.name"></td>
+							<td x-text="formatDate(row.fastingDateString)"></td>
+							<template x-if="showTithiDetails">
+								<td>
+									<table class="stripes yellow2">
+										<tr>
+											<td x-text="'Start: ' + formatDateTime(row.start.date)"></td>
+										</tr>
+										<tr>
+											<td x-text="'Then: ' + formatTimeDiff(row.sunrise.date - row.start.date)">
+											</td>
+										</tr>
+										<tr>
+											<td x-text="'Sunrise: ' + formatDateTime(row.sunrise.date)"></td>
+										</tr>
+										<tr>
+											<td x-text="'Then: ' + formatTimeDiff(row.end.date - row.sunrise.date)">
+											</td>
+										</tr>
+										<tr>
+											<td x-text="'End: ' + formatDateTime(row.end.date)"></td>
+										</tr>
+										<tr>
+											<td x-text="'Expected: ' + row.testDataValue"
+												x-bind:class="row.matchesTestData ? '':'error-container'"></td>
+										</tr>
+									</table>
+								</td>
+							</template>
+							<!--
+							<td x-text="formatDateTime(row.end.date)"></td>
+							<td x-text="formatDateTime(row.sunrise.date)"></td>-->
+						</tr>
+					</template>
+				</tbody>
+			</table>
+		</div>
+
+		<div id="bottom_content"></div>
+	</main>
+</body>
+
+</html>
