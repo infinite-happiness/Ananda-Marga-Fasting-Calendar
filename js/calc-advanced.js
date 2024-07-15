@@ -24,18 +24,19 @@ layout.calculator_advanced = function () {
 									<i>close</i>
 						</button>
                     </div>
+                    LocaleSelectorHere
 
                     <button class="yellow10 margin" x-init="tz = Intl.DateTimeFormat().resolvedOptions().timeZone" @click='
                         selectedTimeZone = tz;
-                            fireEvent(startDateInput);' x-text="'Select local time zone: ' + tz"></button><br>
+                            fireEvent(startDateInput);' x-text="'Select Local Time Zone: ' + tz"></button><br>
 
                     <button class="yellow10 margin ee" @click='
                         selectedTimeZone = "UTC";
-                            fireEvent(startDateInput);'>Select UTC as time zone</button><br>
+                            fireEvent(startDateInput);'>Select UTC as Time Zone</button><br>
 
                     <button class="yellow10 margin ee" @click='
                         selectedTimeZone = varanasiTimeZone;
-                            fireEvent(startDateInput);' x-text="'Select Varanasi time zone: ' + varanasiTimeZone"></button>
+                            fireEvent(startDateInput);' x-text="'Select Varanasi Time Zone: ' + varanasiTimeZone + ' (Default)'"></button>
 
 
                     <div class="field label suffix border margin">
@@ -94,12 +95,14 @@ layout.calculator_advanced = function () {
                                         latitude = position.coords.latitude;
                                         longitude = position.coords.longitude;
                                         elevation = position.coords.altitude || 0;
+                                        fireEvent(startDateInput); // note that this fires async, ie after position has been acquired
                                     },
                                     // error
                                     ()=>{}
                                 );
                             }
-                                fireEvent(startDateInput);'>Get My Location</button>
+                            '>Get My Location</button>
+                        Select Varanasi as Location (Default)
 
                         <div class="field label border margin">
                             <input type="text" class="active" x-model="latitude">

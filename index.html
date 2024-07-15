@@ -31,6 +31,7 @@
 		// https://www.alpinetoolbox.com/
 		// https://codepen.io/ScottWindon/pen/oNbOzQj
 		let DateTime = luxon.DateTime;
+		let Interval = luxon.Interval;
 
 
 		// https://stackoverflow.com/a/2856602
@@ -80,7 +81,11 @@
 				formatDate(date) { return date; },
 				formatDateTime(date) { return date.toLocaleDateString("en-US", dateTimeOptions) },
 				formatTimeDiff(timeDiff) {
-					return new Date(timeDiff).toISOString().slice(11, 19)   // HH:MM:SS
+					d = new Date(timeDiff).toISOString().slice(11, 19)   // HH:MM:SS
+					d = d.replace(':', 'h ');
+					d = d.replace(':', 'm ');
+					d += 's';
+					return d;
 				},
 				/*
 				// not working in serverless mode
@@ -156,24 +161,32 @@
 								<td>
 									<table class="stripes yellow2">
 										<tr>
-											<td x-text="'Start: ' + formatDateTime(row.start.date)"></td>
-										</tr>
-										<tr>
-											<td x-text="'Then: ' + formatTimeDiff(row.sunrise.date - row.start.date)">
+											<td
+												x-text="row.tithi.name + ' starts: ' + row.start.toLocaleString(DateTime.DATETIME_HUGE)">
 											</td>
 										</tr>
 										<tr>
-											<td x-text="'Sunrise: ' + formatDateTime(row.sunrise.date)"></td>
-										</tr>
-										<tr>
-											<td x-text="'Then: ' + formatTimeDiff(row.end.date - row.sunrise.date)">
+											<td
+												x-text="'Then: ' + Interval.fromDateTimes(row.start, row.sunrise).toDuration(['hours', 'minutes', 'seconds']).toFormat('h\'h\' m\'m\' s\'s\'') + ' until...'">
 											</td>
 										</tr>
 										<tr>
-											<td x-text="'End: ' + formatDateTime(row.end.date)"></td>
+											<td
+												x-text="'Sunrise: ' + row.sunrise.toLocaleString(DateTime.DATETIME_HUGE)">
+											</td>
 										</tr>
 										<tr>
-											<td x-text="'Expected: ' + row.testDataValue"
+											<td
+												x-text="'Then: ' + Interval.fromDateTimes(row.sunrise, row.end).toDuration(['hours', 'minutes', 'seconds']).toFormat('h\'h\' m\'m\' s\'s\'') + ' until...'">
+											</td>
+										</tr>
+										<tr>
+											<td
+												x-text="row.tithi.name + ' ends: ' + row.end.toLocaleString(DateTime.DATETIME_HUGE)">
+											</td>
+										</tr>
+										<tr>
+											<td x-text="'Official fasting date: ' + row.testDataValue"
 												x-bind:class="row.matchesTestData ? '':'error-container'"></td>
 										</tr>
 									</table>
