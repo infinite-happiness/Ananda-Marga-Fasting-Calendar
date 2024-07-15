@@ -1,0 +1,7 @@
+body {
+    visibility: hidden;
+}
+
+img {
+    max-width: 100%;
+}

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="1840 -656 4784 3205" font-family="Arial, sans-serif" font-size="180px">
+  
+  <title>Twilight subcategories</title>
+  <desc>
+    viewBox="1840 -656 4784 3205"         dawn
+    viewBox="-6624 -656 4784 3205"        dusk
+    viewBox="-5500 -5000 11000 10000"
+  </desc>
+
+  <!--
+  I've used 5000 for the radius of the earth.
+  6,378 kilometers would be better.
+  5000 * 1.25 = 6250.
+  
+  This file uses some dx and dy tricks to position text.
+  
+  Q11288132 dusk (mashes civil, nautical, and astronomical dusk together)
+  Q164160 twilight
+    Q49415785 astronomical twilight
+    Q49415027 civl twilight
+    Q49415374 nautical twilight
+  Q11326182 dawn
+  Q43261 horizon
+  -->
+ 
+  <metadata>
+    <rdf:RDF xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <cc:Work rdf:about="https://commons.wikimedia.org/wiki/File:Twilight_subcategories.svg">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <dc:publisher rdf:resource="https://commons.wikimedia.org"/>
+        <dc:date>2012-09-07</dc:date>
+        <dc:creator rdf:resource="https://commons.wikimedia.org/wiki/User:TWCarlson"/>
+        <cc:attributionURL rdf:resource="https://commons.wikimedia.org/wiki/File:Twilight_subcategories.svg"/>
+        <cc:attributionName>TWCarlson</cc:attributionName>
+        <cc:license rdf:resource="https://creativecommons.org/licenses/by-sa/3.0/deed.en"/>
+      </cc:Work>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <dc:publisher rdf:resource="https://commons.wikimedia.org"/>
+        <dc:date>2017-07-10</dc:date>
+        <dc:source rdf:resource="https://commons.wikimedia.org/wiki/File:Twilight_subcategories.svg"/>
+        <cc:attributionURL rdf:resource="https://commons.wikimedia.org/wiki/File:Twilight-dawn_subcategories.svg"/>
+        <cc:attributionName>Pmurph5</cc:attributionName>
+        <cc:license rdf:resource="https://creativecommons.org/licenses/by-sa/4.0/deed.en"/>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  
+  <defs>
+    <marker id="arrs" refX="0" refY="5" orient="auto" markerWidth="15" markerHeight="10">
+      <path fill="white" d="M 0 5 L 15 0 L 10 5 L 15 10 L 0 5 Z"/>
+    </marker>
+    <marker id="arre" refX="15" refY="5" orient="auto" markerWidth="15" markerHeight="10">
+      <path fill="white" d="M 15 5 L 0 0 L 5 5 L 0 10 L 15 5 Z"/>
+    </marker>
+    <g id="sun">
+      <title>sun</title>
+      <desc>The diameter of the sun is 32 arcminutes or 0.53 degrees. Radius = 5000 sin(0.265) = 23.12553</desc>
+      <circle r="23.12553" fill="yellow" stroke="black" stroke-width="5"/>
+    </g>
+  </defs>
+  
+    <circle r="5000" fill="none" stroke="rgb(185,188,154)" stroke-width="12"/>
+    
+    <!-- sectors
+    5000 sin( 6) =    522.642316 ; cos( 6) = 4972.609477
+    5000 sin(12) =  1,039.558454 ; cos(12) = 4890.738004
+    5000 sin(18) =  1,545.084972 ; cos(18) = 4755.282581
+    -->
+    <path class="day" fill="rgb(219,233,255)" d="M 0 0 L -5000 0                  A 5000 5000 0 0 1 5000           0        z"/>
+    <path class="ctw Q49415027" fill="rgb(135,164,211)" d="M 0 0 L  5000           0        A 5000 5000 0 0 1 4972.609477  522.642316 z"/>
+    <path class="ntw" fill="rgb(71,115,187)" d="M 0 0 L 4972.609477  522.642316 A 5000 5000 0 0 1 4890.738004 1039.558454 z"/>
+    <path class="atw Q49415785" fill="rgb(38,62,102)" d="M 0 0 L 4890.738004 1039.558454 A 5000 5000 0 0 1 4755.282581 1545.084972 z"/>
+    <path class="nit" fill="rgb(31,37,45)" d="M 0 0 L 4755.282581 1545.084972 A 5000 5000 0 0 1  -4755.282581 1545.084972       z"/>
+    <path class="atw Q49415785" fill="rgb(38,62,102)" d="M 0 0 L -4755.282581 1545.084972 A 5000 5000 0 0 1 -4890.738004 1039.558454 z"/>
+    <path class="ntw" fill="rgb(71,115,187)" d="M 0 0 L -4890.738004 1039.558454 A 5000 5000 0 0 1 -4972.609477  522.642316 z"/>
+    <path class="ctw Q49415027" fill="rgb(135,164,211)" d="M 0 0 L  -4972.609477  522.642316   A 5000 5000 0 0 1 -5000           0 z"/>
+
+    <!-- dimension arcs
+    3200 sin( 6) = 334.491 ; cos( 6) = 3182.470
+    2850 sin(12) = 592.548 ; cos(12) = 2787.721
+    2500 sin(18) = 772.542 ; cos(18) = 2377.641
+    -->
+    <path fill="none" stroke="white" stroke-width="8" d="M 3200 0 A 3200 3200 0 0 1 3182.470 334.491" marker-start="url(#arrs)" marker-end="url(#arre)"/>
+    <switch><text fill="white" x="3200" y="0" dx="0.3em" dy=".3em" transform="rotate(3)" font-size="90%" id="trsvg27-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg1-ku-arab">٦</tspan></text><text fill="white" x="3200" y="0" dx="0.3em" dy=".3em" transform="rotate(3)" font-size="90%" id="trsvg27-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg1-ku-arab">٦</tspan></text><text fill="white" x="3200" y="0" dx="0.3em" dy=".3em" transform="rotate(3)" font-size="90%" id="trsvg27-ckb" systemLanguage="ckb"><tspan id="trsvg1-ckb">°٦</tspan></text><text fill="white" x="3200" y="0" dx="0.3em" dy=".3em" transform="rotate(3)" font-size="90%" id="trsvg27"><tspan id="trsvg1">6°</tspan></text></switch>
+    <path fill="none" stroke="white" stroke-width="8" d="M 2850 0 A 2850 2850 0 0 1 2787.721 592.548" marker-start="url(#arrs)" marker-end="url(#arre)"/>
+    <switch><text fill="white" x="2850" y="0" dx="0.2em" dy=".3em" transform="rotate(6)" font-size="90%" id="trsvg28-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg2-ku-arab">١٢</tspan></text><text fill="white" x="2850" y="0" dx="0.2em" dy=".3em" transform="rotate(6)" font-size="90%" id="trsvg28-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg2-ku-arab">١٢</tspan></text><text fill="white" x="2850" y="0" dx="0.2em" dy=".3em" transform="rotate(6)" font-size="90%" id="trsvg28-ckb" systemLanguage="ckb"><tspan id="trsvg2-ckb">°١٢</tspan></text><text fill="white" x="2850" y="0" dx="0.2em" dy=".3em" transform="rotate(6)" font-size="90%" id="trsvg28"><tspan id="trsvg2">12°</tspan></text></switch>
+    <path fill="none" stroke="white" stroke-width="8" d="M 2500 0 A 2500 2500 0 0 1 2377.641 772.542" marker-start="url(#arrs)" marker-end="url(#arre)"/>
+    <switch><text fill="white" x="2500" y="0" dx="0.2em" dy=".3em" transform="rotate(9)" font-size="90%" id="trsvg29-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg3-ku-arab">١٨</tspan></text><text fill="white" x="2500" y="0" dx="0.2em" dy=".3em" transform="rotate(9)" font-size="90%" id="trsvg29-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg3-ku-arab">١٨</tspan></text><text fill="white" x="2500" y="0" dx="0.2em" dy=".3em" transform="rotate(9)" font-size="90%" id="trsvg29-ckb" systemLanguage="ckb"><tspan id="trsvg3-ckb">°١٨</tspan></text><text fill="white" x="2500" y="0" dx="0.2em" dy=".3em" transform="rotate(9)" font-size="90%" id="trsvg29"><tspan id="trsvg3">18°</tspan></text></switch>
+
+    <path fill="none" stroke="white" stroke-width="8" d="M -3200 0 A 3200 3200 0 0 0 -3182.470 334.491" marker-start="url(#arrs)" marker-end="url(#arre)"/>
+    <switch><text fill="white" x="-3200" y="0" dx="0.3em" dy=".3em" transform="rotate(-3)" font-size="90%" id="trsvg30-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg4-ku-arab">٦</tspan></text><text fill="white" x="-3200" y="0" dx="0.3em" dy=".3em" transform="rotate(-3)" font-size="90%" id="trsvg30-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg4-ku-arab">٦</tspan></text><text fill="white" x="-3200" y="0" dx="0.3em" dy=".3em" transform="rotate(-3)" font-size="90%" id="trsvg30-ckb" systemLanguage="ckb"><tspan id="trsvg4-ckb">°٦</tspan></text><text fill="white" x="-3200" y="0" dx="0.3em" dy=".3em" transform="rotate(-3)" font-size="90%" id="trsvg30"><tspan id="trsvg4">6°</tspan></text></switch>
+    <path fill="none" stroke="white" stroke-width="8" d="M -2850 0 A 2850 2850 0 0 0 -2787.721 592.548" marker-start="url(#arrs)" marker-end="url(#arre)"/>
+    <switch><text fill="white" x="-2850" y="0" dx="0.2em" dy=".3em" transform="rotate(-6)" font-size="90%" id="trsvg31-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg5-ku-arab">١٢</tspan></text><text fill="white" x="-2850" y="0" dx="0.2em" dy=".3em" transform="rotate(-6)" font-size="90%" id="trsvg31-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg5-ku-arab">١٢</tspan></text><text fill="white" x="-2850" y="0" dx="0.2em" dy=".3em" transform="rotate(-6)" font-size="90%" id="trsvg31-ckb" systemLanguage="ckb"><tspan id="trsvg5-ckb">°١٢</tspan></text><text fill="white" x="-2850" y="0" dx="0.2em" dy=".3em" transform="rotate(-6)" font-size="90%" id="trsvg31"><tspan id="trsvg5">12°</tspan></text></switch>
+    <path fill="none" stroke="white" stroke-width="8" d="M -2500 0 A 2500 2500 0 0 0 -2377.641 772.542" marker-start="url(#arrs)" marker-end="url(#arre)"/>
+    <switch><text fill="white" x="-2500" y="0" dx="0.2em" dy=".3em" transform="rotate(-9)" font-size="90%" id="trsvg32-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg6-ku-arab">١٨</tspan></text><text fill="white" x="-2500" y="0" dx="0.2em" dy=".3em" transform="rotate(-9)" font-size="90%" id="trsvg32-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg6-ku-arab">١٨</tspan></text><text fill="white" x="-2500" y="0" dx="0.2em" dy=".3em" transform="rotate(-9)" font-size="90%" id="trsvg32-ckb" systemLanguage="ckb"><tspan id="trsvg6-ckb">°١٨</tspan></text><text fill="white" x="-2500" y="0" dx="0.2em" dy=".3em" transform="rotate(-9)" font-size="90%" id="trsvg32"><tspan id="trsvg6">18°</tspan></text></switch>
+
+    <line x1="-5800" x2="5800" stroke="black" stroke-width="10"/>
+    <line y1="-5800" y2="5800" stroke="black" stroke-width="10"/>
+
+    <switch><text x="5840" y="0" dy="0.3em" font-style="italic" id="trsvg33-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg7-ku-arab">ئاسۆ</tspan></text><text x="5840" y="0" dy="0.3em" font-style="italic" id="trsvg33-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg7-ku-arab">ئاسۆ</tspan></text><text x="5840" y="0" dy="0.3em" font-style="italic" id="trsvg33-ckb" systemLanguage="ckb"><tspan id="trsvg7-ckb">ئاسۆیی</tspan></text><text x="5840" y="0" dy="0.3em" font-style="italic" id="trsvg33"><tspan id="trsvg7">horizon</tspan></text></switch>
+    <switch><text x="-5840" y="0" dy="0.3em" font-style="italic" text-anchor="end" id="trsvg34-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg8-ku-arab">ئاسۆ</tspan></text><text x="-5840" y="0" dy="0.3em" font-style="italic" text-anchor="end" id="trsvg34-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg8-ku-arab">ئاسۆ</tspan></text><text x="-5840" y="0" dy="0.3em" font-style="italic" text-anchor="end" id="trsvg34-ckb" systemLanguage="ckb"><tspan id="trsvg8-ckb">ئاسۆیی</tspan></text><text x="-5840" y="0" dy="0.3em" font-style="italic" text-anchor="end" id="trsvg34"><tspan id="trsvg8">horizon</tspan></text></switch>
+
+    <switch><text x="5000" y="0" dx="-1em" dy="-1em" text-anchor="end" id="trsvg35-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg9-ku-arab">ڕۆژ</tspan></text><text x="5000" y="0" dx="-1em" dy="-1em" text-anchor="end" id="trsvg35-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg9-ku-arab">ڕۆژ</tspan></text><text x="5000" y="0" dx="-1em" dy="-1em" text-anchor="end" id="trsvg35-ckb" systemLanguage="ckb"><tspan id="trsvg9-ckb">ڕۆژ</tspan></text><text x="5000" y="0" dx="-1em" dy="-1em" text-anchor="end" id="trsvg35"><tspan id="trsvg9">day</tspan></text></switch>
+    <switch><text x="-5000" y="0" dx="1em" dy="-1em" text-anchor="start" id="trsvg36-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg10-ku-arab">ڕۆژ</tspan></text><text x="-5000" y="0" dx="1em" dy="-1em" text-anchor="start" id="trsvg36-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg10-ku-arab">ڕۆژ</tspan></text><text x="-5000" y="0" dx="1em" dy="-1em" text-anchor="start" id="trsvg36-ckb" systemLanguage="ckb"><tspan id="trsvg10-ckb">ڕۆژ</tspan></text><text x="-5000" y="0" dx="1em" dy="-1em" text-anchor="start" id="trsvg36"><tspan id="trsvg10">day</tspan></text></switch>
+
+    <!-- sunrise and sunset are not the center of sun. last limb is (16 minutes) 0.265; refraction (34 minutes) = 50 minutes or .83deg -->
+    <use xlink:href="#sun" x="5000" y="0" transform="rotate(0.265)"/>
+    <use xlink:href="#sun" x="5000" y="0" transform="rotate(6)"/>
+    <use xlink:href="#sun" x="5000" y="0" transform="rotate(12)"/>
+    <use xlink:href="#sun" x="5000" y="0" transform="rotate(18)"/>
+
+    <use xlink:href="#sun" x="-5000" y="0" transform="rotate(-0.265)"/>
+    <use xlink:href="#sun" x="-5000" y="0" transform="rotate(-6)"/>
+    <use xlink:href="#sun" x="-5000" y="0" transform="rotate(-12)"/>
+    <use xlink:href="#sun" x="-5000" y="0" transform="rotate(-18)"/>
+
+    <switch><text class="Q193294" x="5100" y="0" dy=".7em" transform="rotate(0.265)" id="trsvg37-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg11-ku-arab">خۆر هەڵاتن</tspan></text><text class="Q193294" x="5100" y="0" dy=".7em" transform="rotate(0.265)" id="trsvg37-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg11-ku-arab">خۆر هەڵاتن</tspan></text><text class="Q193294" x="5100" y="0" dy=".7em" transform="rotate(0.265)" id="trsvg37-ckb" systemLanguage="ckb"><tspan id="trsvg11-ckb">خۆرھەڵاتن</tspan></text><text class="Q193294" x="5100" y="0" dy=".7em" transform="rotate(0.265)" id="trsvg37"><tspan id="trsvg11">sunrise</tspan></text></switch>
+    <switch><text x="5100" y="0" dy=".3em" transform="rotate(6)" id="trsvg38-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg12-ku-arab">بەرەبەیانی شارستانی</tspan></text><text x="5100" y="0" dy=".3em" transform="rotate(6)" id="trsvg38-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg12-ku-arab">بەرەبەیانی شارستانی</tspan></text><text x="5100" y="0" dy=".3em" transform="rotate(6)" id="trsvg38-ckb" systemLanguage="ckb"><tspan id="trsvg12-ckb">بەرەبەیانی‌شارستانی</tspan></text><text x="5100" y="0" dy=".3em" transform="rotate(6)" id="trsvg38"><tspan id="trsvg12">civil dawn</tspan></text></switch>
+    <switch><text x="5100" y="0" dy=".3em" transform="rotate(12)" id="trsvg39-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg13-ku-arab">بەرەبەیانی دەریایی</tspan></text><text x="5100" y="0" dy=".3em" transform="rotate(12)" id="trsvg39-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg13-ku-arab">بەرەبەیانی دەریایی</tspan></text><text x="5100" y="0" dy=".3em" transform="rotate(12)" id="trsvg39-ckb" systemLanguage="ckb"><tspan id="trsvg13-ckb">بەرەبەیانی دەریایی</tspan></text><text x="5100" y="0" dy=".3em" transform="rotate(12)" id="trsvg39"><tspan id="trsvg13">nautical dawn</tspan></text></switch>
+    <switch><text x="5100" y="0" dy=".3em" transform="rotate(18)" id="trsvg40-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg14-ku-arab">بەرەبەیانی ئەستێرەناسی</tspan></text><text x="5100" y="0" dy=".3em" transform="rotate(18)" id="trsvg40-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg14-ku-arab">بەرەبەیانی ئەستێرەناسی</tspan></text><text x="5100" y="0" dy=".3em" transform="rotate(18)" id="trsvg40-ckb" systemLanguage="ckb"><tspan id="trsvg14-ckb">بەرەبەیانی‌ ئەستێرەناسی</tspan></text><text x="5100" y="0" dy=".3em" transform="rotate(18)" id="trsvg40"><tspan id="trsvg14">astronomical dawn</tspan></text></switch>
+
+    <switch><text class="Q166564" x="-5100" y="0" dy=".7em" text-anchor="end" transform="rotate(-0.265)" id="trsvg41-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg15-ku-arab">خۆر ئاوابوون</tspan></text><text class="Q166564" x="-5100" y="0" dy=".7em" text-anchor="end" transform="rotate(-0.265)" id="trsvg41-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg15-ku-arab">خۆر ئاوابوون</tspan></text><text class="Q166564" x="-5100" y="0" dy=".7em" text-anchor="end" transform="rotate(-0.265)" id="trsvg41"><tspan id="trsvg15">sunset</tspan></text></switch>
+    <switch><text x="-5100" y="0" dy=".3em" text-anchor="end" transform="rotate(-6)" id="trsvg42-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg16-ku-arab">هەنگۆری شارستانی</tspan></text><text x="-5100" y="0" dy=".3em" text-anchor="end" transform="rotate(-6)" id="trsvg42-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg16-ku-arab">هەنگۆری شارستانی</tspan></text><text x="-5100" y="0" dy=".3em" text-anchor="end" transform="rotate(-6)" id="trsvg42"><tspan id="trsvg16">civil dusk</tspan></text></switch>
+    <switch><text x="-5100" y="0" dy=".3em" text-anchor="end" transform="rotate(-12)" id="trsvg43-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg17-ku-arab">هەنگۆری دەریایی</tspan></text><text x="-5100" y="0" dy=".3em" text-anchor="end" transform="rotate(-12)" id="trsvg43-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg17-ku-arab">هەنگۆری دەریایی</tspan></text><text x="-5100" y="0" dy=".3em" text-anchor="end" transform="rotate(-12)" id="trsvg43"><tspan id="trsvg17">nautical dusk</tspan></text></switch>
+    <switch><text x="-5100" y="0" dy=".3em" text-anchor="end" transform="rotate(-18)" id="trsvg44-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg18-ku-arab">هەنگۆری ئەستێرەناسی </tspan></text><text x="-5100" y="0" dy=".3em" text-anchor="end" transform="rotate(-18)" id="trsvg44-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg18-ku-arab">هەنگۆری ئەستێرەناسی </tspan></text><text x="-5100" y="0" dy=".3em" text-anchor="end" transform="rotate(-18)" id="trsvg44"><tspan id="trsvg18">astronomical dusk</tspan></text></switch>
+
+    <switch><text class="Q49415027" x="4900" y="0" dy=".3em" fill="white" text-anchor="end" transform="rotate(3)" id="trsvg45-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg19-ku-arab">بوومەڵێڵی شارستانی</tspan></text><text class="Q49415027" x="4900" y="0" dy=".3em" fill="white" text-anchor="end" transform="rotate(3)" id="trsvg45-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg19-ku-arab">بوومەڵێڵی شارستانی</tspan></text><text class="Q49415027" x="4900" y="0" dy=".3em" fill="white" text-anchor="end" transform="rotate(3)" id="trsvg45-ckb" systemLanguage="ckb"><tspan id="trsvg19-ckb">بوومەڵێڵی‌شارستانی</tspan></text><text class="Q49415027" x="4900" y="0" dy=".3em" fill="white" text-anchor="end" transform="rotate(3)" id="trsvg45"><tspan id="trsvg19">civil twilight</tspan></text></switch>
+    <switch><text class="Q49415374" x="4900" y="0" dy=".3em" fill="white" text-anchor="end" transform="rotate(9)" id="trsvg46-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg20-ku-arab">بوومەڵێڵی دەریایی</tspan></text><text class="Q49415374" x="4900" y="0" dy=".3em" fill="white" text-anchor="end" transform="rotate(9)" id="trsvg46-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg20-ku-arab">بوومەڵێڵی دەریایی</tspan></text><text class="Q49415374" x="4900" y="0" dy=".3em" fill="white" text-anchor="end" transform="rotate(9)" id="trsvg46-ckb" systemLanguage="ckb"><tspan id="trsvg20-ckb">بوومەڵێڵی دەریایی</tspan></text><text class="Q49415374" x="4900" y="0" dy=".3em" fill="white" text-anchor="end" transform="rotate(9)" id="trsvg46"><tspan id="trsvg20">nautical twilight</tspan></text></switch>
+    <switch><text class="Q49415785" x="4900" y="0" dy=".3em" fill="white" text-anchor="end" transform="rotate(15)" id="trsvg47-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg21-ku-arab">بوومەڵێڵی ئەستێرەناسی</tspan></text><text class="Q49415785" x="4900" y="0" dy=".3em" fill="white" text-anchor="end" transform="rotate(15)" id="trsvg47-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg21-ku-arab">بوومەڵێڵی ئەستێرەناسی</tspan></text><text class="Q49415785" x="4900" y="0" dy=".3em" fill="white" text-anchor="end" transform="rotate(15)" id="trsvg47-ckb" systemLanguage="ckb"><tspan id="trsvg21-ckb">بوومەڵێڵی ئەستێرەناسی</tspan></text><text class="Q49415785" x="4900" y="0" dy=".3em" fill="white" text-anchor="end" transform="rotate(15)" id="trsvg47"><tspan id="trsvg21">astronomical twilight</tspan></text></switch>
+    <switch><text class="Q575" x="4900" y="0" dy=".3em" fill="white" text-anchor="end" transform="rotate(21)" id="trsvg48-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg22-ku-arab">شەو</tspan></text><text class="Q575" x="4900" y="0" dy=".3em" fill="white" text-anchor="end" transform="rotate(21)" id="trsvg48-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg22-ku-arab">شەو</tspan></text><text class="Q575" x="4900" y="0" dy=".3em" fill="white" text-anchor="end" transform="rotate(21)" id="trsvg48-ckb" systemLanguage="ckb"><tspan id="trsvg22-ckb">شەو</tspan></text><text class="Q575" x="4900" y="0" dy=".3em" fill="white" text-anchor="end" transform="rotate(21)" id="trsvg48"><tspan id="trsvg22">night</tspan></text></switch>
+
+    <switch><text class="Q49415027" x="-4900" y="0" dy=".3em" fill="white" text-anchor="start" transform="rotate(-3)" id="trsvg49-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg23-ku-arab">بوومەڵێڵی شارستانی</tspan></text><text class="Q49415027" x="-4900" y="0" dy=".3em" fill="white" text-anchor="start" transform="rotate(-3)" id="trsvg49-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg23-ku-arab">بوومەڵێڵی شارستانی</tspan></text><text class="Q49415027" x="-4900" y="0" dy=".3em" fill="white" text-anchor="start" transform="rotate(-3)" id="trsvg49"><tspan id="trsvg23">civil twilight</tspan></text></switch>
+    <switch><text class="Q49415374" x="-4900" y="0" dy=".3em" fill="white" text-anchor="start" transform="rotate(-9)" id="trsvg50-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg24-ku-arab">بوومەڵێڵی دەریایی</tspan></text><text class="Q49415374" x="-4900" y="0" dy=".3em" fill="white" text-anchor="start" transform="rotate(-9)" id="trsvg50-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg24-ku-arab">بوومەڵێڵی دەریایی</tspan></text><text class="Q49415374" x="-4900" y="0" dy=".3em" fill="white" text-anchor="start" transform="rotate(-9)" id="trsvg50"><tspan id="trsvg24">nautical twilight</tspan></text></switch>
+    <switch><text class="Q49415785" x="-4900" y="0" dy=".3em" fill="white" text-anchor="start" transform="rotate(-15)" id="trsvg51-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg25-ku-arab">بوومەڵێڵی ئەستێرەناسی</tspan></text><text class="Q49415785" x="-4900" y="0" dy=".3em" fill="white" text-anchor="start" transform="rotate(-15)" id="trsvg51-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg25-ku-arab">بوومەڵێڵی ئەستێرەناسی</tspan></text><text class="Q49415785" x="-4900" y="0" dy=".3em" fill="white" text-anchor="start" transform="rotate(-15)" id="trsvg51"><tspan id="trsvg25">astronomical twilight</tspan></text></switch>
+    <switch><text class="Q575" x="-4900" y="0" dy=".3em" fill="white" text-anchor="start" transform="rotate(-21)" id="trsvg52-ku-arab" systemLanguage="ku_ARAB"><tspan id="trsvg26-ku-arab">شەو</tspan></text><text class="Q575" x="-4900" y="0" dy=".3em" fill="white" text-anchor="start" transform="rotate(-21)" id="trsvg52-ku-arab" systemLanguage="ku-Arab"><tspan id="trsvg26-ku-arab">شەو</tspan></text><text class="Q575" x="-4900" y="0" dy=".3em" fill="white" text-anchor="start" transform="rotate(-21)" id="trsvg52-ckb" systemLanguage="ckb"><tspan id="trsvg26-ckb">شەو</tspan></text><text class="Q575" x="-4900" y="0" dy=".3em" fill="white" text-anchor="start" transform="rotate(-21)" id="trsvg52"><tspan id="trsvg26">night</tspan></text></switch>
+
+</svg>

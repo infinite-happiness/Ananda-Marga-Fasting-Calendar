@@ -1,12 +1,12 @@
 let layout = {};
 
 layout.head = function () {
-  if (document.title == "") document.title + "Ananda Marga Fasting Calendar";
-  else document.title + " - Ananda Marga Fasting Calendar";
+  if (document.title == "") document.title = "Ananda Marga Fasting Calendar";
+  else document.title += " - Ananda Marga Fasting Calendar";
+  console.log(document.title);
   return `
   <link href="css/beer.min.css" rel="stylesheet">
-  <script defer src="js/alpine3.min.js"></script>
-  <script src="js/astronomy.browser.js"></script>
+  <link href="css/style.css" rel="stylesheet">
   `;
   // scripts won't work here
 }
@@ -48,4 +48,5 @@ document.getElementById('header').innerHTML = layout.head() + layout.header();
 document.body.classList.add("yellow1");
 document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('bottom_content').innerHTML = layout.bottom_content();
+  document.body.style.visibility = "visible";
 }, false);
