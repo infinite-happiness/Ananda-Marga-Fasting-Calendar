@@ -76,8 +76,6 @@
 					this.matches = result.matches;
 					this.errors = result.errors;
 				},
-				formatDatez(date) { return date.toLocaleDateString("en-US", dateOptions) },
-				formatDatex(date) { return date.toISOString().substring(0, 10); },
 				formatDate(date) { return date; },
 				formatDateTime(date) { return date.toLocaleDateString("en-US", dateTimeOptions) },
 				formatTimeDiff(timeDiff) {
@@ -87,6 +85,16 @@
 					d += 's';
 					return d;
 				},
+				googleCalendarUrl(tithi, fastingDateString) {
+					let d = new Date(fastingDateString);
+					let start = d.toISOString().substring(0, 10).replaceAll("-", "");
+					d.setHours(d.getHours() + 24);
+					let end = d.toISOString().substring(0, 10).replaceAll("-", "");
+					let url = "https://calendar.google.com/calendar/r/eventedit?text=" + encodeURIComponent(tithi.name);
+					url += "&dates=" + start + "/" + end;
+					return url;
+				}
+
 				/*
 				// not working in serverless mode
 				async getTestData() {
@@ -156,7 +164,14 @@
 					<template x-for="row in rows">
 						<tr>
 							<td x-text="row.tithi.name"></td>
-							<td x-text="formatDate(row.fastingDateString)"></td>
+							<td>
+								<a :href="googleCalendarUrl(row.tithi, row.fastingDateString)">
+									<span x-text="formatDate(row.fastingDateString)"></span>
+									<i>Calendar_Add_On</i>
+									<i class="fa-regular fa-circle-user tiny"></i>
+
+								</a>
+							</td>
 							<template x-if="showTithiDetails">
 								<td>
 									<table class="stripes yellow2">
@@ -187,7 +202,7 @@
 										</tr>
 										<tr>
 											<td x-text="'Official fasting date: ' + row.testDataValue"
-												x-bind:class="row.matchesTestData ? '':'error-container'"></td>
+												:class="row.matchesTestData ? '':'error-container'"></td>
 										</tr>
 									</table>
 								</td>
