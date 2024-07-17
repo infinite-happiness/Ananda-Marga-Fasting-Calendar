@@ -1,5 +1,5 @@
-drawer - swipe advanced functions no mobile
-option to show times (days, months) in local language or english - using select (free text input for locale)
+drawer - swipe advanced functions on mobile
+verify calculations with other AM websites
 embed code example for other webmasters
 add info on fasting (text and videos from https://india.anandamarga.org/fasting-calendar/ ?)
 github pages root dir: https://github.com/orgs/community/discussions/63631

@@ -16,14 +16,14 @@ tithi.getNextTithi = function (currentTithi) {
     else return tithi.tithis[i + 1];
 }
 
-tithi.getFastingDateString = function (selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise) {
+tithi.getFastingDateString = function (selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise_date) {
     // return fasting date string based on selected time zone
-    fastingDate = sunrise.date; // if sunrise is closer to tithi end, the solar day is the day before
-    if (sunrise.date - nextTithiStart.date > nextTithiEnd.date - sunrise.date) fastingDate.setHours(fastingDate.getHours() - 24);
+    let fastingDate = sunrise_date; // if sunrise is closer to tithi end, the solar day is the day before
+    if (sunrise_date - nextTithiStart.date > nextTithiEnd.date - sunrise_date) fastingDate.setHours(fastingDate.getHours() - 24);
 
-    fastingDTLocal = DateTime.fromJSDate(fastingDate);
-    fastingDTTZ = fastingDTLocal.setZone(selectedTimeZone);
-    //console.log(fastingDTTZ, fastingDTTZ.toISODate());
+    let fastingDTLocal = DateTime.fromJSDate(fastingDate);
+    let fastingDTTZ = fastingDTLocal.setZone(selectedTimeZone);
+    //console.log("tithi.getFastingDateString", selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise_date, fastingDate, fastingDTLocal, fastingDTTZ, fastingDTTZ.toISODate());
 
     return fastingDTTZ.toISODate();
 }
@@ -34,14 +34,15 @@ tithi.getTestDataIndex = function (fastingDateString, testData) {
     return i;
 }
 
-tithi.calculateTithis = function (selectedTimeZone, startDateString, endDateString, latitude, longitude, elevation, aboveGround, testData) {
-    //console.log("tithi.calculateTithis:", startDateString, endDateString)
+tithi.calculateTithis = function (selectedLocale, selectedTimeZone, selectedDayStart, dayStartList, startDateString, endDateString, latitude, longitude, elevation, aboveGround, testData) {
+    //console.log("tithi.calculateTithis:", selectedLocale, selectedTimeZone, selectedDayStart, dayStartList, startDateString, endDateString, latitude, longitude, elevation, aboveGround, testData);
     //startDate = new Date(startDateString);
     //endDate = new Date(endDateString);
     // set dates to selected time zones, including full days of selected dates
     startDateTZ = DateTime.fromISO(startDateString, { zone: selectedTimeZone }); // .startOf('day') is already default
     endDateTZ = DateTime.fromISO(endDateString, { zone: selectedTimeZone }).endOf('day');
 
+    // convert to native js datetimes, as that is what Astronomy uses
     startDate = startDateTZ.toJSDate();
     endDate = endDateTZ.toJSDate();
     console.log("Calculating... start, end:", startDateTZ, endDateTZ, 'local time start, end:', startDate, endDate);
@@ -69,11 +70,38 @@ tithi.calculateTithis = function (selectedTimeZone, startDateString, endDateStri
         searchDate = nextTithiStart.date;
         nextTithiEnd = Astronomy.SearchMoonPhase(nextTithi.end, searchDate, limitDays);
         searchDate = nextTithiEnd.date;
+        let sunriseType = selectedDayStart;
         matchesTestData = false;
         testDataValue = "?";
+        //console.log("Tithis:", nextTithiStart, nextTithiEnd);
 
-        sunrise = Astronomy.SearchRiseSet('Sun', observer, +1, nextTithiStart.date, aboveGround); // sunrise has to be observed above ground, don't allow zero
-        fastingDateString = tithi.getFastingDateString(selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise);
+        if (selectedDayStart == dayStartList[0]) sunrise = Astronomy.SearchAltitude('Sun', observer, +1, nextTithiStart.date, 1, 0); // sun at center of horizon
+        else if (selectedDayStart == dayStartList[1]) sunrise = Astronomy.SearchRiseSet('Sun', observer, +1, nextTithiStart.date, 1, aboveGround); // Rise time is when the body first starts to be visible above the horizon. For example, sunrise is the moment that the top of the Sun first appears to peek above the horizon.
+        else if (selectedDayStart == dayStartList[2]) sunrise = Astronomy.SearchAltitude('Sun', observer, +1, nextTithiStart.date, 1, -6); // civil dawn
+        else if (selectedDayStart == dayStartList[3]) sunrise = Astronomy.SearchAltitude('Sun', observer, +1, nextTithiStart.date, 1, -12); // nautical dawn
+        else sunrise = Astronomy.SearchAltitude('Sun', observer, +1, nextTithiStart.date, 1, -18); // astro dawn
+        //console.log("Sunrise:", sunrise);
+
+        // there might not be a sunrise during midnight sun or polar night
+        if (sunrise === null) {
+            console.log("No sunrise found of:", selectedDayStart, nextTithiStart.date)
+            // when the days are closing into midnight sun or polar night, the day/night becomes longer and longer and sunrise gets nearer and nearer midnight
+            // though midnight would be near the lowest point on average in the time zone (though not during daylight saving, or if daylight saving gets set to perpetual summer time)
+            // you can find the lowest point in the sky here https://github.com/cosinekitty/astronomy/tree/master/source/js#SearchHourAngle
+            // "To find when a body reaches its lowest point in the sky, pass 12 for hourAngle."
+            //sunrise_date = startDateTZ.endOf('day').toJSDate(); // midnight, not the lowest point
+            let hourAngleEvent = Astronomy.SearchHourAngle('Sun', observer, 12, nextTithiStart.date, +1);
+            sunrise_date = hourAngleEvent.time.date;
+            sunriseType = "Lowest Point of the Sun This Day";
+            // in Swedish summer time astronomical dawn is not always reached, so trying to get the actual lowest point (the time is calculated in hourAngleEvent, but the angle isn't returned)
+            //let angle = Astronomy.AngleFromSun('Sun', sunrise_date); // for exampl
+            let sunPos = Astronomy.SunPosition(sunrise_date);
+            console.log("New sunrise calculated:", hourAngleEvent, "sunPos:", sunPos);
+
+        }
+        else sunrise_date = sunrise.date;
+
+        fastingDateString = tithi.getFastingDateString(selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise_date);
 
         if (nextTestDataIndex < testData.dates.length && fastingDateString.includes('2024')) {
             if (nextTestDataIndex == -1) nextTestDataIndex = tithi.getTestDataIndex(fastingDateString, testData);
@@ -95,12 +123,12 @@ tithi.calculateTithis = function (selectedTimeZone, startDateString, endDateStri
                 else errors++;
             }
 
-            let startTZ = DateTime.fromJSDate(nextTithiStart.date).setZone(selectedTimeZone);
-            let endTZ = DateTime.fromJSDate(nextTithiEnd.date).setZone(selectedTimeZone);
-            let sunriseTZ = DateTime.fromJSDate(sunrise.date).setZone(selectedTimeZone);
+            let startTZ = DateTime.fromJSDate(nextTithiStart.date).setZone(selectedTimeZone).setLocale(selectedLocale);
+            let endTZ = DateTime.fromJSDate(nextTithiEnd.date).setZone(selectedTimeZone).setLocale(selectedLocale);
+            let sunriseTZ = DateTime.fromJSDate(sunrise_date).setZone(selectedTimeZone).setLocale(selectedLocale);
 
             //rows.push({ start: nextTithiStart, end: nextTithiEnd, tithi: nextTithi, sunrise: sunrise, fastingDateString: fastingDateString, matchesTestData: matchesTestData, testDataValue: testDataValue }); // js datetimes (local time)
-            rows.push({ start: startTZ, end: endTZ, tithi: nextTithi, sunrise: sunriseTZ, fastingDateString: fastingDateString, matchesTestData: matchesTestData, testDataValue: testDataValue }); // js datetimes (local time)
+            rows.push({ start: startTZ, end: endTZ, tithi: nextTithi, sunrise: sunriseTZ, sunriseType: sunriseType, fastingDateString: fastingDateString, matchesTestData: matchesTestData, testDataValue: testDataValue }); // js datetimes (local time)
             nextTithi = tithi.getNextTithi(nextTithi);
         }
     }

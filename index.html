@@ -18,7 +18,7 @@
 
 </head>
 
-<body>
+<body style="visibility:hidden;">
 	<header id="header"></header>
 	<script src="js/layout.js"></script>
 	<script src="js/calc-advanced.js"></script>
@@ -45,36 +45,72 @@
 		function calculator() {
 			let dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 			let dateTimeOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+			// https://stackoverflow.com/a/61196133
+			let localeList = ['en-US', 'en-UK', 'en-IN'];
+			let userLanguage = navigator.userLanguage || (navigator.languages && navigator.languages.length && navigator.languages[0]) || navigator.language || navigator.browserLanguage || navigator.systemLanguage;
+			if (userLanguage && !localeList.includes(userLanguage)) localeList.push(userLanguage);
 			let timeZoneList = Intl.supportedValuesOf('timeZone');
 			timeZoneList.push('UTC');
 			let varanasiTimeZone = timeZoneList.includes("Asia/Kolkata") ? "Asia/Kolkata" : "Asia/Calcutta";
-			console.log("Selected default time zone:", varanasiTimeZone);
+			let varanasiCoords = { latitude: 25.321684, longitude: 82.987289, elevation: 80.71, aboveGround: 1 };
+			dayStartList = ["Sun at Center of Horizon 0°", "Top of the Sun Peeks above Horizon", "Civil Dawn 6°", "Nautical Dawn 12°", "Astronomical Dawn 18°"];
+			console.log("Selected default time zone:", varanasiTimeZone, dayStartList);
+			if (localStorage.getItem('calendar') === null) localStorage.setItem('calendar', {});
+			let storageObject = JSON.parse(localStorage.getItem('calendar'));
+			console.log(window.localStorage.calendar, storageObject);
 
 			return {
 				rows: [],
 				matches: 1, // prevent divide by 0 by not setting to 0
 				errors: 0,
+				startingDate: 0,
+				endingDate: 0,
+				localeList: localeList,
+				selectedLocale: storageObject.selectedLocale || 'en-UK',
 				timeZoneList: timeZoneList,
 				varanasiTimeZone: varanasiTimeZone,
-				selectedTimeZone: varanasiTimeZone,
-				dayStartList: ["Sunrise 0°", "Sunrise", "Civil Dawn 6°", "Nautical Dawn 12°", "Astronomical Dawn 18°"],
-				selectedDayStart: "Sunrise",
+				selectedTimeZone: storageObject.selectedTimeZone === undefined || !timeZoneList.includes(storageObject.selectedTimeZone) ? varanasiTimeZone : storageObject.selectedTimeZone,
+				dayStartList: dayStartList,
+				selectedDayStart: storageObject.selectedDayStart === undefined || !dayStartList.includes(storageObject.selectedDayStart) ? dayStartList[4] : storageObject.selectedDayStart,
 				advancedDlgIsOpen: false,
 				advancedDlgIsOpenedAt: 0, // https://stackoverflow.com/questions/71025866/alpinejs-triggering-a-click-outside-event-when-adding-modal
-				showTithiDetails: false,
+				saveSettingsInBrowser: storageObject.saveSettingsInBrowser || false,
+				showTithiDetails: storageObject.showTithiDetails || false,
 				//worldCities: World_Cities, // slow, only load if needed
 				// default to varanasi - https://www.latlong.net/place/varanasi-uttar-pradesh-india-2395.html - https://en.wikipedia.org/wiki/Varanasi
-				latitude: 25.321684,
-				longitude: 82.987289,
-				elevation: 80.71,
-				aboveGround: 1, // sunrise has to be observed above ground (in meters), here 1m (meditation posture perspective)
+				varanasiCoords: varanasiCoords,
+				latitude: storageObject.latitude === undefined ? varanasiCoords.latitude : storageObject.latitude, // numbers can be 0, so can't just do storageObject.latitude || 25.321684
+				longitude: storageObject.longitude === undefined ? varanasiCoords.longitude : storageObject.longitude,
+				elevation: storageObject.elevation === undefined ? varanasiCoords.elevation : storageObject.elevation,
+				aboveGround: storageObject.aboveGround === undefined ? varanasiCoords.aboveGround : storageObject.aboveGround,
 				testData: AM_Fasting_Days_2024,
-				showTestDataErrors: false,
-				calculateTithis(startDate, endDate) {
-					result = tithi.calculateTithis(this.selectedTimeZone, startDate, endDate, this.latitude, this.longitude, this.elevation, this.aboveGround, this.testData);
+				showTestDataAccuracy: false,
+				update(startDate, endDate) {
+					// this function is called when the start or end date are changed, and such a change event is fired from javascript when the calculations need to be updated in the advanced calendar
+					//console.log("update:", this.selectedLocale, this.selectedTimeZone, this.selectedDayStart, this.dayStartList, startDate, endDate, parseFloat(this.latitude), parseFloat(this.longitude), parseFloat(this.elevation), parseFloat(this.aboveGround), this.testData);
+					result = tithi.calculateTithis(this.selectedLocale, this.selectedTimeZone, this.selectedDayStart, this.dayStartList, startDate, endDate, parseFloat(this.latitude), parseFloat(this.longitude), parseFloat(this.elevation), parseFloat(this.aboveGround), this.testData);
 					this.rows = result.rows;
 					this.matches = result.matches;
 					this.errors = result.errors;
+
+					this.startingDate = DateTime.fromISO(startDate).setLocale(this.selectedLocale);
+					this.endingDate = DateTime.fromISO(endDate).setLocale(this.selectedLocale);
+
+					let storageObject = {};
+					localStorage.removeItem('calendar');
+					if (this.saveSettingsInBrowser) {
+						storageObject.saveSettingsInBrowser = this.saveSettingsInBrowser;
+						storageObject.showTithiDetails = this.showTithiDetails;
+						storageObject.selectedLocale = this.selectedLocale;
+						storageObject.selectedTimeZone = this.selectedTimeZone;
+						storageObject.selectedDayStart = this.selectedDayStart;
+						storageObject.latitude = this.latitude;
+						storageObject.longitude = this.longitude;
+						storageObject.elevation = this.elevation;
+						storageObject.aboveGround = this.aboveGround;
+					};
+					localStorage.setItem('calendar', JSON.stringify(storageObject));
+					//console.log(window.localStorage.calendar);
 				},
 				formatDate(date) { return date; },
 				formatDateTime(date) { return date.toLocaleDateString("en-US", dateTimeOptions) },
@@ -109,21 +145,22 @@
 
 	<main class="responsive">
 		<div id="calculator" x-data="calculator()">
-			<h6 class="margin">Ananda Marga Fasting Calendar
+			<h1 class="margin">
+				Ananda Marga Upavasa Fasting Calendar
 				<button @click="advancedDlgIsOpen = !advancedDlgIsOpen; advancedDlgIsOpenedAt=Date.now();"
 					class="yellow10 margin">Advanced</button>
-			</h6>
-			<div class="field label border">
+			</h1>
+			<div class=" field label border">
 				<label for="start_date" class="active">Start Date</label>
 				<input type="date" id="start_date" class="active"
-					@change="calculateTithis($refs.start_date.value, $refs.end_date.value)"
-					x-init="calculateTithis($refs.start_date.value, $refs.end_date.value)" x-ref="start_date" />
+					@change="update($refs.start_date.value, $refs.end_date.value)"
+					x-init="update($refs.start_date.value, $refs.end_date.value)" x-ref="start_date" />
 			</div>
 
 			<div class="field label border">
 				<label for="end_date" class="active">End Date</label>
 				<input type="date" id="end_date" class="active"
-					@change="calculateTithis($refs.start_date.value, $refs.end_date.value)" x-ref="end_date" />
+					@change="update($refs.start_date.value, $refs.end_date.value)" x-ref="end_date" />
 			</div>
 			<!--<small style="display:block; width:250px;">Please note! If you select a long time span this page may be
 				unresponsive for
@@ -132,7 +169,7 @@
 				/*
 				The date inputs in the gui should be understood as representing the selected time zone.
 				However, DateTimes and time zones are handled elsewhere, as date type inputs use date strings as values.
-
+	
 				Below, make sure endDateInput is always a dater later than startDateInput.
 				*/
 				const startDateInput = document.getElementById('start_date');
@@ -148,8 +185,6 @@
 					startDateInput.max = maxDate.toISOString().substring(0, 10);
 					minDate.setHours(minDate.getHours() + 24);
 					endDateInput.min = minDate.toISOString().substring(0, 10);
-
-
 				};
 				handleDateRangeChange();
 				startDateInput.addEventListener('change', handleDateRangeChange);
@@ -159,6 +194,9 @@
 			<div id="calculator_advanced">
 			</div>
 
+			<h3 class="margin capitalize"
+				x-text="startingDate.monthLong + ' ' + startingDate.year + ' - ' + endingDate.monthLong + ' ' + endingDate.year">
+			</h3>
 			<table class="stripes yellow2">
 				<tbody>
 					<template x-for="row in rows">
@@ -191,6 +229,10 @@
 											</td>
 										</tr>
 										<tr>
+											<td x-text="'Sunrise type: ' + row.sunriseType">
+											</td>
+										</tr>
+										<tr>
 											<td
 												x-text="'Then: ' + Interval.fromDateTimes(row.sunrise, row.end).toDuration(['hours', 'minutes', 'seconds']).toFormat('h\'h\' m\'m\' s\'s\'') + ' until...'">
 											</td>
@@ -200,7 +242,7 @@
 												x-text="row.tithi.name + ' ends: ' + row.end.toLocaleString(DateTime.DATETIME_HUGE)">
 											</td>
 										</tr>
-										<tr>
+										<tr x-show="showTestDataAccuracy">
 											<td x-text="'Official fasting date: ' + row.testDataValue"
 												:class="row.matchesTestData ? '':'error-container'"></td>
 										</tr>
@@ -215,6 +257,49 @@
 				</tbody>
 			</table>
 		</div>
+
+		<h1 style="margin-top:100px;">Ánanda Márga Fasting Calendar</h1>
+		<p>This is a fasting chart for Ánanda Márga upavása with ekádashii, and amávasyá (new moon) and púrńimá
+			(full
+			moon) dates.</p>
+
+		<h2>Features</h2>
+		<ul>
+			<li>Look up any fasting dates, any year</li>
+			<li>Add to your Google Calendar</li>
+			<li>Automatically updated - this calendar doesn't depend on someone else hosting a website, or updating the
+				calendar
+			</li>
+			<li>There is no need to use another website or API for the astronomical calculations</li>
+			<li>Free hosting - this calendar is free as long as GitHub is free</li>
+			<li>Far sighted - all information is attempted to be saved in this project, if any of the linked websites
+				will go
+				down in the future</li>
+			<li>Using scientific astronomical calculation libraries</li>
+			<li>One source of complete truth - since there are many fasting dates around, the full source of truth here
+				is fully
+				transparent and defined.</li>
+			<li>Collaborative and interpersonal project. Anyone can continue, change or reimplement this project by
+				using the
+				git code. </li>
+		</ul>
+
+		<h2>Wanted Features</h2>
+		<ul>
+			<li>Embeddable - the ability to have an iframe of this calculator on your website (may work but not tested
+				yet)</li>
+			<li>Downloadable - you can download the software here - please do so - so that you can use it without
+				internet
+				connection or if github will no longer be free and this website might disappear</li>
+		</ul>
+
+		<h4>Synonyms and Keywords (for SEO)</h4>
+		<ul>
+			<li>Anand Marg Upavasa Chart (List)</li>
+			<li>Ánanda Márga Pracáraka Saḿgha Ekadashi Schedule (Table)</li>
+			<li>AM Purnima Almanac (Program)</li>
+			<li>Ananda Marga Pracaraka Samgha Diary (Calculator)</li>
+		</ul>
 
 		<div id="bottom_content"></div>
 	</main>
