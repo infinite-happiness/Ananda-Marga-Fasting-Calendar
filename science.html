@@ -14,28 +14,26 @@
     <script src="js/layout.js"></script>
 
     <main class="responsive padding">
-        <h1>Science of Ananda Marga Fasting</h1>
-        <h3>TL;DR</h3>
+        <h1>Science of Ananda Marga Upavasa Fasting</h1>
+        <h2>Synopsis</h2>
         <p>
-            The fasting dates are based on the solar day (sunrise to sunrise) which occurs closest to the relevant lunar
-            phases
-            (ekádashii, amávasyá and púrńimá).
-            This software uses astronomical dawn as the start of the day, and the Asia/Kolkata (Varanasi) time zone is
-            used to
-            determine the fasting day.
-            In other words, the ekádashii, amávasyá or púrńimá which occurs closest to the solar day in Varanasi
-            (based on
-            astronomical dawn) is the selected fasting day.
-            This software uses astronomy libraries to calculate the lunar phases used for picking the fasting dates.
+            Ananda Marga upavása fasting dates are based on the Vedic solar day (sunrise to sunrise) which occur
+            closest to the relevant lunar phases (ekádashii, amávasyá/new moon and púrńimá/full moon).
+            The lunar phases are always the same around earth, and the their calculated values are quite consistent
+            around the web. Sunrise however is something very complex to calculate, and needs to be defined properly in
+            order to decide the correct fasting day.
         </p>
-        <p>
-            See also <a href="code">Code</a>.
+        <p>This software, the <strong>Ánanda Márga Upavása Fasting Calendar (AMUFC)</strong>, uses scientic models
+            for the calculations, and offers the possibility to use your position, time zone, and sunrise of choice, for
+            calculating fasting days.
         </p>
 
-        <h3>Methodology</h3>
+        <h2>Methodology</h2>
         <p>
-            Many of the technicalities for the fasting chart are explained on
-            <a href="https://ampsnys.org/fasting-calendar/" target="_blank">Ananda Marga – New York Sector's
+            Many of the technicalities for the fasting chart are explained on the
+            <a class="yellow10-text" href="https://ampsnys.org/fasting-calendar/" target="_blank">Ananda
+                Marga – New York
+                Sector's
                 website</a>.
         </p>
 
@@ -53,21 +51,51 @@
             <!--<code> For those who do night meditation on the new moon, those calculations are also included (1st Night).</code>-->
         </p>
 
-        <h3>Tithis</h3>
-        <p>The relevant moon phases for Ananda Marga fasting are called tithis. At the time of writing, you can see on
-            the
-            fasting chart on the <a href="https://www.anandamarga.eu/fastingChart.php" target="_blank">Official Website
-                of
-                Ananda Marga in Europe - Berlin Sector</a>, that the start and end times are based on tithis
-            (specifically
-            ekádashii, amávasyá and púrńimá).</p>
-        <p>When the tithis occur, and how long they are, are not that simple to calculate. Quite some knowledge of
-            astromony and
-            mathematics is required (or in the case of this software, software libraries were used for the calculations.
-            See <a href="/code">Code</a>.)</p>
-        <p>WikiPedia on tithis:</p>
+        <h2>Moon Phases</h2>
+        <p>Moon phases such as new and full moon can be described as degrees of a circle, as displayed in this image
+            below:</p>
+        <img src="media/phases-Moon-Earth-orbit.webp" style="width:854px;">
 
-        <code>In Vedic timekeeping, a tithi is a "duration of two faces of moon that is observed from earth", known as milа̄lyа̄ (Newar: 𑐩𑐶𑐮𑐵𑐮𑑂𑐫𑐵𑑅, मिलाल्याः) in Nepal Bhasa, or the time it takes for the longitudinal angle between the Moon and the Sun to increase by 12°. In other words, a tithi is a time duration between the consecutive epochs that correspond to when the longitudinal angle between the Sun and the Moon is an integer multiple of 12°. Tithis begin at varying times of day and vary in duration approximately from 19 to 26 hours. Every day of a lunar month is called tithi.</code>
+        <h2>Tithis</h2>
+        <p>The relevant moon phases for Ananda Marga fasting are called tithis. At the time of writing, you can see on
+            the fasting chart on the <a class="yellow10-text" href="https://www.anandamarga.eu/fastingChart.php"
+                target="_blank">Official Website of Ananda Marga in Europe - Berlin Sector</a>, that the start and end
+            times are based on tithis (specifically, the times of the tithis named ekádashii, amávasyá and púrńimá
+            are displayed).</p>
+        <p>Moon phases are always the same all over earth, and most tithi calculations around the web just differ a few
+            minutes (and are displayed in India Standard Time).
+        </p>
+        <h3>The Relevant Tithis for Ananda Marga Upavasa Fasting</h3>
+        <ul>
+            <li>Ekádashii (11 tithis/lunar days after new/full moon): occurs at angles 120° - 132° and 300° -
+                312°</li>
+            <li>Amávasyá (New Moon): occurs at angles 348° - 360°</li>
+            <li>Púrńimá (Full Moon): occurs at angles 168° - 180°</li>
+        </ul>
+        <p>So other than Ekádashii occuring 11 tithis after new/full moon, you can also see that it starts 60°
+            before
+            the end of new/full moon. (Fun fact: In mathematics 60° angles are found in equilateral triangles
+            and the
+            unit circle in trigonometry. The unit circle is a fundamental tool in astronomy because of its
+            connection to
+            trigonometry.)</p>
+        <p>When the tithis occur, and how long they are, are not that simple to calculate. Quite some knowledge
+            of
+            astromony and
+            mathematics is required (or in the case of this software, the AMUFC, astronomical software libraries
+            were
+            used for the calculations.
+            See <a class="yellow10-text" href="code.html">Code</a>.)</p>
+        <h3>WikiPedia on Tithis:</h3>
+
+        <code>
+            In Vedic timekeeping, a tithi is a "duration of two faces of moon that is observed from earth", known as
+            milа̄lyа̄ (Newar: 𑐩𑐶𑐮𑐵𑐮𑑂𑐫𑐵𑑅, मिलाल्याः) in Nepal Bhasa, or the time it takes for the longitudinal
+            angle between the Moon and the Sun to increase by 12°. In other words, a tithi is a time duration between
+            the consecutive epochs that correspond to when the longitudinal angle between the Sun and the Moon is an
+            integer multiple of 12°. Tithis begin at varying times of day and vary in duration approximately from 19 to
+            26 hours. Every day of a lunar month is called tithi.
+        </code><br>
         <img src="media/Tithi_Calculation.jpg" style="width:854px;" />
         <video width="854" height="452" controls>
             <source src="media/Tithi.ogv.480p.vp9.webm" type="video/mp4">
@@ -75,74 +103,128 @@
         </video>
         <br />
         <small>The image (credit: User:Freedomji) and video above are taken from Wikipedia.</small>
-        <p>Read more about <a href="https://en.wikipedia.org/wiki/Tithi" target="_blank">tithis on WikiPedia</a>.</p>
-        <p>The relevant tithis for Ananda Marga fasting:</p>
+        <p>Read more about <a class="yellow10-text" href="https://en.wikipedia.org/wiki/Tithi" target="_blank">tithis on
+                WikiPedia</a>.</p>
+
+        <h3>Calculating Fasting Dates Without Tithis</h3>
+        <p>
+            This is just an idea that could be used as an alternative method if ever needed. Since it's easier
+            to find programming libraries that calculate dawn, new moon and full moon, an alternative method to get a
+            fasting date could be to get the geocentric phase angle at the sunrises/dawns that occur near the tithis.
+        </p>
+        <p>
+            This way you wouldn't calculate the time which the tithi spans over the solar day, but instead which
+            angle
+            the sunrises near the tithi has. You can then calculate which solar day is the closest to the tithi
+            by
+            angular comparison, rather than time span.
+        </p>
+        <code>
+            For example, suppose sunrise<sub>1</sub> is when the lunar phase is 130°. This means the sunrise<sub>1</sub>
+            is during Ekádashii (120° - 132°). Sunrise<sub>0</sub> is at lunar phase 118°, and sunrise<sub>2</sub> is at lunar phase 142°.
+            <br>
+            The day between sunrise<sub>0</sub> and sunrise<sub>1</sub> spans over the lunar phase between 118° and 130°, and 8° of those are during Ekádashii.
+            <br>
+            The day between sunrise<sub>1</sub> and sunrise<sub>2</sub> spans over the lunar phase between 130° and 142°, and 2° of those are during Ekádashii.
+            <br>
+            So the conclusion is that the day between sunrise<sub>0</sub> and sunrise<sub>1</sub> is the fasting day, since 8° is larger than 2°.
+        </code>
+
+        <h2>Dawn and Sunrise</h2>
+        <p>Ananda Marga's fasting system uses the Vedic solar day to determine the date of a day. In some ways
+            it's
+            natural to think of the day starting in the morning. The day actually starts in the morning (when
+            most
+            people wake up), rather than in the middle of the night (when most people are asleep, or have not
+            even gone
+            to bed yet). However, there are number of problems that arise when using sunrise as the start and
+            end of the
+            day.
+        </p>
+        <h3>Issues of Calculating Sunrise and Dawn</h3>
         <ul>
-            <li>Ekádashii (11 days after new/full moon): occurs at angles 120° - 132° and 300° - 312°</li>
-            <li>Amávasyá (New Moon): occurs at angles 348° - 360°</li>
-            <li>Púrńimá (Full Moon): occurs at angles 168° - 180°</li>
+            <li>
+                The day starts at a different time every day, and needs to be calculated.
+            </li>
+            <li>The day starts at different times in different locations and elevations above sea level - even
+                when
+                those locations are within the same time zone. The accuracy of the position also affects
+                calculations.
+            </li>
+            <li>The definition of sunrise differ from place to place, even within the Vedic community (see <a
+                    class="yellow10-text"
+                    href="https://www.quora.com/In-Hindu-culture-does-the-new-day-start-at-12-00-AM"
+                    target="_blank">this discussion</a>
+                and <a class="yellow10-text"
+                    href="https://www.quora.com/At-what-time-does-a-day-start-according-to-the-Hindu-calendar"
+                    target="_blank">this one</a>). This has a rather big impact on calculating the fasting day, since
+                the choice of sunrise definition sometimes moves the fasting day from one day to another.</li>
+            <li>Sometimes, in some places (far north and far south), during summer and winter, there are no
+                sunrises. Namely during midnight sun and polar night (or depending on the definition of sunrise, a
+                larger part of the world).</li>
+            <li>Atmospheric refraction, which causes celestial bodies to appear higher above the horizon than
+                they would if the Earth had no atmosphere.</li>
         </ul>
 
-        <h3>Calculating Without Tithis</h3>
-        <p>
-            Since it's easier to find programming libraries (such as more accurate ones) that calculate dawn, new moon
-            and full
-            moon, an alternative method to get the fasting date could be to calculate the geocentric phase angle at the
-            dawns
-            around new moon and full moon.
-            (Which means the library has to calculate the geocentric phase angle, which the seemingly high precision
-            library <a href="https://github.com/andrmoel/astronomy-bundle-js"
-                target="_blank">https://github.com/andrmoel/astronomy-bundle-js</a> does. Also see <a
-                href="https://github.com/cosinekitty/astronomy/tree/master/source/js#SearchMoonPhase"
-                target="_blank">https://github.com/cosinekitty/astronomy/tree/master/source/js#SearchMoonPhase</a>
-            This way you wouldn't calculate the time which the tithi spans over the solar day, but instead which angle
-            the day
-            starts and ends with. You can then calculate which solar day is the closest to the tithi by angular
-            comparison,
-            rather than time span.
-        </p>
+        <h3>Defining Sunrise</h3>
+        <p>To get the Ananda Marga fasting system correct, we need to define the following:</p>
+        <ul>
+            <li>What is a sunrise? In other words, when exactly does the solar day start? At what position of the sun?
+            </li>
+            <li>What is a sunrise during midnight sun and polar night? In other words, what happens when the defined
+                position of sunrise does not occur, because it is not reached certain days of the year?</li>
+        </ul>
+        <p>Sunrise should probably be astronomical, nautical or civil dawn (see illustration below), or when the top of
+            the sun peeks above the horizon.</p>
 
-        <h3>Dawn and Sunrise</h3>
-        <p>The concepts of dawn and sunrise have different meanings in modern science. On the illustration below you can
-            see
-            that the sun is below the horizon during dawn, and in the center of the horizon at sunrise.</p>
+        <h3>Calculating Sunrise </h3>
+        <p>These values are used for calculating sunrise/dawn:</p>
+        <ul>
+            <li>Date and time</li>
+            <li>Latitude and Longitude</li>
+            <li>Elevation of the location above sea level</li>
+            <li>Height above ground (depending on the definition of sunrise). This height is above the
+                elevation, for
+                example considering the height of a person, and their position (sitting or standing, on the
+                ground or at the top of a skyscraper).</li>
+        </ul>
+
+        <p>There are different concepts of dawn and sunrise in modern science. On the illustration below you can
+            see that the sun is below the horizon during different twilights, and in the center of the horizon at
+            sunrise. The beginning of these twilights are sometimes refered to as dawn (astronomical, nautical and civil
+            dawn).
+        </p>
         <img src="media/sun-position-sunrise-dawn.webp" />
         <small>Credit: ASTRONOMY: ROEN KELLY, after Aurora Borealis Observatory</small>
 
-        <p>According to vedic astrology, it's hard to determine whether dawn or sunrise should be using for the start of
-            the
-            day. See these quora answers:</p>
-        <ul>
-            <li><a href="https://www.quora.com/In-Hindu-culture-does-the-new-day-start-at-12-00-AM"
-                    target="_blank">https://www.quora.com/In-Hindu-culture-does-the-new-day-start-at-12-00-AM</a></li>
-            <li><a href="https://www.quora.com/At-what-time-does-a-day-start-according-to-the-Hindu-calendar"
-                    target="_blank">https://www.quora.com/At-what-time-does-a-day-start-according-to-the-Hindu-calendar</a>
-            </li>
-        </ul>
-
         <h3>Comparisons With Other Published Calendars</h3>
-        <p>The fasting dates on different Ananda Marga websites on the web are different. However, some of them use the
-            exact
-            same dates, although they are in different time zones:</p>
+        <p>The fasting dates on different Ananda Marga websites on the web are different. However, some of them
+            use the exact same dates, although they are in different time zones:</p>
         <ul>
-            <li><a href="https://www.anandamarga.eu/fastingChart.php" target="_blank">Official Website of Ananda Marga
+            <li><a class="yellow10-text" href="https://www.anandamarga.eu/fastingChart.php" target="_blank">Official
+                    Website of Ananda
+                    Marga
                     in Europe
                     - Berlin Sector</a></li>
-            <li><a href="https://india.anandamarga.org/fasting-calendar/" target="_blank">Ananda Marga India - Delhi
+            <li><a class="yellow10-text" href="https://india.anandamarga.org/fasting-calendar/" target="_blank">Ananda
+                    Marga India -
+                    Delhi
                     Sector</a>
             </li>
-            <li><a href="https://hks.amps.org/fasting-chart/" target="_blank">Ananda Marga Hong Kong Sector</a></li>
+            <li><a class="yellow10-text" href="https://hks.amps.org/fasting-chart/" target="_blank">Ananda Marga Hong
+                    Kong Sector</a>
+            </li>
         </ul>
         <p>
-            The fasting dates on the above web sites all correspond to the table below. These dates were compared to the
-            calculation of this software.
-            It can be concluded with high probability that the tithi times are based on Asia/Kolkata (Varanasi) time
-            zone, as
-            well as the chosen days for fasting.
+            The fasting dates on the above web sites all correspond to the table below. These dates were
+            compared to the calculations of this software (AMUFC).
+            It can be concluded with high probability that the tithi times are based on Asia/Kolkata (Varanasi)
+            time zone, as well as the chosen days for fasting.
         </p>
-        <h4>Different Types of Dawn</h4>
+        <h4>Different Types of Dawn - and Coordinates of Varanasi</h4>
         <p>
-            Comparisons were made using sunrise and the different types of dawn. The accuracy when comparing this
+            Comparisons were made using sunrise and the different types of dawn. The accuracy when comparing
+            this
             software's
             calculations with the table below were:
         </p>
@@ -153,7 +235,8 @@
             <li>Sunrise: 84%</li>
         </ul>
         <p>
-            Since astronomical dawn and nautical dawn had the same accuracy, astronomical dawn was the selected method
+            Since astronomical dawn and nautical dawn had the same accuracy, astronomical dawn was the selected
+            method
             to use.
             The rationale is that it makes the most sense if the beginning of the day is the actual beginning of
             something, and
@@ -164,12 +247,15 @@
             The reasons 100% accuracy wasn't achieved:
         </p>
         <ul>
-            <li>The calculations of tithis and sunrise are not exactly the same. Usually the difference is small, and
+            <li>The calculations of tithis and sunrise are not exactly the same. Usually the difference is
+                small, and
                 still the
-                chosen fasting day is different because the tithi spans over similarly over both two solar days. The
+                chosen fasting day is different because the tithi spans over similarly over both two solar days.
+                The
                 sunrise
                 also depends on altitude, which is not taken into account in this software.</li>
-            <li>Some of the official fasting days are miscalculated (probably mistaken because of human error).</li>
+            <li>Some of the official fasting days are miscalculated (probably mistaken because of human error).
+            </li>
         </ul>
 
         <h5>Example - Calculation Difference</h5>
@@ -190,7 +276,8 @@
 
         <h6>The Official Calculations</h6>
         <p>
-            I don't know how they calculated the sunrise/dawn, but you can see from the calculation that the sunrise is
+            I don't know how they calculated the sunrise/dawn, but you can see from the calculation that the
+            sunrise is
             almost
             at the center of the tithi,
             so it's possible their sunrise value made their fasting day on Jan 10th.
@@ -214,13 +301,76 @@
 
         <h6>The Official Calculations</h6>
         <p>
-            I don't know how they calculated the sunrise/dawn, but here it's hard to understand how the fasting date
+            I don't know how they calculated the sunrise/dawn, but here it's hard to understand how the fasting
+            date
             could be
             Mar 25th. So it's probably an error made by the human factor.
         </p>
 
         <img src="media/fasting_2024_1.png" />
         <img src="media/fasting_2024_2.png" />
+
+        <h2>Accuracy of the Ananda Marga Fasting Calendar (AMUFC)</h2>
+        <p>This software is based on <a class="yellow10-text" href="https://github.com/cosinekitty/astronomy/"
+                target="_blank">Astronomy
+                Engine</a>, a software engine accurate to within ±1 arcminute
+            (<sup>1</sup>&frasl;<sub>60th</sub> of a degree). It is based on the authoritative and well-tested models
+            <a class="yellow10-text" href="https://en.wikipedia.org/wiki/VSOP_model" target="_blank">VSOP87</a> and <a
+                class="yellow10-text" href="https://aa.usno.navy.mil/software/novasc_intro" target="_blank">NOVAS C
+                3.1.</a>
+        </p>
+        <p>These models determine the precise positions of celestial bodies like stars, planets, the Moon, and the Sun
+            at a given time. However, sunrise is influenced by additional factors beyond its exact position. Sunrise is
+            affected by the atmosphere which refracts sunlight, causing the Sun to appear slightly higher above the
+            horizon than it actually is. This affects the exact timing of sunrise and sunset.
+            Also, sunrise depends on your location on Earth.
+        </p>
+        <p>Atmospheric refraction, which causes celestial bodies to appear higher above the horizon than they would if
+            the Earth had no atmosphere. Astronomy Engine uses a correction of 34 arcminutes. Real-world refraction
+            varies based on air temperature, pressure, and humidity, which are not taken into
+            account.</p>
+        <h3>Einstein's Theory of Relativity</h3>
+        <p>Einstein's theory of relativity does have some subtle effects on the motion of celestial bodies, including
+            the Moon. One effect is called relativistic precession, which causes the Moon's orbit to slowly wobble over
+            time. However, the magnitude of these relativistic effects is incredibly small. They have a negligible
+            impact on the overall geometry of the Earth-Sun-Moon system, which determines the Moon's phases. For most
+            astronomical applications, including calculating lunar phases, the influence of relativity is insignificant.
+            The high precision of models like VSOP (within 1 arcsecond for thousands of years) already accounts for the
+            vast majority of the Moon's motion.</p>
+        <p>The impact of relativity on sunrise and dawn calculations is also negligible for most purposes. Due to
+            Earth's rotation, different parts of the Earth experience slightly different gravitational strengths.
+            According to relativity, time runs slower in weaker gravity. This effect is minuscule but can cause a slight
+            time difference in sunrise depending on your location. Gravity can bend light slightly. This effect is
+            extremely weak, but it can theoretically cause the Sun to appear a tiny bit higher above the horizon during
+            sunrise and sunset compared to a purely Newtonian calculation.</p>
+        <h3>Higher Accuracy</h3>
+        <p>To achieve higher accuracy, perhaps these methods could be used: </p>
+        <ul>
+            <li>
+                <a class="yellow10-text" href="https://github.com/variar/elp2000-82b"
+                    target="_blank">https://github.com/variar/elp2000-82b</a>
+
+            </li>
+            <li>
+                Eclipse Predictions by Fred Espenak: This model provides highly accurate predictions for lunar phases
+                and eclipses, taking into account various perturbations and corrections.
+            </li>
+            <li>Solar and Lunar Almanac (SAA): This model includes detailed algorithms for calculating sunrise and
+                sunset
+                times,
+                considering the Earth’s axial tilt and orbital eccentricity.
+                NOAA Solar Calculator: The National Oceanic and Atmospheric Administration provides a solar calculator
+                that
+                accounts for
+                atmospheric refraction and other factors to give precise sunrise and sunset times.
+                These models incorporate more detailed corrections and perturbations, making them suitable for
+                high-precision
+                astronomical calculations.</li>
+            <li><a class="yellow10-text"
+                    href="https://www.researchgate.net/publication/228789607_Comparison_between_high_precision_precession_models_for_the_ecliptic_and_the_equator"
+                    target="_blank">https://www.researchgate.net/publication/228789607_Comparison_between_high_precision_precession_models_for_the_ecliptic_and_the_equator</a>
+            </li>
+        </ul>
         <div id="bottom_content"></div>
     </main>
 </body>

@@ -1,22 +1,25 @@
 let layout = {};
 
 layout.head = function () {
-  if (document.title == "") document.title = "Ananda Marga Fasting Calendar";
-  else document.title += " - Ananda Marga Fasting Calendar";
+  if (document.title == "") document.title = "Ananda Marga Upavasa Fasting Calendar";
+  else document.title += " - Ananda Marga Upavasa Fasting Calendar";
   console.log(document.title);
   return `
   <link href="css/beer.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
+  <script>
+  document.body.style.visibility = 'hidden';
+  </script>
   `;
-  // scripts won't work here
+  // script src won't work here
 }
 
 layout.header = function () {
   return `
   <nav class="top yellow2">
   <a href="index.html">
-    <i>home</i>
-    <div>Home</div>
+    <i>Calendar_Month</i>
+    <div>Calendar</div>
   </a>
   <a href="share.html">
     <i>share</i>
@@ -37,7 +40,7 @@ layout.header = function () {
 layout.bottom_content = function () {
   return `
   <p>
-    Created 2024 by Ramanuja - Robin Manoli<br>
+    Created 2024 by Rámanuja - Robin Manoli<br>
     Project website: <a href="https://infinite-happiness.github.io/Ananda-Marga-Fasting-Calendar/">https://infinite-happiness.github.io/Ananda-Marga-Fasting-Calendar/</a><br>
     GitHub: <a href="https://github.com/infinite-happiness/Ananda-Marga-Fasting-Calendar" target="_blank">https://github.com/infinite-happiness/Ananda-Marga-Fasting-Calendar</a><br>
   </p>
