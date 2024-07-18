@@ -33,7 +33,6 @@
 		let DateTime = luxon.DateTime;
 		let Interval = luxon.Interval;
 
-
 		// https://stackoverflow.com/a/2856602
 		function fireEvent(element) {
 			// set element to startDateInput to re-calculate tithis
@@ -42,6 +41,7 @@
 				element.dispatchEvent(evt);
 			} else element.fireEvent("onchange");
 		}
+
 		function calculator() {
 			let dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 			let dateTimeOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
@@ -55,9 +55,16 @@
 			let varanasiCoords = { latitude: 25.321684, longitude: 82.987289, elevation: 80.71, aboveGround: 1 };
 			dayStartList = ["Sun at Center of Horizon 0°", "Top of the Sun Peeks above Horizon", "Civil Dawn 6°", "Nautical Dawn 12°", "Astronomical Dawn 18°"];
 			console.log("Selected default time zone:", varanasiTimeZone, dayStartList);
-			if (localStorage.getItem('calendar') === null) localStorage.setItem('calendar', {});
-			let storageObject = JSON.parse(localStorage.getItem('calendar'));
-			console.log(window.localStorage.calendar, storageObject);
+			if (localStorage.getItem('calendar') === null) localStorage.setItem('calendar', '{}');
+			let storageObject;
+			try {
+				storageObject = JSON.parse(localStorage.getItem('calendar'));
+			} catch (error) {
+				console.log("storageObject error:", error);
+				localStorage.setItem('calendar', '{}');
+				storageObject = JSON.parse(localStorage.getItem('calendar'));
+			}
+			console.log(localStorage.getItem('calendar'), storageObject);
 
 			return {
 				rows: [],
@@ -203,7 +210,8 @@
 						<tr>
 							<td x-text="row.tithi.name"></td>
 							<td>
-								<a :href="googleCalendarUrl(row.tithi, row.fastingDateString)">
+								<a :href="googleCalendarUrl(row.tithi, row.fastingDateString)" target="_blank"
+									rel="nofollow noopener">
 									<span x-text="formatDate(row.fastingDateString)"></span>
 									<i>Calendar_Add_On</i>
 									<i class="fa-regular fa-circle-user tiny"></i>
