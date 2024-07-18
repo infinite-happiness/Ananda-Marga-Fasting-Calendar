@@ -12,11 +12,85 @@
 <body>
     <header id="header"></header>
     <script src="js/layout.js"></script>
+    <script>
+        function clipboardCopy(querySelector) {
+            // https://stackoverflow.com/a/30810322
+            let inputWebsiteUrl = document.querySelector(querySelector);
 
-    <main class="responsive">
-        <h3>Embed</h3>
-        <iframe src="index.html" width="640" height="480"></iframe>
+            inputWebsiteUrl.focus();
+            inputWebsiteUrl.select();
+            try {
+                var successful = document.execCommand('copy');
+                var msg = successful ? 'successful' : 'unsuccessful';
+                console.log('Copying text was ' + msg);
+            } catch (err) {
+                console.log('Oops, unable to copy');
+            }
 
+        }
+    </script>
+    <main class="responsive padding" x-data="{iframeWidth:640, iframeHeight:480}">
+        <h1>Share</h1>
+        You can copy this website url here for sharing:
+        <div class="field border suffix fill extra">
+            <input id="inputWebsiteUrl" type="text" onclick="this.select()" :value="site.url">
+            <i class="front" onclick="clipboardCopy('#inputWebsiteUrl')">Content_Copy</i>
+        </div>
+        <!-- https://jonsuh.com/blog/social-share-links/ -->
+        Share this calendar on: <br>
+        <a class="button blue10 tiny-margin" :href="'https://www.facebook.com/share.php?u=' + site.urlEncodedUrl"
+            target="_blank" rel="nofollow noopener">FaceBook</a>
+
+        <a class="button blue tiny-margin"
+            :href="'https://twitter.com/intent/tweet?text=' + site.urlEncodedTitle + '+' + site.urlEncodedUrl"
+            target="_blank" rel="nofollow noopener">X (Twitter)</a>
+
+        <a class="button blue8 tiny-margin"
+            :href="'https://www.linkedin.com/shareArticle?mini=true' + '&url=' + site.urlEncodedUrl + '&title' + site.urlEncodedTitle"
+            target=" _blank" rel="nofollow noopener">LinkedIn</a>
+
+        <a class="button red5 tiny-margin" :href="'http://www.reddit.com/submit/?url' + site.urlEncodedUrl"
+            target="_blank" rel="nofollow noopener">Reddit</a>
+        <!-- needs image: https://www.pinterest.com/pin/create/button/?url=https%3A%2F%2Finfinite-happiness.github.io%2FAnanda-Marga-Fasting-Calendar&media= -->
+
+        <h2>Download</h2>
+        You can download this calendar onto your computer and access it without an internet connection:
+        <br>
+        <a class="button yellow10-text yellow10-border border" :href="site.downloadUrl" rel="nofollow noopener">Download
+            the .zip-file Here</a>
+        <ul>
+            <li>Make sure to unzip (extract the files from) the .zip-file into a folder on your computer</li>
+            <li>Open the folder on your computer and then open index.html with your web browser</li>
+        </ul>
+
+
+
+        <h2>Embed</h2>
+        You can embed the calendar on your website like this:
+        <div class="field textarea border suffix fill">
+            <textarea onclick="this.select()" id="textareaWebsiteEmbed"
+                x-text='`<iframe src="` + site.url + `" width="` +iframeWidth+ `" height="` +iframeHeight+ `"></iframe>`'></textarea>
+            <i class="front" onclick="clipboardCopy('#textareaWebsiteEmbed')">Content_Copy</i>
+        </div>
+
+        <div class="field middle-align">
+            <label class="slider">
+                <input type="range" value="640" min="200" max="1500" x-model="iframeWidth">
+                <span></span>
+            </label>
+            <span class="helper">Width</span>
+        </div>
+
+        <div class="field middle-align">
+            <label class="slider green-text">
+                <input type="range" value="640" min="200" max="1500" x-model="iframeHeight">
+                <span></span>
+            </label>
+            <span class="helper">Height</span>
+        </div>
+
+        This is what it looks like when you embed:<br>
+        <iframe :src="site.url" :width="iframeWidth" :height="iframeHeight"></iframe>
         <div id="bottom_content"></div>
     </main>
 </body>
