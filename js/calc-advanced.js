@@ -64,7 +64,7 @@ layout.calculator_advanced = function () {
                             <p>
                                 Switch on the setting "Show Tithi Details" to see the effects of this setting.
                                 If you don't find your language in the dropdown you can type in a code from this list, into the lower "Language Code" field:
-                                <a href="https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes" target="_blank">https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes</a>
+                                <a href="https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes" target="_blank" rel="nofollow noopener">https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes</a>
                             </p>
                         </details>
                         <div class="field label suffix border margin">

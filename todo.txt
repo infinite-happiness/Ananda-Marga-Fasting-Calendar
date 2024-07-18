@@ -1,3 +1,4 @@
+toc and copyable anchor links in science.html
 drawer - swipe advanced functions on mobile
 verify calculations with other AM websites
 embed code example for other webmasters
