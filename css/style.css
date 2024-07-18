@@ -15,15 +15,15 @@ h3 {
 }
 
 h4 {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
 }
 
 h5 {
-    font-size: 1.0rem;
+    font-size: .9rem;
 }
 
 h6 {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 
@@ -33,4 +33,12 @@ img {
 
 .yellow10-text {
     color: #f57f17 !important
+}
+
+.yellow10-border {
+    border-color: #f57f17 !important
+}
+
+.pointer {
+    cursor: pointer
 }
