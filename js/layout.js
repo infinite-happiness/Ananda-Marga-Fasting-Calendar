@@ -1,17 +1,21 @@
 let layout = {};
+let site = {};
+site.title = "Ananda Marga Upavasa Fasting Calendar";
+site.url = "https://infinite-happiness.github.io/Ananda-Marga-Fasting-Calendar";
+site.githubUrl = "https://github.com/infinite-happiness/Ananda-Marga-Fasting-Calendar";
+site.downloadUrl = "https://github.com/infinite-happiness/Ananda-Marga-Fasting-Calendar/archive/refs/heads/main.zip";
+site.urlEncodedTitle = encodeURIComponent(site.title);
+site.urlEncodedUrl = encodeURIComponent(site.url);
 
 layout.head = function () {
-  if (document.title == "") document.title = "Ananda Marga Upavasa Fasting Calendar";
-  else document.title += " - Ananda Marga Upavasa Fasting Calendar";
-  console.log(document.title);
+  if (document.title == "") document.title = site.title;
+  else document.title += " - " + site.title;
+  //console.log(document.title);
   return `
   <link href="css/beer.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
-  <script>
-  document.body.style.visibility = 'hidden';
-  </script>
   `;
-  // script src won't work here
+  // script src won't work here, see below
 }
 
 layout.header = function () {
@@ -41,11 +45,17 @@ layout.bottom_content = function () {
   return `
   <p>
     Created 2024 by Rámanuja - Robin Manoli<br>
-    Project website: <a href="https://infinite-happiness.github.io/Ananda-Marga-Fasting-Calendar/">https://infinite-happiness.github.io/Ananda-Marga-Fasting-Calendar/</a><br>
-    GitHub: <a href="https://github.com/infinite-happiness/Ananda-Marga-Fasting-Calendar" target="_blank">https://github.com/infinite-happiness/Ananda-Marga-Fasting-Calendar</a><br>
+    AMUFC Website: <a class="yellow10-text" href="` + site.url + `">` + site.url + `</a><br>
+    AMUFC GitHub: <a class="yellow10-text" href="` + site.githubUrl + `" target="_blank" rel="nofollow noopener">` + site.githubUrl + `</a><br>
+    <a class="button yellow10-text yellow10-border border" href="` + site.downloadUrl + `" rel="nofollow noopener">Download AMUFC to Your Computer</a>
   </p>
 `;
 }
+
+//scripts here
+document.body.style.visibility = 'hidden';
+// obfuscate script tag to make js files load: https://stackoverflow.com/a/17542683
+document.write('<script defer src="js/alpine3.min.js"><\/script>');
 
 document.getElementById('header').innerHTML = layout.head() + layout.header();
 document.body.classList.add("yellow1");
