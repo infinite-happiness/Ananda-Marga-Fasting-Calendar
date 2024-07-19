@@ -12,13 +12,36 @@ layout.calculator_advanced = function () {
 						</button>
                     </div>
 
-                    <h6>Comparison with Official Fasting Days 2024</h6>
+                    <h4>Comparison with Official Fasting Days 2024</h4>
                     <p>Matches: <span x-text=" matches"></span></p>
                     <p>Errors: <span x-text="errors"></span></p>
                     <p>Accuracy: <span x-text="(100*matches/(errors+matches)).toFixed(2) + '%'"></span></p>
+
+                    Errors:
+                    <table class="stripes red2">
+                        <tr>
+                            <th>Tithi</th>
+                            <th>Calculated Fasting Day</th>
+                            <th>Official Fasting Day</th>
+                            <th>Difference Between How Much the Tithi Spans Over the Two Possible Fasting Date Candidates (A Small Value Makes the Error Understandable)</th>
+                        </tr>
+    					<template x-for="row in rows">
+                                <template x-if="!row.matchesTestData">
+                                    <tr>
+                                            <td x-text="row.tithi.name"></td>
+                                            <td><span x-text="formatDate(row.fastingDateString)"></span></td>
+											<td x-text="row.testDataValue"></td>
+											<!--<td x-text="row.start"></td>
+											<td x-text="row.sunrise"></td>
+											<td x-text="Interval.fromDateTimes(row.start, row.sunrise)"></td>-->
+                                            <td x-text="Interval.fromDateTimes(row.start, row.sunrise).toDuration(['hours', 'minutes', 'seconds']).minus(Interval.fromDateTimes(row.sunrise, row.end).toDuration(['hours', 'minutes', 'seconds'])).toFormat('h\\'h\\'m\\'m\\'s\\'s\\'')"></td>
+                                    </tr>
+                                </template>
+                        </template>
+                    </table>
                 </article>
 
-				<dialog class="left yellow1" x-bind:class="advancedDlgIsOpen?'active':''" @click.outside="if (advancedDlgIsOpenedAt != 0 && Date.now() > advancedDlgIsOpenedAt + 500) advancedDlgIsOpen = false">
+				<dialog class="left yellow1" x-bind:class="advancedDlgIsOpen?'active':''" click.outside="if (advancedDlgIsOpenedAt != 0 && Date.now() > advancedDlgIsOpenedAt + 500) advancedDlgIsOpen = false">
                     <div class="row right-align">
                         <button class="transparent circle large" @click="advancedDlgIsOpen = !advancedDlgIsOpen;">
 									<i>close</i>
@@ -58,7 +81,7 @@ layout.calculator_advanced = function () {
                     </div>
 
                     <article class="border margin yellow2">
-                        <h5>Date and Time Language</h5>
+                        <h4>Language for Displaying Date and Time</h4>
                         <details>
                             <summary><i>info</i></summary>
                             <p>
@@ -85,7 +108,7 @@ layout.calculator_advanced = function () {
 
 
                     <article class="border margin yellow2">
-                        <h5>Time Zone</h5>
+                        <h4>Time Zone</h4>
                         <details>
                             <summary><i>info</i></summary>
                             <p>
@@ -110,7 +133,7 @@ layout.calculator_advanced = function () {
                     </article>
 
                     <article class="border margin yellow2">
-                        <h5>Location</h5>
+                        <h4>Location</h4>
                         <details>
                             <summary><i>info</i></summary>
                             <p>
@@ -179,7 +202,7 @@ layout.calculator_advanced = function () {
                     </article>
                     
                     <article class="border margin yellow2">
-                        <h5>Test Data</h5>
+                        <h4>Test Data</h4>
                         <p>Click the button below to compare this calculator's fasting dates with the official dates of 2024</p>
                         <button class="yellow10" @click='
                             startDateInput.value="2024-01-01";
