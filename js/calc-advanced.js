@@ -87,7 +87,7 @@ layout.calculator_advanced = function () {
                             <p>
                                 Switch on the setting "Show Tithi Details" to see the effects of this setting.
                                 If you don't find your language in the dropdown you can type in a code from this list, into the lower "Language Code" field:
-                                <a href="https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes" target="_blank" rel="nofollow noopener">https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes</a>
+                                <a class="yellow10-text" href="https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes" target="_blank" rel="nofollow noopener">https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes</a>
                             </p>
                         </details>
                         <div class="field label suffix border margin">
@@ -116,6 +116,7 @@ layout.calculator_advanced = function () {
                                 The fasting dates will not be affected by this setting.
                                 The default time zone is India Standard Time (Asia/Kolkata), because that's how the tithis are presented on Ananda Marga's official websites.
                             </p>
+                            <p>Click a button below to select a time zone, or choose one from the list below.</p>
                         </details>
                         <button class="yellow10 tiny-margin" x-init="tz = Intl.DateTimeFormat().resolvedOptions().timeZone" @click=' selectedTimeZone = tz; fireEvent(startDateInput);' x-text="'Local Time Zone: ' + tz"></button><br>
                         <button class="yellow10 tiny-margin" @click='selectedTimeZone = "UTC"; fireEvent(startDateInput);'>UTC Time Zone</button><br>
@@ -138,7 +139,7 @@ layout.calculator_advanced = function () {
                             <summary><i>info</i></summary>
                             <p>
                                 This setting will calculate the fasting date based on the location you enter.
-                                See the <a href="science.html">Science</a> page for more information on how the calculation is done.
+                                See the <a class="yellow10-text" href="science.html">Science</a> page for more information on how the calculation is done.
                             </p>
                         </details>
 
