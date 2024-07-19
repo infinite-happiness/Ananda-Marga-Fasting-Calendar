@@ -9,9 +9,7 @@
 
 	<script src="js/luxon.min.js"></script>
 	<script src="js/astronomy.browser.js"></script>
-	<!--<link href="css/beer.min.css" rel="stylesheet">
-
--->
+	<link rel="icon" href="favicon.ico">
 	<!-- requires web server<script type="module" src="js/beer.min.js"></script>
 	<script type="module" src="js/material-dynamic-colors.min.js"></script>-->
 
@@ -152,11 +150,12 @@
 	<main class="responsive">
 		<div id="calculator" x-data="calculator()">
 			<h1 class="margin">
+				<i class="margin"><img src="media/android-chrome-192x192.png"></i>
 				Ananda Marga Upavasa Fasting Calendar
 				<button @click="advancedDlgIsOpen = !advancedDlgIsOpen; advancedDlgIsOpenedAt=Date.now();"
 					class="yellow10 margin">Advanced</button>
 			</h1>
-			<div class=" field label border">
+			<div class="field label border">
 				<label for="start_date" class="active">Start Date</label>
 				<input type="date" id="start_date" class="active"
 					@change="update($refs.start_date.value, $refs.end_date.value)"
@@ -197,8 +196,7 @@
 				endDateInput.addEventListener('change', handleDateRangeChange);
 			</script>
 
-			<div id="calculator_advanced">
-			</div>
+			<div id="calculator_advanced"></div>
 
 			<h3 class="margin capitalize"
 				x-text="startingDate.monthLong + ' ' + startingDate.year + ' - ' + endingDate.monthLong + ' ' + endingDate.year">

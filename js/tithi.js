@@ -80,7 +80,7 @@ tithi.calculateTithis = function (selectedLocale, selectedTimeZone, selectedDayS
         else if (selectedDayStart == dayStartList[2]) sunrise = Astronomy.SearchAltitude('Sun', observer, +1, nextTithiStart.date, 1, -6); // civil dawn
         else if (selectedDayStart == dayStartList[3]) sunrise = Astronomy.SearchAltitude('Sun', observer, +1, nextTithiStart.date, 1, -12); // nautical dawn
         else sunrise = Astronomy.SearchAltitude('Sun', observer, +1, nextTithiStart.date, 1, -18); // astro dawn
-        console.log("nextTithiStart.date:", nextTithiStart.date, "Sunrise:", sunrise);
+        //console.log("nextTithiStart.date:", nextTithiStart.date, "Sunrise:", sunrise);
 
         // there might not be a sunrise during midnight sun or polar night
         if (sunrise === null) {

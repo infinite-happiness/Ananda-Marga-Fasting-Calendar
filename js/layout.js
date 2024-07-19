@@ -22,7 +22,7 @@ layout.header = function () {
   return `
   <nav class="top yellow2">
   <a href="index.html">
-    <i>Calendar_Month</i>
+    <i><img src="media/android-chrome-192x192.png"></i>
     <div>Calendar</div>
   </a>
   <a href="share.html">
