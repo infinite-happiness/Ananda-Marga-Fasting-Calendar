@@ -19,11 +19,11 @@ tithi.getNextTithi = function (currentTithi) {
 tithi.getFastingDateString = function (selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise_date) {
     // return fasting date string based on selected time zone
     let fastingDate = sunrise_date; // if sunrise is closer to tithi end, the solar day is the day before
-    if (sunrise_date - nextTithiStart.date > nextTithiEnd.date - sunrise_date) fastingDate.setHours(fastingDate.getHours() - 24);
 
     let fastingDTLocal = DateTime.fromJSDate(fastingDate);
     let fastingDTTZ = fastingDTLocal.setZone(selectedTimeZone);
-    //console.log("tithi.getFastingDateString", selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise_date, fastingDate, fastingDTLocal, fastingDTTZ, fastingDTTZ.toISODate());
+    if (sunrise_date - nextTithiStart.date > nextTithiEnd.date - sunrise_date) fastingDTTZ = fastingDTTZ.minus({ days: 1 });;
+    // console.log("tithi.getFastingDateString", selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise_date, fastingDate, fastingDTLocal, fastingDTTZ, fastingDTTZ.toISODate());
 
     return fastingDTTZ.toISODate();
 }
@@ -80,7 +80,7 @@ tithi.calculateTithis = function (selectedLocale, selectedTimeZone, selectedDayS
         else if (selectedDayStart == dayStartList[2]) sunrise = Astronomy.SearchAltitude('Sun', observer, +1, nextTithiStart.date, 1, -6); // civil dawn
         else if (selectedDayStart == dayStartList[3]) sunrise = Astronomy.SearchAltitude('Sun', observer, +1, nextTithiStart.date, 1, -12); // nautical dawn
         else sunrise = Astronomy.SearchAltitude('Sun', observer, +1, nextTithiStart.date, 1, -18); // astro dawn
-        //console.log("Sunrise:", sunrise);
+        console.log("nextTithiStart.date:", nextTithiStart.date, "Sunrise:", sunrise);
 
         // there might not be a sunrise during midnight sun or polar night
         if (sunrise === null) {
