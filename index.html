@@ -49,9 +49,10 @@
 			let timeZoneList = Intl.supportedValuesOf('timeZone');
 			timeZoneList.push('UTC');
 			let varanasiTimeZone = timeZoneList.includes("Asia/Kolkata") ? "Asia/Kolkata" : "Asia/Calcutta";
-			let varanasiCoords = { latitude: 25.321684, longitude: 82.987289, elevation: 80.71, aboveGround: 1 };
-			dayStartList = ["Sun at Center of Horizon 0°", "Top of the Sun Peeks above Horizon", "Civil Dawn 6°", "Nautical Dawn 12°", "Astronomical Dawn 18°"];
-			console.log("Selected default time zone:", varanasiTimeZone, dayStartList);
+			// default to varanasi - https://en.wikipedia.org/wiki/Varanasi
+			let varanasiCoords = { latitude: 25.318889, longitude: 83.012778, elevation: 80.71, aboveGround: 1 },
+				dayStartList = ["Sun at Center of Horizon 0°", "Top of the Sun Peeks above Horizon", "Civil Dawn 6°", "Nautical Dawn 12°", "Astronomical Dawn 18°"];
+			//console.log("Selected default time zone:", varanasiTimeZone, dayStartList);
 			if (localStorage.getItem('calendar') === null) localStorage.setItem('calendar', '{}');
 			let storageObject;
 			try {
@@ -75,13 +76,12 @@
 				varanasiTimeZone: varanasiTimeZone,
 				selectedTimeZone: storageObject.selectedTimeZone === undefined || !timeZoneList.includes(storageObject.selectedTimeZone) ? varanasiTimeZone : storageObject.selectedTimeZone,
 				dayStartList: dayStartList,
-				selectedDayStart: storageObject.selectedDayStart === undefined || !dayStartList.includes(storageObject.selectedDayStart) ? dayStartList[4] : storageObject.selectedDayStart,
+				selectedDayStart: storageObject.selectedDayStart === undefined || !dayStartList.includes(storageObject.selectedDayStart) ? dayStartList[2] : storageObject.selectedDayStart,
 				advancedDlgIsOpen: false,
 				advancedDlgIsOpenedAt: 0, // https://stackoverflow.com/questions/71025866/alpinejs-triggering-a-click-outside-event-when-adding-modal
 				saveSettingsInBrowser: storageObject.saveSettingsInBrowser || false,
 				showTithiDetails: storageObject.showTithiDetails || false,
 				//worldCities: World_Cities, // slow, only load if needed
-				// default to varanasi - https://www.latlong.net/place/varanasi-uttar-pradesh-india-2395.html - https://en.wikipedia.org/wiki/Varanasi
 				varanasiCoords: varanasiCoords,
 				latitude: storageObject.latitude === undefined ? varanasiCoords.latitude : storageObject.latitude, // numbers can be 0, so can't just do storageObject.latitude || 25.321684
 				longitude: storageObject.longitude === undefined ? varanasiCoords.longitude : storageObject.longitude,
@@ -125,8 +125,8 @@
 					d += 's';
 					return d;
 				},
-				googleCalendarUrl(tithi, fastingDateString) {
-					let d = new Date(fastingDateString);
+				googleCalendarUrl(tithi, fastingDTTZ) {
+					let d = new Date(fastingDTTZ.toISODate());
 					let start = d.toISOString().substring(0, 10).replaceAll("-", "");
 					d.setHours(d.getHours() + 24);
 					let end = d.toISOString().substring(0, 10).replaceAll("-", "");
@@ -207,7 +207,7 @@
 						<tr>
 							<td x-text="row.tithi.name"></td>
 							<td>
-								<a :href="googleCalendarUrl(row.tithi, row.fastingDateString)" target="_blank"
+								<a :href="googleCalendarUrl(row.tithi, row.fastingDTTZ)" target="_blank"
 									rel="nofollow noopener">
 									<span x-text="row.fastingDTTZ.toLocaleString(DateTime.DATE_HUGE)"></span>
 									<i>Calendar_Add_On</i>
