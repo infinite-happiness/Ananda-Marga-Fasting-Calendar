@@ -8,14 +8,20 @@
     <link rel="icon" href="favicon.ico">
 
     <title>Science</title>
+    <style>
+        .toc-list {
+            padding-left: 20px;
+        }
+    </style>
 </head>
 
 <body>
     <header id="header"></header>
     <script src="js/layout.js"></script>
 
-    <main class="responsive padding">
+    <main class="responsive padding main-content">
         <h1>Science of Ananda Marga Upavasa Fasting</h1>
+        <div id="table-of-contents" class="margin"></div>
         <h2>Synopsis</h2>
         <p>
             Ananda Marga upavása fasting dates are based on the Vedic solar day (sunrise to sunrise) which occur
@@ -24,9 +30,9 @@
             around the web. Sunrise however is something very complex to calculate, and needs to be defined properly in
             order to decide the correct fasting day.
         </p>
-        <p>This software, the <strong>Ánanda Márga Upavása Fasting Calendar (AMUFC)</strong>, uses scientic models
-            for the calculations, and offers the possibility to use your position, time zone, and sunrise of choice, for
-            calculating fasting days.
+        <p>This software, the <strong><i class=""><img src="media/android-chrome-192x192.png"></i> Ánanda Márga
+                Upavása Fasting Calendar (AMUFC)</strong>, uses scientic models for the calculations, and offers the
+            possibility to use your position, time zone, and sunrise definition of choice, for calculating fasting days.
         </p>
 
         <h2>Methodology</h2>
@@ -71,10 +77,10 @@
             times are based on tithis (specifically, the times of the tithis named ekádashii, amávasyá and púrńimá
             are displayed).</p>
         <p>Moon phases are always the same all over earth, and most tithi calculations around the web just differ with a
-            few minutes of time (and are displayed in India Standard Time).
+            few minutes of time (and are usually displayed in India Standard Time).
         </p>
         <h3>The Relevant Tithis for Ananda Marga Upavasa Fasting</h3>
-        <ul>
+        <ul class="margin">
             <li>Ekádashii (11 tithis/lunar days after new/full moon): occurs at angles 120° - 132° and 300° -
                 312°</li>
             <li>Amávasyá (New Moon): occurs at angles 348° - 360°</li>
@@ -94,7 +100,7 @@
         <img src="media/Moon-Paths-Ekadashii-Amavasya-Purnima.svg">
         <p>Amávasyá and púrńimá are lunar days which end at the moment of new/full moon respectively.</p>
         More about 60° angles:
-        <ul>
+        <ul class="margin">
             <li>60° angles are found in equilateral triangles and the unit circle in trigonometry.</li>
             <li>The unit circle is a fundamental tool in astronomy because of its connection to trigonometry.</li>
             <li>The pratik consists of two equilateral triangles.</li>
@@ -148,17 +154,13 @@
 
         <h2>Dawn and Sunrise</h2>
         <p>Ananda Marga's fasting system uses the Vedic solar day to determine the date of a day. In some ways
-            it's
-            natural to think of the day starting in the morning. The day actually starts in the morning (when
-            most
-            people wake up), rather than in the middle of the night (when most people are asleep, or have not
-            even gone
-            to bed yet). However, there are number of problems that arise when using sunrise as the start and
-            end of the
-            day.
+            it's natural to think of the day starting in the morning. The day actually starts in the morning (when
+            most people wake up), rather than in the middle of the night (when most people are asleep, or have not
+            even gone to bed yet). However, there are number of problems that arise when using sunrise as the start and
+            end of the day.
         </p>
         <h3>Issues of Calculating Sunrise and Dawn</h3>
-        <ul>
+        <ul class="margin">
             <li>
                 The day starts at a different time every day, and needs to be calculated.
             </li>
@@ -185,7 +187,7 @@
 
         <h3>Defining Sunrise</h3>
         <p>To get the Ananda Marga fasting system correct, we need to define the following:</p>
-        <ul>
+        <ul class="margin">
             <li>What is a sunrise? In other words, when exactly does the solar day start? At what position of the sun?
             </li>
             <li>What is a sunrise during midnight sun and polar night? In other words, what happens when the defined
@@ -196,7 +198,7 @@
 
         <h3>Calculating Sunrise </h3>
         <p>These values are used for calculating sunrise/dawn:</p>
-        <ul>
+        <ul class="margin">
             <li>Date and time</li>
             <li>Latitude and Longitude</li>
             <li>Elevation of the location above sea level</li>
@@ -214,11 +216,10 @@
         <img src="media/sun-position-sunrise-dawn.webp" />
         <small>Credit: ASTRONOMY: ROEN KELLY, after Aurora Borealis Observatory</small>
 
-        <!--
         <h3>Comparisons With Other Published Calendars</h3>
         <p>The fasting dates on different Ananda Marga websites on the web are different. However, some of them
             use the exact same dates, although they are in different time zones:</p>
-        <ul>
+        <ul class="margin">
             <li><a class="yellow10-text" href="https://www.anandamarga.eu/fastingChart.php" target="_blank"
                     rel="nofollow noopener">Official Website of Ananda Marga in Europe - Berlin Sector</a></li>
             <li><a class="yellow10-text" href="https://india.anandamarga.org/fasting-calendar/" target="_blank"
@@ -229,99 +230,77 @@
             </li>
         </ul>
         <p>
-            The fasting dates on the above web sites all correspond to the table below. These dates were
-            compared to the calculations of this software (AMUFC).
-            It can be concluded with high probability that the tithi times are based on Asia/Kolkata (Varanasi)
-            time zone, as well as the chosen days for fasting.
+            The fasting dates on the above web sites all correspond to the table below, and are on this website
+            considered the official fasting dates (see table below). These dates were compared to the calculations of
+            this software (AMUFC). It can be concluded with high probability that the tithi times are based on
+            Asia/Kolkata (Varanasi) time zone. The fasting dates are most probably also based on the sunrises of
+            Varanasi.
         </p>
         <h4>Different Types of Dawn - and Coordinates of Varanasi</h4>
         <p>
-            Comparisons were made using sunrise and the different types of dawn. The accuracy when comparing
-            this
-            software's
-            calculations with the table below were:
+            Comparisons were made using sunrise and the different types of dawn. There were also different values for
+            latitude and longitude for Varanasi online. However, the latitude and longitude coordinates didn't have much
+            effect on the choice of fasting dates.
         </p>
-        <ul>
-            <li>Astronomical Dawn: 88%</li>
-            <li>Nautical Dawn: 88%</li>
-            <li>Civil Dawn: 86%</li>
-            <li>Sunrise: 84%</li>
+        <p>The highest accuracy when comparing different implementations of
+            AMUFC with the official dates were:
+        </p>
+        <ul class="margin">
+            <li>Civil Dawn (6°): 90%</li>
+            <li>Sun at the Center of the Horizon (0°): 88%</li>
+            <li>Top of the Sun Peeks Above the Horizon: 88%</li>
+            <li>Nautical Dawn (12°): 88%</li>
+            <li>Astronomical Dawn (18°): 82%</li>
         </ul>
+        <h5>AMUFC's Definition of Sunrise</h5>
         <p>
-            Since astronomical dawn and nautical dawn had the same accuracy, astronomical dawn was the selected
-            method
-            to use.
-            The rationale is that it makes the most sense if the beginning of the day is the actual beginning of
-            something, and
-            the astronomical dawn is the first dawn.
+            Since civil dawn once had the highest accuracy it is selected as default in the calendar, and the definition
+            of sunrise. It's difficult to achieve a higher accuracy without knowing the exact tools that were used for
+            finding the official dates.
         </p>
         <h4>Differences</h4>
         <p>
-            The reasons 100% accuracy wasn't achieved:
+            The reasons 100% accuracy wasn't achieved was probably:
         </p>
-        <ul>
-            <li>The calculations of tithis and sunrise are not exactly the same. Usually the difference is
-                small, and
-                still the
-                chosen fasting day is different because the tithi spans over similarly over both two solar days.
-                The
-                sunrise
-                also depends on altitude, which is not taken into account in this software.</li>
-            <li>Some of the official fasting days are miscalculated (probably mistaken because of human error).
+        <ul class="margin">
+            <li>The calculations of tithis and sunrise are not exactly the same, and the exact location used for the
+                calculations might not be the same. Usually the difference is small, and still the chosen fasting day is
+                different. This is because as the tithi spans similarly over both two solar day candidates, and small
+                details will decide which of the candidates gets chosen.
             </li>
+            <li>Some of the official fasting days are probably miscalculated (because of human error).</li>
+            <li>There might be errors in the AMUFC.</li>
         </ul>
 
         <h5>Example - Calculation Difference</h5>
-        <h6>This Calculator</h6>
-        <p>
-            Amávasyá (New Moon) - 11 Jan 2024
-            <br />
-            Amavasya start: 10 Jan 2024, 08:12 PM Varanasi time
-            <br />
-            Amavasya end: 11 Jan 2024, 05:27 PM Varanasi time
-            <br />
-            Astronomical Dawn: 11 Jan 2024, 06:24 AM Varanasi time
-            <br />
-            Amavasya start to sunrise: 10:11:28
-            <br />
-            Sunrise to Amavasya end: 11:03:27
-        </p>
-
-        <h6>The Official Calculations</h6>
-        <p>
-            I don't know how they calculated the sunrise/dawn, but you can see from the calculation that the
-            sunrise is
-            almost
-            at the center of the tithi,
-            so it's possible their sunrise value made their fasting day on Jan 10th.
-        </p>
+        Here you can see that the chosen dates depend on a few minutes of time, so it's understandable why different
+        calculations will result in different fasting days.
+        <pre>
+    Púrńimá starts: Saturday 20 July 2024 at 18:00 India Standard Time
+    Then: 10h 54m 16s until...
+    Sunrise: Sunday 21 July 2024 at 04:54 India Standard Time
+    Sunrise type: Civil Dawn 6°
+    Then: 10h 52m 52s until...
+    Púrńimá ends: Sunday 21 July 2024 at 15:47 India Standard Time
+    Official fasting date: 2024-07-21
+        </pre>
 
         <h5>Example - Human Error</h5>
-        <h6>This Calculator</h6>
-        <p>
-            Púrńimá (Full Moon) - 24 Mar 2024
-            <br />
-            Amavasya start: 24 Mar 2024, 09:57 AM Varanasi time
-            <br />
-            Amavasya end: 25 Mar 2024, 12:31 PM Varanasi time
-            <br />
-            Astronomical Dawn: 25 Mar 2024, 06:56 Varanasi time
-            <br />
-            Purnima start to dawn: 20:59:25
-            <br />
-            Dawn to Purnima end: 05:35:15
-        </p>
-
-        <h6>The Official Calculations</h6>
-        <p>
-            I don't know how they calculated the sunrise/dawn, but here it's hard to understand how the fasting
-            date
-            could be
-            Mar 25th. So it's probably an error made by the human factor.
-        </p>
+        This official fasting date was never chosen by any implementation of the AMUFC, and the choise of fasting date
+        is clear. Púrńimá spans over the 24th for a much longer time than the 25th. So the officially chosen date may
+        be a mistake.
+        <pre>
+    Púrńimá starts: Sunday 24 March 2024 at 09:56 India Standard Time
+    Then: 19h 37m 27s until...
+    Sunrise: Monday 25 March 2024 at 05:33 India Standard Time
+    Sunrise type: Civil Dawn 6°
+    Then: 6h 57m 15s until...
+    Púrńimá ends: Monday 25 March 2024 at 12:31 India Standard Time
+    Official fasting date: 2024-03-25
+        </pre>
 
         <img src="media/fasting_2024_1.png" />
-        <img src="media/fasting_2024_2.png" />-->
+        <img src="media/fasting_2024_2.png" />
 
         <h2>Accuracy of the Ananda Marga Fasting Calendar (AMUFC)</h2>
         <p>This software is based on <a class="yellow10-text" href="https://github.com/cosinekitty/astronomy/"
@@ -357,8 +336,10 @@
             extremely weak, but it can theoretically cause the Sun to appear a tiny bit higher above the horizon during
             sunrise and sunset compared to a purely Newtonian calculation.</p>
         <h3>Higher Accuracy</h3>
-        <p>To achieve higher accuracy, perhaps these methods could be used: </p>
-        <ul>
+        <p>To achieve higher accuracy, the exact location for the observation of the sunrise has to be used, as well as
+            a definition of what counts as sunrise. Perhaps these methods could be used for higher accuracy in sunrise
+            and tithi calculations: </p>
+        <ul class="margin">
             <li>
                 <a class="yellow10-text" href="https://github.com/variar/elp2000-82b" target="_blank"
                     rel="nofollow noopener">https://github.com/variar/elp2000-82b</a>
@@ -369,15 +350,10 @@
                 and eclipses, taking into account various perturbations and corrections.
             </li>
             <li>Solar and Lunar Almanac (SAA): This model includes detailed algorithms for calculating sunrise and
-                sunset
-                times,
-                considering the Earth’s axial tilt and orbital eccentricity.
-                NOAA Solar Calculator: The National Oceanic and Atmospheric Administration provides a solar calculator
-                that
-                accounts for
-                atmospheric refraction and other factors to give precise sunrise and sunset times.
-                These models incorporate more detailed corrections and perturbations, making them suitable for
-                high-precision
+                sunset times, considering the Earth’s axial tilt and orbital eccentricity. NOAA Solar Calculator: The
+                National Oceanic and Atmospheric Administration provides a solar calculator that accounts for
+                atmospheric refraction and other factors to give precise sunrise and sunset times. These models
+                incorporate more detailed corrections and perturbations, making them suitable for high-precision
                 astronomical calculations.</li>
             <li><a class="yellow10-text"
                     href="https://www.researchgate.net/publication/228789607_Comparison_between_high_precision_precession_models_for_the_ecliptic_and_the_equator"
@@ -385,8 +361,55 @@
                     rel="nofollow noopener">https://www.researchgate.net/publication/228789607_Comparison_between_high_precision_precession_models_for_the_ecliptic_and_the_equator</a>
             </li>
         </ul>
+
+        <h2>Conclusion</h2>
+        <p>
+            The default position of Varanasi is taken from <a class="yellow10-text"
+                href="https://en.wikipedia.org/wiki/Varanasi" target="_blank" rel="nofollow noopener">WikiPedia:</a>
+            latitude: 25.318889, longitude: 83.012778 and elevation: 80.71.
+        </p>
+        <p>The default start of day is set to civil dawn.</p>
         <div id="bottom_content"></div>
     </main>
+
+    <script src="js/tocbot.min.js"></script>
+    <script>
+        // https://github.com/tscanlin/tocbot/blob/master/src/utils/make-ids.js
+        function makeIds() {
+            console.log("making ids");
+            var content = document.querySelector('.main-content')
+            var headings = content.querySelectorAll('h1, h2, h3, h4, h5, h6, h7')
+            var headingMap = {}
+
+            Array.prototype.forEach.call(headings, function (heading) {
+                var id = heading.id
+                    ? heading.id
+                    : heading.innerText.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+                headingMap[id] = !isNaN(headingMap[id]) ? ++headingMap[id] : 0
+                if (headingMap[id]) {
+                    heading.id = id + '-' + headingMap[id]
+                } else {
+                    heading.id = id
+                }
+            })
+        }
+        makeIds();
+
+        tocbot.init({
+            // Where to render the table of contents.
+            tocSelector: '#table-of-contents',
+            // Where to grab the headings to build the table of contents.
+            contentSelector: '.main-content',
+            // Which headings to grab inside of the contentSelector element.
+            headingSelector: 'h2, h3, h4, h5, h6, h7',
+            // For headings inside relative or absolute positioned containers within content.
+            hasInnerContainers: true,
+            linkClass: 'yellow10-text',
+            scrollSmoothOffset: -100,
+            headingsOffset: 100,
+            orderedList: true,
+        });
+    </script>
 </body>
 
 </html>
