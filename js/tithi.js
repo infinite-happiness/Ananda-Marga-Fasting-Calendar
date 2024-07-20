@@ -16,16 +16,16 @@ tithi.getNextTithi = function (currentTithi) {
     else return tithi.tithis[i + 1];
 }
 
-tithi.getFastingDateString = function (selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise_date) {
+tithi.getFastingDTTZ = function (selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise_date) {
     // return fasting date string based on selected time zone
     let fastingDate = sunrise_date; // if sunrise is closer to tithi end, the solar day is the day before
 
     let fastingDTLocal = DateTime.fromJSDate(fastingDate);
     let fastingDTTZ = fastingDTLocal.setZone(selectedTimeZone);
     if (sunrise_date - nextTithiStart.date > nextTithiEnd.date - sunrise_date) fastingDTTZ = fastingDTTZ.minus({ days: 1 });;
-    // console.log("tithi.getFastingDateString", selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise_date, fastingDate, fastingDTLocal, fastingDTTZ, fastingDTTZ.toISODate());
+    // console.log("tithi.getFastingDTTZ", selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise_date, fastingDate, fastingDTLocal, fastingDTTZ, fastingDTTZ.toISODate());
 
-    return fastingDTTZ.toISODate();
+    return fastingDTTZ;
 }
 
 tithi.getTestDataIndex = function (fastingDateString, testData) {
@@ -101,7 +101,8 @@ tithi.calculateTithis = function (selectedLocale, selectedTimeZone, selectedDayS
         }
         else sunrise_date = sunrise.date;
 
-        fastingDateString = tithi.getFastingDateString(selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise_date);
+        let fastingDTTZ = tithi.getFastingDTTZ(selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise_date);
+        let fastingDateString = fastingDTTZ.toISODate();
 
         if (nextTestDataIndex < testData.dates.length && fastingDateString.includes('2024')) {
             if (nextTestDataIndex == -1) nextTestDataIndex = tithi.getTestDataIndex(fastingDateString, testData);
@@ -128,7 +129,7 @@ tithi.calculateTithis = function (selectedLocale, selectedTimeZone, selectedDayS
             let sunriseTZ = DateTime.fromJSDate(sunrise_date).setZone(selectedTimeZone).setLocale(selectedLocale);
 
             //rows.push({ start: nextTithiStart, end: nextTithiEnd, tithi: nextTithi, sunrise: sunrise, fastingDateString: fastingDateString, matchesTestData: matchesTestData, testDataValue: testDataValue }); // js datetimes (local time)
-            rows.push({ start: startTZ, end: endTZ, tithi: nextTithi, sunrise: sunriseTZ, sunriseType: sunriseType, fastingDateString: fastingDateString, matchesTestData: matchesTestData, testDataValue: testDataValue }); // js datetimes (local time)
+            rows.push({ start: startTZ, end: endTZ, tithi: nextTithi, sunrise: sunriseTZ, sunriseType: sunriseType, fastingDTTZ: fastingDTTZ, matchesTestData: matchesTestData, testDataValue: testDataValue }); // js datetimes (local time)
             nextTithi = tithi.getNextTithi(nextTithi);
         }
     }

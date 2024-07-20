@@ -209,7 +209,7 @@
 							<td>
 								<a :href="googleCalendarUrl(row.tithi, row.fastingDateString)" target="_blank"
 									rel="nofollow noopener">
-									<span x-text="formatDate(row.fastingDateString)"></span>
+									<span x-text="row.fastingDTTZ.toLocaleString(DateTime.DATE_HUGE)"></span>
 									<i>Calendar_Add_On</i>
 								</a>
 							</td>
