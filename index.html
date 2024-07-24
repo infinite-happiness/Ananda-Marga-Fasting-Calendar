@@ -230,16 +230,15 @@
 					<div>
 						<div class="small-divider"></div>
 						<div>Selected Location: Varanasi</div>
-						<div class="small-divider"></div>
 					</div>
 				</template>
 				<template x-if="myCurrentLocationSelected">
 					<div>
 						<div class="small-divider"></div>
 						<div>Selected Location: My Current Location</div>
-						<div class="small-divider"></div>
 					</div>
 				</template>
+				<div class="small-divider"></div>
 
 				<button @click="getMyLocation(); getMyTimeZone();" class="yellow10 responsive small-margin">
 					Use My Location and Time Zone
@@ -251,7 +250,7 @@
 			<div id="calculator_advanced"></div>
 
 			<h3 class="margin capitalize"
-				x-text="startingDate.monthLong + ' ' + startingDate.year + ' - ' + endingDate.monthLong + ' ' + endingDate.year">
+				x-text="'Fasting Dates ' + startingDate.monthLong + ' ' + startingDate.year + ' - ' + endingDate.monthLong + ' ' + endingDate.year">
 			</h3>
 			<table class="stripes yellow2">
 				<tbody>

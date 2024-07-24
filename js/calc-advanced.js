@@ -166,6 +166,7 @@ layout.calculator_advanced = function () {
                                         longitude = varanasiCoords.longitude;
                                         elevation = varanasiCoords.elevation;
                                         aboveGround = varanasiCoords.aboveGround;
+                                        myCurrentLocationSelected = false;
                                         fireEvent(startDateInput);
                             '>Get Varanasi Location (Default)</button><br>
 
