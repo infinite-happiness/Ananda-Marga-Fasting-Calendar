@@ -91,6 +91,7 @@
 				saveSettingsInBrowser: storageObject.saveSettingsInBrowser || false,
 				showTithiDetails: storageObject.showTithiDetails || false,
 				//worldCities: World_Cities, // slow, only load if needed
+				myCurrentLocationSelected: false,
 				varanasiCoords: varanasiCoords,
 				latitude: storageObject.latitude === undefined ? varanasiCoords.latitude : storageObject.latitude, // numbers can be 0, so can't just do storageObject.latitude || 25.321684
 				longitude: storageObject.longitude === undefined ? varanasiCoords.longitude : storageObject.longitude,
@@ -142,7 +143,27 @@
 					let url = "https://calendar.google.com/calendar/r/eventedit?text=" + encodeURIComponent(tithi.name);
 					url += "&dates=" + start + "/" + end;
 					return url;
-				}
+				},
+				getMyTimeZone() {
+					this.selectedTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+				},
+				getMyLocation() {
+					if (navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition(
+							// show position
+							(position) => {
+								console.log("Got my position:", position);
+								this.latitude = position.coords.latitude;
+								this.longitude = position.coords.longitude;
+								this.elevation = position.coords.altitude || 0;
+								this.myCurrentLocationSelected = true;
+								fireEvent(startDateInput); // note that this fires async, ie after position has been acquired
+							},
+							// error
+							() => { }
+						);
+					}
+				},
 
 				/*
 				// not working in serverless mode
@@ -161,9 +182,8 @@
 			<h1 class="margin">
 				<i class="margin"><img src="media/android-chrome-192x192.png"></i>
 				Ananda Marga Upavasa Fasting Calendar
-				<button @click="advancedDlgIsOpen = !advancedDlgIsOpen; advancedDlgIsOpenedAt=Date.now();"
-					class="yellow10 margin">Advanced</button>
 			</h1>
+
 			<div class="field label border">
 				<label for="start_date" class="active">Start Date</label>
 				<input type="date" id="start_date" class="active"
@@ -183,7 +203,6 @@
 				/*
 				The date inputs in the gui should be understood as representing the selected time zone.
 				However, DateTimes and time zones are handled elsewhere, as date type inputs use date strings as values.
-	
 				Below, make sure endDateInput is always a dater later than startDateInput.
 				*/
 				const startDateInput = document.getElementById('start_date');
@@ -204,6 +223,30 @@
 				startDateInput.addEventListener('change', handleDateRangeChange);
 				endDateInput.addEventListener('change', handleDateRangeChange);
 			</script>
+			<article class="border margin yellow2">
+				<div>Selected Time Zone: <span x-text="selectedTimeZone"></span></div>
+				<template
+					x-if="latitude == varanasiCoords.latitude && longitude == varanasiCoords.longitude && elevation == varanasiCoords.elevation">
+					<div>
+						<div class="small-divider"></div>
+						<div>Selected Location: Varanasi</div>
+						<div class="small-divider"></div>
+					</div>
+				</template>
+				<template x-if="myCurrentLocationSelected">
+					<div>
+						<div class="small-divider"></div>
+						<div>Selected Location: My Current Location</div>
+						<div class="small-divider"></div>
+					</div>
+				</template>
+
+				<button @click="getMyLocation(); getMyTimeZone();" class="yellow10 responsive small-margin">
+					Use My Location and Time Zone
+				</button>
+				<button @click="advancedDlgIsOpen = !advancedDlgIsOpen; advancedDlgIsOpenedAt=Date.now();"
+					class="yellow10 responsive">More Options</button>
+			</article>
 
 			<div id="calculator_advanced"></div>
 
@@ -271,17 +314,15 @@
 		</div>
 
 		<h1 style="margin-top:100px;">Ánanda Márga Fasting Calendar</h1>
-		<p>This is a fasting chart for Ánanda Márga upavása with ekádashii, and amávasyá (new moon) and púrńimá
-			(full
-			moon) dates.</p>
+		<p>This is a fasting chart for Ánanda Márga upavása with ekádashii, and amávasyá (new moon) and
+			púrńimá (full moon) dates.</p>
 
 		<h2>Features</h2>
 		<ul class="padding">
 			<li>Look up any fasting dates, any year</li>
 			<li>Add to your Google Calendar (find this icon <i>Calendar_Add_On</i>) </li>
-			<li>Automatically updated - this calendar doesn't depend on someone else hosting a website, or updating the
-				calendar
-			</li>
+			<li>Automatically updated - this calendar doesn't depend on someone else hosting a website, or updating
+				the calendar </li>
 			<li>There is no need to use another website or API for the astronomical calculations</li>
 			<li>Embeddable - you can put this calendar on your website (see <a class="yellow10-text"
 					href="share.html">Share</a>)</li>
@@ -289,11 +330,11 @@
 				connection or if github will no longer be free and this website might disappear (see <a
 					class="yellow10-text" href="share.html">Share</a>)</li>
 			<li>Free hosting - this calendar is free as long as GitHub is free</li>
-			<li>Far sighted - all information is attempted to be saved in this project, if any of the linked websites
-				will go down in the future</li>
+			<li>Far sighted - all information is attempted to be saved in this project, if any of the linked
+				websites will go down in the future</li>
 			<li>Using scientific astronomical calculation libraries</li>
-			<li>One source of complete truth - since there are many fasting dates around, the full source of truth here
-				is fully transparent and defined.</li>
+			<li>One source of complete truth - since there are many fasting dates around, the full source of truth
+				here is fully transparent and defined.</li>
 			<li>Collaborative and interpersonal project. Anyone can continue, change or reimplement this project by
 				using the git code. Now or far into the future.</li>
 		</ul>

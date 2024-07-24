@@ -96,7 +96,7 @@ layout.calculator_advanced = function () {
                                 <template x-for="loc in localeList">
                                     <option x-text="loc" :selected="loc == selectedLocale"></option>
                                 </template>
-                                <option :selected="!localeList.includes(selectedLocale)">Custom</option>
+                                <option :selected="!localeList.includes(selectedLocale)" disabled>Custom</option>
                             </select>
                             <label>Selected Language Code</label>
                             <i>arrow_drop_down</i>
@@ -120,9 +120,9 @@ layout.calculator_advanced = function () {
                             </p>
                             <p>Click a button below to select a time zone, or choose one from the list below.</p>
                         </details>
-                        <button class="yellow10 tiny-margin" x-init="tz = Intl.DateTimeFormat().resolvedOptions().timeZone" @click=' selectedTimeZone = tz; fireEvent(startDateInput);' x-text="'Local Time Zone: ' + tz"></button><br>
-                        <button class="yellow10 tiny-margin" @click='selectedTimeZone = "UTC"; fireEvent(startDateInput);'>UTC Time Zone</button><br>
-                        <button class="yellow10 tiny-margin" @click='selectedTimeZone = varanasiTimeZone; fireEvent(startDateInput);' x-text="'Varanasi Time Zone: ' + varanasiTimeZone + ' (Default)'"></button>
+                        <button class="yellow10 tiny-margin responsive" x-init="tz = Intl.DateTimeFormat().resolvedOptions().timeZone" @click=' selectedTimeZone = tz; fireEvent(startDateInput);' x-text="'Local Time Zone: ' + tz"></button><br>
+                        <button class="yellow10 tiny-margin responsive" @click='selectedTimeZone = "UTC"; fireEvent(startDateInput);'>UTC Time Zone</button><br>
+                        <button class="yellow10 tiny-margin responsive" @click='selectedTimeZone = varanasiTimeZone; fireEvent(startDateInput);' x-text="'Varanasi Time Zone: ' + varanasiTimeZone + ' (Default)'"></button>
 
                         <div class="field label suffix border margin">
                             <select x-model="selectedTimeZone" @change='fireEvent(startDateInput);'>
@@ -160,23 +160,8 @@ layout.calculator_advanced = function () {
                         </div>
                         -->
 
-                        <button class="yellow10 tiny-margin" @click='
-                            if (navigator.geolocation) {
-                                navigator.geolocation.getCurrentPosition(
-                                    // show position
-                                    (position)=>{
-                                        console.log("Got my position:", position);
-                                        latitude = position.coords.latitude;
-                                        longitude = position.coords.longitude;
-                                        elevation = position.coords.altitude || 0;
-                                        fireEvent(startDateInput); // note that this fires async, ie after position has been acquired
-                                    },
-                                    // error
-                                    ()=>{}
-                                );
-                            }
-                            '>Get My Location</button><br>
-                        <button class="yellow10 tiny-margin" @click='
+                        <button class="yellow10 tiny-margin responsive" @click='getMyLocation();'>Get My Location</button><br>
+                        <button class="yellow10 tiny-margin responsive" @click='
                                         latitude = varanasiCoords.latitude;
                                         longitude = varanasiCoords.longitude;
                                         elevation = varanasiCoords.elevation;
@@ -186,12 +171,12 @@ layout.calculator_advanced = function () {
 
 
                         <div class="field label border margin">
-                            <input type="text" class="active" x-model="latitude" @change='fireEvent(startDateInput);'>
+                            <input type="text" class="active" x-model="latitude" @change='myCurrentLocationSelected = false; fireEvent(startDateInput);'>
                             <label class="active">Latitude</label>
                         </div>
 
                         <div class="field label border margin">
-                            <input type="text" class="active" x-model="longitude" @change='fireEvent(startDateInput);'>
+                            <input type="text" class="active" x-model="longitude" @change='myCurrentLocationSelected = false; fireEvent(startDateInput);'>
                             <label class="active">Longitude</label>
                         </div>
 
@@ -210,7 +195,7 @@ layout.calculator_advanced = function () {
                     <article class="border margin yellow2">
                         <h4>Test Data</h4>
                         <p>Click the button below to compare this calculator's fasting dates with the official dates of 2024</p>
-                        <button class="yellow10" @click='
+                        <button class="yellow10 responsive" @click='
                             startDateInput.value="2024-01-01";
                             endDateInput.value="2024-12-31";
                             showTithiDetails = true;

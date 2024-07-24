@@ -1,4 +1,3 @@
-locale not working for fasting dates (without tithi details)
 copyable, named anchor links in science.html
 drawer - swipe advanced functions on mobile - also fix mobile scrolling so main page doesn't scroll inside drawer
 test get my location on mobile with gps
