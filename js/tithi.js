@@ -17,12 +17,15 @@ tithi.getNextTithi = function (currentTithi) {
 }
 
 tithi.getFastingDTTZ = function (selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise_date) {
-    // return fasting date string based on selected time zone
-    let fastingDate = sunrise_date; // if sunrise is closer to tithi end, the solar day is the day before
+    let fastingDTTZ = DateTime.fromJSDate(sunrise_date).setZone(selectedTimeZone);
 
-    let fastingDTLocal = DateTime.fromJSDate(fastingDate);
-    let fastingDTTZ = fastingDTLocal.setZone(selectedTimeZone);
-    if (sunrise_date - nextTithiStart.date > nextTithiEnd.date - sunrise_date) fastingDTTZ = fastingDTTZ.minus({ days: 1 });;
+    // if sunrise is closer to tithi end, the solar day is the day before sunrise
+    if (sunrise_date - nextTithiStart.date > nextTithiEnd.date - sunrise_date) fastingDTTZ = fastingDTTZ.minus({ days: 1 });
+    // we can't be sure that sunrise is always the correct date
+    // (if sunrise is near noon or midnight in polar regions, or if an unmatching time zone is selected, which isn't considered in this code)
+    // so if it's after noon it will be treated as the sunrise of next day
+    if (fastingDTTZ.hour > 11) fastingDTTZ = fastingDTTZ.plus({ days: 1 });
+    ;
     // console.log("tithi.getFastingDTTZ", selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise_date, fastingDate, fastingDTLocal, fastingDTTZ, fastingDTTZ.toISODate());
 
     return fastingDTTZ;
@@ -70,6 +73,7 @@ tithi.calculateTithis = function (selectedLocale, selectedTimeZone, selectedDayS
         searchDate = nextTithiStart.date;
         nextTithiEnd = Astronomy.SearchMoonPhase(nextTithi.end, searchDate, limitDays);
         searchDate = nextTithiEnd.date;
+        let sunrise_date; // fasting date in local time, as that is what Astronomy uses
         let sunriseType = selectedDayStart;
         matchesTestData = false;
         testDataValue = "?";
@@ -101,9 +105,10 @@ tithi.calculateTithis = function (selectedLocale, selectedTimeZone, selectedDayS
         }
         else sunrise_date = sunrise.date;
 
-        let fastingDTTZ = tithi.getFastingDTTZ(selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise_date);
+        let fastingDTTZ = tithi.getFastingDTTZ(selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise_date).setLocale(selectedLocale);
         let fastingDateString = fastingDTTZ.toISODate();
 
+        // https://docs.google.com/spreadsheets/d/1ZT6Dvy1MRGEcK-Y9l6B8T2D7uKyeDqU0_MxLQgpP6lQ/edit?usp=sharing
         if (nextTestDataIndex < testData.dates.length && fastingDateString.includes('2024')) {
             if (nextTestDataIndex == -1) nextTestDataIndex = tithi.getTestDataIndex(fastingDateString, testData);
             if (nextTestDataIndex > -1) {
