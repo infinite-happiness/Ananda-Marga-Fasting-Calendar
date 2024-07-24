@@ -1,4 +1,4 @@
-toc and copyable anchor links in science.html
+copyable, named anchor links in science.html
 drawer - swipe advanced functions on mobile - also fix mobile scrolling so main page doesn't scroll inside drawer
 test get my location on mobile with gps
 verify calculations with other AM websites
