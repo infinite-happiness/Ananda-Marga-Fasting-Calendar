@@ -29,7 +29,7 @@ layout.calculator_advanced = function () {
                                 <template x-if="!row.matchesTestData">
                                     <tr>
                                             <td x-text="row.tithi.name"></td>
-                                            <td><span x-text="formatDate(row.fastingDateString)"></span></td>
+                                            <td><span x-text="row.fastingDTTZ.toISODate()"></span></td>
 											<td x-text="row.testDataValue"></td>
 											<!--<td x-text="row.start"></td>
 											<td x-text="row.sunrise"></td>
