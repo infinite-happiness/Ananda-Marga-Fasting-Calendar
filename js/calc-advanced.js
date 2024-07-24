@@ -85,9 +85,10 @@ layout.calculator_advanced = function () {
                         <details>
                             <summary><i>info</i></summary>
                             <p>
-                                Switch on the setting "Show Tithi Details" to see the effects of this setting.
-                                If you don't find your language in the dropdown you can type in a code from this list, into the lower "Language Code" field:
-                                <a class="yellow10-text" href="https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes" target="_blank" rel="nofollow noopener">https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes</a>
+                                Select a language for displaying date and time.
+                                If you don't find your language in the dropdown you can type in a language code from
+                                <a class="yellow10-text" href="https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes" target="_blank" rel="nofollow noopener">here</a>,
+                                into the "Language Code" field.
                             </p>
                         </details>
                         <div class="field label suffix border margin">
@@ -112,9 +113,10 @@ layout.calculator_advanced = function () {
                         <details>
                             <summary><i>info</i></summary>
                             <p>
-                                This setting will only change the time zone of the displayed dates and times.
-                                The fasting dates will not be affected by this setting.
+                                Select the time zone for fasting day calculations below.
+                                For correct calculations, make sure to select a time zone that matches the location below.
                                 The default time zone is India Standard Time (Asia/Kolkata), because that's how the tithis are presented on Ananda Marga's official websites.
+                                See the <a class="yellow10-text" href="science.html">Science</a> page for more information on how the calculation is done.
                             </p>
                             <p>Click a button below to select a time zone, or choose one from the list below.</p>
                         </details>
@@ -138,9 +140,12 @@ layout.calculator_advanced = function () {
                         <details>
                             <summary><i>info</i></summary>
                             <p>
-                                This setting will calculate the fasting date based on the location you enter.
+                                Select the location for fasting day calculations below.
+                                For correct calculations, make sure to use a time zone above that matches the selected location.
+                                The default location is Varanasi, because that's how the tithis are presented on Ananda Marga's official websites.
                                 See the <a class="yellow10-text" href="science.html">Science</a> page for more information on how the calculation is done.
                             </p>
+                            <p>Click a button below to select a location, or enter the values manually.</p>
                         </details>
 
                         <!--
