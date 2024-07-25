@@ -23,9 +23,9 @@
             try {
                 var successful = document.execCommand('copy');
                 var msg = successful ? 'successful' : 'unsuccessful';
-                console.log('Copying text was ' + msg);
+                //console.log('Copying text was ' + msg);
             } catch (err) {
-                console.log('Oops, unable to copy');
+                //console.log('Oops, unable to copy');
             }
 
         }
@@ -34,8 +34,18 @@
         <h1>Share</h1>
         You can copy this website url here for sharing:
         <div class="field border suffix fill extra">
-            <input id="inputWebsiteUrl" type="text" onclick="this.select()" :value="site.url">
-            <i class="front" onclick="clipboardCopy('#inputWebsiteUrl')">Content_Copy</i>
+            <input id="inputWebsiteUrl" type="text" onclick="this.select()" :value="site.url" x-ref="inputWebsiteUrl">
+            <i class="front" @click="
+                    if ($refs.inputWebsiteUrl.value == 'Copied!') return;
+                    clipboardCopy('#inputWebsiteUrl');
+                    let ref = $refs.inputWebsiteUrl;
+                    let val = $refs.inputWebsiteUrl.value;
+                    $refs.inputWebsiteUrl.value = 'Copied!';
+                    setTimeout(() => {
+                        $refs.inputWebsiteUrl.value = val;
+                    }, 2000);
+                ">Content_Copy</i>
+            <span class="helper">Helper text</span>
         </div>
         <!-- https://jonsuh.com/blog/social-share-links/ -->
         Share this calendar on: <br>
