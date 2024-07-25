@@ -58,11 +58,19 @@ tithi.calculateTithis = function (selectedLocale, selectedTimeZone, selectedDayS
     let i = 0;
     let nextTithi = tithi.tithis[i];
     //console.log(nextTithi, initMoonPhase > nextTithi.start, initMoonPhase)
-    for (i = 0; initMoonPhase > nextTithi.start && i < tithi.tithis.length - 1; i++) nextTithi = tithi.tithis[i]
-    if (initMoonPhase > tithi.tithis[i].start) nextTithi = tithi.tithis[0]; // if initMoonPhase is larger than last starting angle: search for the first phase
-    //console.log(nextTithi)
+    while (initMoonPhase > nextTithi.start) {
+        i++;
+        if (i == tithi.tithis.length) {
+            // if initMoonPhase is larger than last starting angle: use the first phase
+            nextTithi = tithi.tithis[0];
+            break;
+        }
+        nextTithi = tithi.tithis[i];
+        //console.log("nextTithi testing:", nextTithi, initMoonPhase, initMoonPhase > nextTithi.start)
+    }
+    //console.log("current moonphase:", initMoonPhase, "next tithi:", nextTithi, i, tithi.tithis);
 
-    limitDays = 13; // days forwards to search - hopefully it stops after first match - since ekadashi is 11 days after a tithi, 13 days should suffice
+    limitDays = 13; // days forwards to search - suppose amavasya or purnima just started, that means it's almost 132 degrees to next tithi, a little more than a third
     searchDate = startDate;
     nextTestDataIndex = -1;
     errors = 0;
@@ -70,6 +78,7 @@ tithi.calculateTithis = function (selectedLocale, selectedTimeZone, selectedDayS
 
     while (searchDate <= endDate) {
         nextTithiStart = Astronomy.SearchMoonPhase(nextTithi.start, searchDate, limitDays); // creates error if returns null, such as in 348, Wed Dec 31 2008 19:30:00 GMT+0100 (centraleuropeisk normaltid), 13
+        if (nextTithiStart == null) console.log("error:", nextTithi.start, searchDate, initMoonPhase);
         searchDate = nextTithiStart.date;
         nextTithiEnd = Astronomy.SearchMoonPhase(nextTithi.end, searchDate, limitDays);
         searchDate = nextTithiEnd.date;
