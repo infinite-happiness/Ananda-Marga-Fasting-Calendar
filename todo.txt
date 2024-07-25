@@ -1,3 +1,6 @@
+https://github.com/bradvin/social-share-urls
+https://www.quora.com/Is-it-possible-to-create-a-link-for-a-website-where-when-someone-clicks-it-it-sends-them-to-the-page-on-their-WhatsApp-to-share-that-link-with-contacts
+fix above ground to only display when used
 copyable, named anchor links in science.html
 drawer - swipe advanced functions on mobile - also fix mobile scrolling so main page doesn't scroll inside drawer
 test get my location on mobile with gps

@@ -44,10 +44,10 @@ layout.header = function () {
 layout.bottom_content = function () {
   return `
   <p>
-    Created 2024 by Rámanuja - Robin Manoli<br>
+    Created 2024 by Rámanuja - Robin Manoli - Sweden<br>
     AMUFC Website: <a class="yellow10-text" href="` + site.url + `">` + site.url + `</a><br>
     AMUFC GitHub: <a class="yellow10-text" href="` + site.githubUrl + `" target="_blank" rel="nofollow noopener">` + site.githubUrl + `</a><br>
-    <a class="button yellow10-text yellow10-border border" href="` + site.downloadUrl + `" rel="nofollow noopener">Download AMUFC to Your Computer</a>
+    <a class="button yellow10-text yellow10-border border responsive margin" href="` + site.downloadUrl + `" rel="nofollow noopener">Download AMUFC to Your Computer</a>
   </p>
 `;
 }
