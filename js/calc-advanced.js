@@ -186,11 +186,12 @@ layout.calculator_advanced = function () {
                             <label class="active">Elevation (meters)</label>
                         </div>
 
-                        <div class="field label border margin">
-                            <input type="text" class="active" x-model="aboveGround" @change='fireEvent(startDateInput);'>
-                            <label class="active">Above Ground (meters)</label>
-                            <span class="helper">"Above Ground" is only used when "Top of the Sun Peeks above Horizon" is the start of day.</span>
-                        </div>
+                        <template x-if="selectedDayStart == dayStartList[1]">
+                            <div class="field label border margin">
+                                <input type="text" class="active" x-model="aboveGround" @change='fireEvent(startDateInput);'>
+                                <label class="active">Above Ground (meters)</label>
+                            </div>
+                        </template>
                     </article>
                     
                     <article class="border margin yellow2">
