@@ -4,8 +4,12 @@ site.title = "Ananda Marga Upavasa Fasting Calendar";
 site.url = "https://infinite-happiness.github.io/Ananda-Marga-Fasting-Calendar";
 site.githubUrl = "https://github.com/infinite-happiness/Ananda-Marga-Fasting-Calendar";
 site.downloadUrl = "https://github.com/infinite-happiness/Ananda-Marga-Fasting-Calendar/archive/refs/heads/main.zip";
+site.imageUrl = site.url + '/media/Moon-Paths-Ekadashii-Amavasya-Purnima.svg';
+site.tags = "Ananda Marga, Fasting, Calendar, Yoga, Tantra";
 site.urlEncodedTitle = encodeURIComponent(site.title);
 site.urlEncodedUrl = encodeURIComponent(site.url);
+site.urlEncodedImage = encodeURIComponent(site.imageUrl);
+site.urlEncodedTags = encodeURIComponent(site.imageUrl);
 
 layout.head = function () {
   if (document.title == "") document.title = site.title;

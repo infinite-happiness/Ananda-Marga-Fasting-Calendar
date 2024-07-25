@@ -39,21 +39,45 @@
         </div>
         <!-- https://jonsuh.com/blog/social-share-links/ -->
         Share this calendar on: <br>
-        <a class="button blue10 tiny-margin responsive"
+        <a class="button tiny-margin responsive" style="background-color: #25D366;"
+            :href="'https://api.whatsapp.com/send?text=' + site.urlEncodedTitle + '%20' + site.urlEncodedUrl"
+            target="_blank" rel="nofollow noopener">WhatsApp</a>
+
+        <a class="button blue tiny-margin responsive" style="background-color: #0088cc;"
+            :href="'https://telegram.me/share/url?text=' + site.urlEncodedTitle + '&url=' + site.urlEncodedUrl"
+            target="_blank" rel="nofollow noopener">Telegram</a>
+
+        <a class="button blue10 tiny-margin responsive" style="background-color: #4267B2;"
             :href="'https://www.facebook.com/share.php?u=' + site.urlEncodedUrl" target="_blank"
             rel="nofollow noopener">FaceBook</a>
 
-        <a class="button blue tiny-margin responsive"
+        <a class="button blue tiny-margin responsive" style="background-color: #1DA1F2;"
             :href="'https://twitter.com/intent/tweet?text=' + site.urlEncodedTitle + '+' + site.urlEncodedUrl"
             target="_blank" rel="nofollow noopener">X (Twitter)</a>
 
-        <a class="button blue8 tiny-margin responsive"
+        <a class="button blue8 tiny-margin responsive" style="background-color: #0A66C2;"
             :href="'https://www.linkedin.com/shareArticle?mini=true' + '&url=' + site.urlEncodedUrl + '&title' + site.urlEncodedTitle"
             target=" _blank" rel="nofollow noopener">LinkedIn</a>
 
-        <a class="button red5 tiny-margin responsive" :href="'http://www.reddit.com/submit/?url' + site.urlEncodedUrl"
-            target="_blank" rel="nofollow noopener">Reddit</a>
-        <!-- needs image: https://www.pinterest.com/pin/create/button/?url=https%3A%2F%2Finfinite-happiness.github.io%2FAnanda-Marga-Fasting-Calendar&media= -->
+        <a class="button yellow10 tiny-margin responsive"
+            :href="'mailto:?subject=' + site.urlEncodedTitle + '&body=' + site.urlEncodedUrl" target="_blank"
+            rel="nofollow noopener">Email</a>
+
+        <a class="button red5 tiny-margin responsive" style="background-color: #FF5700;"
+            :href="'http://www.reddit.com/submit/?url=' + site.urlEncodedUrl" target="_blank"
+            rel="nofollow noopener">Reddit</a>
+
+        <a class="button red5 tiny-margin responsive" style="background-color: #E60023;"
+            :href="'https://www.pinterest.com/pin/create/button/?url=' + site.urlEncodedUrl + '&media=' + site.urlEncodedImage"
+            target="_blank" rel="nofollow noopener">Pinterest</a>
+
+        <a class="button red5 tiny-margin responsive" style="background-color: #34526f;"
+            :href="'https://www.tumblr.com/widgets/share/tool?canonicalUrl=' + site.urlEncodedUrl + '&title=' + site.urlEncodedTitle + '&tags=' + site.urlEncodedTags"
+            target="_blank" rel="nofollow noopener">Tumblr</a>
+
+        <a class="button red5 tiny-margin responsive" style="background-color: #fc4f08;"
+            :href="'https://www.blogger.com/blog-this.g?u=' + site.urlEncodedUrl + '&n=' + site.urlEncodedTitle"
+            target="_blank" rel="nofollow noopener">Blogger</a>
 
         <h2>Download</h2>
         You can download this calendar onto your computer and access it without an internet connection:
