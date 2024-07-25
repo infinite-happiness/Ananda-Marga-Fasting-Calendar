@@ -45,7 +45,6 @@
                         $refs.inputWebsiteUrl.value = val;
                     }, 2000);
                 ">Content_Copy</i>
-            <span class="helper">Helper text</span>
         </div>
         <!-- https://jonsuh.com/blog/social-share-links/ -->
         Share this calendar on: <br>
@@ -56,6 +55,10 @@
         <a class="button blue tiny-margin responsive" style="background-color: #0088cc;"
             :href="'https://telegram.me/share/url?text=' + site.urlEncodedTitle + '&url=' + site.urlEncodedUrl"
             target="_blank" rel="nofollow noopener">Telegram</a>
+
+        <a class="button blue10 tiny-margin responsive" style="background-color: #4267B2;"
+            :href="'fb-messenger://share/?app_id=1468699796783355&link=' + site.urlEncodedUrl" target="_blank"
+            rel="nofollow noopener">Messenger</a>
 
         <a class="button blue10 tiny-margin responsive" style="background-color: #4267B2;"
             :href="'https://www.facebook.com/share.php?u=' + site.urlEncodedUrl" target="_blank"
