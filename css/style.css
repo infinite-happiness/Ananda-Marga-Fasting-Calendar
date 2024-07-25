@@ -57,5 +57,5 @@ video {
 .month-11+ :not(.month-11),
 .month-12+ :not(.month-12) {
     border-top: 1px solid black !important;
-    sbackground-color: red !important;
+    /*background-color: red !important;*/
 }
