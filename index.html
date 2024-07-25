@@ -252,10 +252,11 @@
 			<h3 class="margin capitalize"
 				x-text="'Fasting Dates ' + startingDate.monthLong + ' ' + startingDate.year + ' - ' + endingDate.monthLong + ' ' + endingDate.year">
 			</h3>
-			<table class="stripes yellow2">
+			<table class="stripes yellow2" style="border-collapse: collapse;">
 				<tbody>
 					<template x-for="row in rows">
-						<tr>
+						<tr :style="{opacity: row.fastingDTTZ.toJSDate() < Date.now() ? '0.6':'1'}"
+							:class="'month-' + row.fastingDTTZ.month">
 							<td x-text="row.tithi.name"></td>
 							<td>
 								<a :href="googleCalendarUrl(row.tithi, row.fastingDTTZ)" target="_blank"

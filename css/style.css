@@ -43,3 +43,19 @@ video {
 .pointer {
     cursor: pointer
 }
+
+.month-1+ :not(.month-1),
+.month-2+ :not(.month-2),
+.month-3+ :not(.month-3),
+.month-4+ :not(.month-4),
+.month-5+ :not(.month-5),
+.month-6+ :not(.month-6),
+.month-7+ :not(.month-7),
+.month-8+ :not(.month-8),
+.month-9+ :not(.month-9),
+.month-10+ :not(.month-10),
+.month-11+ :not(.month-11),
+.month-12+ :not(.month-12) {
+    border-top: 1px solid black !important;
+    sbackground-color: red !important;
+}
