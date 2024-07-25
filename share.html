@@ -64,15 +64,15 @@
             rel="nofollow noopener">Email</a>
 
         <a class="button red5 tiny-margin responsive" style="background-color: #FF5700;"
-            :href="'http://www.reddit.com/submit/?url=' + site.urlEncodedUrl" target="_blank"
-            rel="nofollow noopener">Reddit</a>
+            :href="'http://www.reddit.com/submit/?url=' + site.urlEncodedUrl + '&title=' + site.urlEncodedTitle"
+            target="_blank" rel="nofollow noopener">Reddit</a>
 
         <a class="button red5 tiny-margin responsive" style="background-color: #E60023;"
             :href="'https://www.pinterest.com/pin/create/button/?url=' + site.urlEncodedUrl + '&media=' + site.urlEncodedImage"
             target="_blank" rel="nofollow noopener">Pinterest</a>
 
         <a class="button red5 tiny-margin responsive" style="background-color: #34526f;"
-            :href="'https://www.tumblr.com/widgets/share/tool?canonicalUrl=' + site.urlEncodedUrl + '&title=' + site.urlEncodedTitle + '&tags=' + site.urlEncodedTags"
+            :href="'https://www.tumblr.com/widgets/share/tool?canonicalUrl=' + site.urlEncodedUrl + '&title=' + site.urlEncodedTitle + '&tags=' + site.urlEncodedTags + '&caption=' + site.urlEncodedTitle"
             target="_blank" rel="nofollow noopener">Tumblr</a>
 
         <a class="button red5 tiny-margin responsive" style="background-color: #fc4f08;"
