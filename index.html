@@ -90,6 +90,11 @@
 				advancedDlgIsOpenedAt: 0, // https://stackoverflow.com/questions/71025866/alpinejs-triggering-a-click-outside-event-when-adding-modal
 				saveSettingsInBrowser: storageObject.saveSettingsInBrowser || false,
 				showTithiDetails: storageObject.showTithiDetails || false,
+				showGoogleCalendar: storageObject.showGoogleCalendar === false ? false : true,
+				showOutlookCalendar: storageObject.showOutlookCalendar || false,
+				showOffice365Calendar: storageObject.showOffice365Calendar || false,
+				showAndroidCalendar: storageObject.showAndroidCalendar || false,
+				showiOSCalendar: storageObject.showiOSCalendar || false,
 				//worldCities: World_Cities, // slow, only load if needed
 				myCurrentLocationSelected: false,
 				varanasiCoords: varanasiCoords,
@@ -115,6 +120,11 @@
 					if (this.saveSettingsInBrowser) {
 						storageObject.saveSettingsInBrowser = this.saveSettingsInBrowser;
 						storageObject.showTithiDetails = this.showTithiDetails;
+						storageObject.showGoogleCalendar = this.showGoogleCalendar;
+						storageObject.showOutlookCalendar = this.showOutlookCalendar;
+						storageObject.showOffice365Calendar = this.showOffice365Calendar;
+						storageObject.showAndroidCalendar = this.showAndroidCalendar;
+						storageObject.showiOSCalendar = this.showiOSCalendar;
 						storageObject.selectedLocale = this.selectedLocale;
 						storageObject.selectedTimeZone = this.selectedTimeZone;
 						storageObject.selectedDayStart = this.selectedDayStart;
@@ -126,6 +136,27 @@
 					localStorage.setItem('calendar', JSON.stringify(storageObject));
 					//console.log(window.localStorage.calendar);
 				},
+
+				getMobileOperatingSystem() {
+					var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+					// Windows Phone must come first because its UA also contains "Android"
+					if (/windows phone/i.test(userAgent)) {
+						return "Windows Phone";
+					}
+
+					if (/android/i.test(userAgent)) {
+						return "Android";
+					}
+
+					// iOS detection from: http://stackoverflow.com/a/9039885/177710
+					if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+						return "iOS";
+					}
+
+					return "unknown";
+				},
+				nowLuxon() { return DateTime.now().setZone(this.selectedTimeZone) },
 				formatDate(date) { return date; },
 				formatDateTime(date) { return date.toLocaleDateString("en-US", dateTimeOptions) },
 				formatTimeDiff(timeDiff) {
@@ -135,7 +166,21 @@
 					d += 's';
 					return d;
 				},
+
+				iOSCalendarUrl(tithi, fastingDTTZ) {
+					// https://medium.com/@duhseekoh/need-to-open-the-os-calendar-at-a-specific-date-in-react-native-55f3a085cf8e
+					let referenceDate = DateTime.utc(2001, 1, 1);
+					let elapsed = fastingDTTZ.toMillis() / 1000 - referenceDate.toMillis() / 1000;
+					let url = 'calshow:' + elapsed;
+					return url;
+				},
+				androidCalendarUrl(tithi, fastingDTTZ) {
+					// https://medium.com/@duhseekoh/need-to-open-the-os-calendar-at-a-specific-date-in-react-native-55f3a085cf8e
+					let url = 'content://com.android.calendar/time/' + fastingDTTZ.toMillis();
+					return url;
+				},
 				googleCalendarUrl(tithi, fastingDTTZ) {
+					// https://github.com/InteractionDesignFoundation/add-event-to-calendar-docs/blob/main/services/google.md
 					let d = new Date(fastingDTTZ.toISODate());
 					let start = d.toISOString().substring(0, 10).replaceAll("-", "");
 					d.setHours(d.getHours() + 24);
@@ -144,6 +189,27 @@
 					url += "&dates=" + start + "/" + end;
 					return url;
 				},
+				msOutlookCalendarUrl(tithi, fastingDTTZ) {
+					// https://github.com/InteractionDesignFoundation/add-event-to-calendar-docs/blob/main/services/outlook-web.md
+					let d = new Date(fastingDTTZ.toISODate());
+					let start = d.toISOString().substring(0, 10).replaceAll("-", "");
+					d.setHours(d.getHours() + 24);
+					let end = d.toISOString().substring(0, 10).replaceAll("-", "");
+					let url = "https://outlook.live.com/calendar/deeplink/compose?path=/calendar/action/compose&rru=addevent&allday=true&subject=" + encodeURIComponent(tithi.name);
+					url += "&startdt=" + start + "&enddt" + end;
+					return url;
+				},
+				msOffice365CalendarUrl(tithi, fastingDTTZ) {
+					// https://github.com/InteractionDesignFoundation/add-event-to-calendar-docs/blob/main/services/outlook-web.md
+					let d = new Date(fastingDTTZ.toISODate());
+					let start = d.toISOString().substring(0, 10).replaceAll("-", "");
+					d.setHours(d.getHours() + 24);
+					let end = d.toISOString().substring(0, 10).replaceAll("-", "");
+					let url = "https://outlook.office.com/calendar/deeplink/compose?path=/calendar/action/compose&rru=addevent&allday=true&subject=" + encodeURIComponent(tithi.name);
+					url += "&startdt=" + start + "&enddt" + end;
+					return url;
+				},
+
 				getMyTimeZone() {
 					this.selectedTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 				},
@@ -255,14 +321,35 @@
 			<table class="stripes yellow2" style="border-collapse: collapse;">
 				<tbody>
 					<template x-for="row in rows">
-						<tr :style="{opacity: row.fastingDTTZ.toJSDate() < Date.now() ? '0.6':'1'}"
+						<tr xx-data="rowTithiIsNow = nowLuxon() > row.start && nowLuxon() < row.end"
+							:style="{opacity: row.end < nowLuxon() ? '0.6':'1', fontWeight: row.start < nowLuxon() && nowLuxon() < row.end ? 'bold':''}"
 							:class="'month-' + row.fastingDTTZ.month">
-							<td x-text="row.tithi.name"></td>
+							<td x-text="row.tithi.name">
+							</td>
 							<td>
-								<a :href="googleCalendarUrl(row.tithi, row.fastingDTTZ)" target="_blank"
-									rel="nofollow noopener">
-									<span x-text="row.fastingDTTZ.toLocaleString(DateTime.DATE_HUGE)"></span>
-									<i>Calendar_Add_On</i>
+								<span x-text="row.fastingDTTZ.toLocaleString(DateTime.DATE_HUGE)"></span><br>
+							</td>
+							<td style="text-align: right; padding-right:1rem;">
+								<a x-show="showGoogleCalendar" :href="googleCalendarUrl(row.tithi, row.fastingDTTZ)"
+									target="_blank" rel="nofollow noopener" title="Add To Google Calendar">
+									<i class="tiny-margin"><img src="media/external/google-calendar-icon.webp"></i>
+								</a>
+								<a x-show="showOutlookCalendar" :href="msOutlookCalendarUrl(row.tithi, row.fastingDTTZ)"
+									target="_blank" rel="nofollow noopener" title="Add To Microsoft Outlook">
+									<i class="tiny-margin"><img src="media/external/ms-outlook-icon.webp"></i>
+								</a>
+								<a x-show="showOffice365Calendar"
+									:href="msOffice365CalendarUrl(row.tithi, row.fastingDTTZ)" target="_blank"
+									rel="nofollow noopener" title="Add To Microsoft 365 Office">
+									<i class="tiny-margin""><img src=" media/external/ms-office-365-icon.webp"></i>
+								</a>
+								<a x-show="showAndroidCalendar" :href="androidCalendarUrl(row.tithi, row.fastingDTTZ)"
+									target="_blank" rel="nofollow noopener" title="Add To Android Calendar">
+									<i class="tiny-margin""><img src=" media/external/Android_robot.svg.png"></i>
+								</a>
+								<a x-show="showiOSCalendar" :href="iOSCalendarUrl(row.tithi, row.fastingDTTZ)"
+									target="_blank" rel="nofollow noopener" title="Add To iOS Calendar">
+									<i class="tiny-margin""><img src=" media/external/iOS-Logo-2017-500x333.jpg"></i>
 								</a>
 							</td>
 							<template x-if="showTithiDetails">
@@ -320,7 +407,7 @@
 		<h2>Features</h2>
 		<ul class="padding">
 			<li>Look up any fasting dates, any year</li>
-			<li>Add to your Google Calendar (find this icon <i>Calendar_Add_On</i>) </li>
+			<li>Add fasting dates to your calendar (see More Options for alternatives) </li>
 			<li>Automatically updated - this calendar doesn't depend on someone else hosting a website, or updating
 				the calendar </li>
 			<li>There is no need to use another website or API for the astronomical calculations</li>
