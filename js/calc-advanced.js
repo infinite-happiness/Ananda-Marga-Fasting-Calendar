@@ -48,82 +48,29 @@ layout.calculator_advanced = function () {
 						</button>
                     </div>
 
-                    <nav class="tiny-margin">
-                        <div class="max">
-                            <div>Save Settings Automatically in Browser</div>
-                        </div>
-                        <label class="switch icon">
-                            <input type="checkbox" x-model="saveSettingsInBrowser" @change='fireEvent(startDateInput);'>
-                            <span><i>Save</i></span>
-                        </label>
-                    </nav>
+                    <article class="border margin yellow2">
+                        <h4>Options</h4>
+                        <nav class="tiny-margin">
+                            <div class="max">
+                                <div>Save Settings Automatically in Browser</div>
+                            </div>
+                            <label class="switch icon">
+                                <input type="checkbox" x-model="saveSettingsInBrowser" @change='fireEvent(startDateInput);'>
+                                <span><i>Save</i></span>
+                            </label>
+                        </nav>
 
-                    <div class="divider"></div>
-                    <nav class="tiny-margin">
-                        <div class="max">
-                            <div>Show Tithi Details</div>
-                        </div>
-                        <label class="switch icon">
-                            <input type="checkbox" x-model="showTithiDetails" @change='fireEvent(startDateInput);'>
-                            <span><i>dark_mode</i></span>
-                        </label>
-                    </nav>
-
-                    <div class="divider"></div>
-                    <nav class="tiny-margin">
-                        <div class="max">
-                            <div>Show Google Calendar</div>
-                        </div>
-                        <label class="switch icon">
-                            <input type="checkbox" x-model="showGoogleCalendar" @change='fireEvent(startDateInput);'>
-                            <span><i><img src="media/external/google-calendar-icon.webp"></i></i></span>
-                        </label>
-                    </nav>
-
-                    <div class="divider"></div>
-                    <nav class="tiny-margin">
-                        <div class="max">
-                            <div>Show Outlook Calendar</div>
-                        </div>
-                        <label class="switch icon">
-                            <input type="checkbox" x-model="showOutlookCalendar" @change='fireEvent(startDateInput);'>
-                            <span><i><img src="media/external/ms-outlook-icon.webp"></i></span>
-                        </label>
-                    </nav>
-
-                    <div class="divider"></div>
-                    <nav class="tiny-margin">
-                        <div class="max">
-                            <div>Show Office 365 Calendar</div>
-                        </div>
-                        <label class="switch icon">
-                            <input type="checkbox" x-model="showOffice365Calendar" @change='fireEvent(startDateInput);'>
-                            <span><i><img src="media/external/ms-office-365-icon.webp"></i></span>
-                        </label>
-                    </nav>
-
-                    <div class="divider"></div>
-                    <nav class="tiny-margin">
-                        <div class="max">
-                            <div>Show Android Calendar</div>
-                        </div>
-                        <label class="switch icon">
-                            <input type="checkbox" x-model="showAndroidCalendar" @change='fireEvent(startDateInput);'>
-                            <span><i><img src="media/external/Android_robot.svg.png"></i></span>
-                        </label>
-                    </nav>
-
-                    <div class="divider"></div>
-                    <nav class="tiny-margin">
-                        <div class="max">
-                            <div>Show iOS Calendar</div>
-                        </div>
-                        <label class="switch icon">
-                            <input type="checkbox" x-model="showiOSCalendar" @change='fireEvent(startDateInput);'>
-                            <span><i><img src="media/external/iOS-Logo-2017-500x333.jpg"></i></span>
-                        </label>
-                    </nav>
-
+                        <div class="divider"></div>
+                        <nav class="tiny-margin">
+                            <div class="max">
+                                <div>Show Tithi Details</div>
+                            </div>
+                            <label class="switch icon">
+                                <input type="checkbox" x-model="showTithiDetails" @change='fireEvent(startDateInput);'>
+                                <span><i>dark_mode</i></span>
+                            </label>
+                        </nav>
+                    </article>
 
                     <div class="field label suffix border margin">
                         <select x-model="selectedDayStart" @change='fireEvent(startDateInput);'>
@@ -134,6 +81,70 @@ layout.calculator_advanced = function () {
                         <label>Day Start - Affects Fasting Date</label>
                         <i>arrow_drop_down</i>
                     </div>
+
+                    <article class="border margin yellow2">
+                        <h4>Calendars</h4>
+                        <details>
+                            <summary><i>info</i></summary>
+                            <p>
+                                Activate a calendar below so that you can add fasting dates to that calendar.
+                                Adding to the different calendars may or may unfortunately not work depending on your device.
+                            </p>
+                        </details>
+                        <nav class="tiny-margin">
+                            <div class="max">
+                                <div>Show Google Calendar</div>
+                            </div>
+                            <label class="switch icon">
+                                <input type="checkbox" x-model="showGoogleCalendar" @change='fireEvent(startDateInput);'>
+                                <span><i><img src="media/external/google-calendar-icon.webp"></i></i></span>
+                            </label>
+                        </nav>
+
+                        <div class="divider"></div>
+                        <nav class="tiny-margin">
+                            <div class="max">
+                                <div>Show Outlook Calendar</div>
+                            </div>
+                            <label class="switch icon">
+                                <input type="checkbox" x-model="showOutlookCalendar" @change='fireEvent(startDateInput);'>
+                                <span><i><img src="media/external/ms-outlook-icon.webp"></i></span>
+                            </label>
+                        </nav>
+
+                        <div class="divider"></div>
+                        <nav class="tiny-margin">
+                            <div class="max">
+                                <div>Show Office 365 Calendar</div>
+                            </div>
+                            <label class="switch icon">
+                                <input type="checkbox" x-model="showOffice365Calendar" @change='fireEvent(startDateInput);'>
+                                <span><i><img src="media/external/ms-office-365-icon.webp"></i></span>
+                            </label>
+                        </nav>
+
+                        <div class="divider"></div>
+                        <nav class="tiny-margin">
+                            <div class="max">
+                                <div>Show Android Calendar</div>
+                            </div>
+                            <label class="switch icon">
+                                <input type="checkbox" x-model="showAndroidCalendar" @change='fireEvent(startDateInput);'>
+                                <span><i><img src="media/external/Android_robot.svg.png"></i></span>
+                            </label>
+                        </nav>
+
+                        <div class="divider"></div>
+                        <nav class="tiny-margin">
+                            <div class="max">
+                                <div>Show iOS Calendar</div>
+                            </div>
+                            <label class="switch icon">
+                                <input type="checkbox" x-model="showiOSCalendar" @change='fireEvent(startDateInput);'>
+                                <span><i><img src="media/external/iOS-Logo-2017-500x333.jpg"></i></span>
+                            </label>
+                        </nav>
+                    </article>
 
                     <article class="border margin yellow2">
                         <h4>Language for Displaying Date and Time</h4>
