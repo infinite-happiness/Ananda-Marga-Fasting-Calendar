@@ -79,6 +79,8 @@
 				errors: 0,
 				startingDate: 0,
 				endingDate: 0,
+				fastingEventDuration: storageObject.fastingEventDuration === undefined ? 60 : storageObject.fastingEventDuration,
+				fastingEventStartTime: storageObject.fastingEventStartTime === undefined ? '09:00' : storageObject.fastingEventStartTime,
 				localeList: localeList,
 				selectedLocale: storageObject.selectedLocale || 'en-UK',
 				timeZoneList: timeZoneList,
@@ -90,6 +92,7 @@
 				advancedDlgIsOpenedAt: 0, // https://stackoverflow.com/questions/71025866/alpinejs-triggering-a-click-outside-event-when-adding-modal
 				saveSettingsInBrowser: storageObject.saveSettingsInBrowser || false,
 				showTithiDetails: storageObject.showTithiDetails || false,
+				fastingDayAsAllDayEvent: storageObject.fastingDayAsAllDayEvent === false ? false : true,
 				showGoogleCalendar: storageObject.showGoogleCalendar === false ? false : true,
 				showOutlookCalendar: storageObject.showOutlookCalendar || false,
 				showOffice365Calendar: storageObject.showOffice365Calendar || false,
@@ -119,7 +122,10 @@
 					localStorage.removeItem('calendar');
 					if (this.saveSettingsInBrowser) {
 						storageObject.saveSettingsInBrowser = this.saveSettingsInBrowser;
+						storageObject.fastingEventDuration = this.fastingEventDuration;
+						storageObject.fastingEventStartTime = this.fastingEventStartTime;
 						storageObject.showTithiDetails = this.showTithiDetails;
+						storageObject.fastingDayAsAllDayEvent = this.fastingDayAsAllDayEvent;
 						storageObject.showGoogleCalendar = this.showGoogleCalendar;
 						storageObject.showOutlookCalendar = this.showOutlookCalendar;
 						storageObject.showOffice365Calendar = this.showOffice365Calendar;
@@ -181,32 +187,64 @@
 				},
 				googleCalendarUrl(tithi, fastingDTTZ) {
 					// https://github.com/InteractionDesignFoundation/add-event-to-calendar-docs/blob/main/services/google.md
-					let d = new Date(fastingDTTZ.toISODate());
-					let start = d.toISOString().substring(0, 10).replaceAll("-", "");
-					d.setHours(d.getHours() + 24);
-					let end = d.toISOString().substring(0, 10).replaceAll("-", "");
 					let url = "https://calendar.google.com/calendar/r/eventedit?text=" + encodeURIComponent(tithi.name);
+					let start, end;
+
+					if (this.fastingDayAsAllDayEvent) {
+						let d = new Date(fastingDTTZ.toISODate());
+						start = d.toISOString().substring(0, 10).replaceAll("-", "");
+						d.setHours(d.getHours() + 24);
+						end = d.toISOString().substring(0, 10).replaceAll("-", "");
+					}
+					else {
+						const { minute, hour } = DateTime.fromFormat(this.fastingEventStartTime, 'hh:mm').toObject();
+						//console.log(minute, hour);
+						// this uses the time zone of the calculator, whereas for the notification the user probably wants their own local time
+						// at least if they want to use default varanasi fasting date for the fasting day, and local time for the notification
+						const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+						//start = fastingDTTZ.setZone(localTimeZone).set({ hour: hour, minute: minute, });
+						//end = start.plus({ minutes: this.fastingEventDuration });
+						start = new Date(fastingDTTZ.toISODate());
+						start.setHours(hour, minute);
+						end = new Date(DateTime.fromJSDate(start).plus({ minutes: this.fastingEventDuration }).toJSDate());
+
+						start = start.toISOString().replaceAll("-", "").replaceAll(":", "");
+						end = end.toISOString().replaceAll("-", "").replaceAll(":", "");
+					}
 					url += "&dates=" + start + "/" + end;
 					return url;
 				},
 				msOutlookCalendarUrl(tithi, fastingDTTZ) {
 					// https://github.com/InteractionDesignFoundation/add-event-to-calendar-docs/blob/main/services/outlook-web.md
-					let d = new Date(fastingDTTZ.toISODate());
-					let start = d.toISOString().substring(0, 10).replaceAll("-", "");
-					d.setHours(d.getHours() + 24);
-					let end = d.toISOString().substring(0, 10).replaceAll("-", "");
-					let url = "https://outlook.live.com/calendar/deeplink/compose?path=/calendar/action/compose&rru=addevent&allday=true&subject=" + encodeURIComponent(tithi.name);
-					url += "&startdt=" + start + "&enddt" + end;
+					let url = "https://outlook.live.com/calendar/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=" + encodeURIComponent(tithi.name);
+					let start, end;
+
+					if (this.fastingDayAsAllDayEvent) {
+						let d = new Date(fastingDTTZ.toISODate());
+						start = d.toISOString().substring(0, 10)//.replaceAll("-", "");
+						d.setHours(d.getHours() + 24);
+						end = d.toISOString().substring(0, 10)//.replaceAll("-", "");
+						url += "&allday=true"
+					}
+					else {
+						const { minute, hour } = DateTime.fromFormat(this.fastingEventStartTime, 'hh:mm').toObject();
+						start = new Date(fastingDTTZ.toISODate());
+						start.setHours(hour, minute);
+						end = new Date(DateTime.fromJSDate(start).plus({ minutes: this.fastingEventDuration }).toJSDate());
+
+						//start = start.toISOString(); // ms does not set this to local time zone
+						//end = end.toISOString();// ms does not set this to local time zone
+						start = DateTime.fromJSDate(start).toISO();
+						end = DateTime.fromJSDate(end).toISO();
+						//console.log("msOutlookCalendarUrl", start, end);
+						url += "&allday=false"
+					}
+					url += "&startdt=" + encodeURIComponent(start) + "&enddt=" + encodeURIComponent(end);
 					return url;
 				},
 				msOffice365CalendarUrl(tithi, fastingDTTZ) {
-					// https://github.com/InteractionDesignFoundation/add-event-to-calendar-docs/blob/main/services/outlook-web.md
-					let d = new Date(fastingDTTZ.toISODate());
-					let start = d.toISOString().substring(0, 10).replaceAll("-", "");
-					d.setHours(d.getHours() + 24);
-					let end = d.toISOString().substring(0, 10).replaceAll("-", "");
-					let url = "https://outlook.office.com/calendar/deeplink/compose?path=/calendar/action/compose&rru=addevent&allday=true&subject=" + encodeURIComponent(tithi.name);
-					url += "&startdt=" + start + "&enddt" + end;
+					//let url = "https://outlook.office.com/calendar/deeplink/compose?path=/calendar/action/compose&rru=addevent&allday=true&subject=" + encodeURIComponent(tithi.name);
+					let url = this.msOutlookCalendarUrl(tithi, fastingDTTZ).replace('https://outlook.live.com/', 'https://outlook.office.com/');
 					return url;
 				},
 

@@ -90,10 +90,54 @@ layout.calculator_advanced = function () {
                                 Activate a calendar below so that you can add fasting dates to that calendar.
                                 Adding to the different calendars may or may unfortunately not work depending on your device.
                             </p>
+                            <p>
+                                If you want your calendar to notify you about the fasting at a specific time, turn off "Fasting Day as All Day Event".
+                                You can then set the start time and duration of the event.
+                                For example, in Google Calendar, you can set up default notification times one day, and two days, before the event.
+                                In that case you will be notified the time you set as the start of the event, one day, and two days, before the fasting day.
+                                The notification is set to your device's time zone, not the selected time zone for the displayed fasting dates.
+                                For Microsoft calendars make sure to set your desired time zone in calendar settings
+                                (<a class="yellow10-text" rel="nofollow noopener" href="https://outlook.live.com/calendar/0/options/calendar/view">outlook calendar settings</a>)
+                            </p>
                         </details>
+
                         <nav class="tiny-margin">
                             <div class="max">
-                                <div>Show Google Calendar</div>
+                                <div>Fasting Day as All Day Event</div>
+                            </div>
+                            <label class="switch icon">
+                                <input type="checkbox" x-model="fastingDayAsAllDayEvent" @change='fireEvent(startDateInput);'>
+                                <span><i>sunny</i></i></span>
+                            </label>
+                        </nav>
+
+                        <template x-if="!fastingDayAsAllDayEvent">
+                            <article class="border margin yellow2">
+                                <div class="field label prefix border">
+                                    <i>schedule</i>
+                                    <input class="active" type="time" step="300" x-model="fastingEventStartTime" @change='fireEvent(startDateInput);'>
+                                    <label class="active">Event Start Time</label>
+                                </div>
+                                <!--
+                                <div class="field label border">
+                                    <input class="active" type="number" x-model="fastingEventDuration" @change='fireEvent(startDateInput);'>
+                                    <label class="active">Event Duration in Minutes</label>
+                                </div>
+                                -->
+                                <div class="field middle-align">
+                                <label class="slider">
+                                <input type="range" x-model="fastingEventDuration" min="1" max="1440" @change='fireEvent(startDateInput);'>
+                                <span></span>
+                                </label>
+                                <span class="helper" x-text="'Event Duration: ' + fastingEventDuration + ' minutes'"></span>
+                                </div>
+                            </article>
+                        </template>
+
+                        <div class="divider"></div>
+                        <nav class="tiny-margin">
+                            <div class="max">
+                                <div>Google Calendar</div>
                             </div>
                             <label class="switch icon">
                                 <input type="checkbox" x-model="showGoogleCalendar" @change='fireEvent(startDateInput);'>
@@ -104,7 +148,7 @@ layout.calculator_advanced = function () {
                         <div class="divider"></div>
                         <nav class="tiny-margin">
                             <div class="max">
-                                <div>Show Outlook Calendar</div>
+                                <div>Outlook Calendar</div>
                             </div>
                             <label class="switch icon">
                                 <input type="checkbox" x-model="showOutlookCalendar" @change='fireEvent(startDateInput);'>
@@ -115,7 +159,7 @@ layout.calculator_advanced = function () {
                         <div class="divider"></div>
                         <nav class="tiny-margin">
                             <div class="max">
-                                <div>Show Office 365 Calendar</div>
+                                <div>Office 365 Calendar</div>
                             </div>
                             <label class="switch icon">
                                 <input type="checkbox" x-model="showOffice365Calendar" @change='fireEvent(startDateInput);'>
@@ -126,7 +170,7 @@ layout.calculator_advanced = function () {
                         <div class="divider"></div>
                         <nav class="tiny-margin">
                             <div class="max">
-                                <div>Show Android Calendar</div>
+                                <div>Android Calendar</div>
                             </div>
                             <label class="switch icon">
                                 <input type="checkbox" x-model="showAndroidCalendar" @change='fireEvent(startDateInput);'>
@@ -137,7 +181,7 @@ layout.calculator_advanced = function () {
                         <div class="divider"></div>
                         <nav class="tiny-margin">
                             <div class="max">
-                                <div>Show iOS Calendar</div>
+                                <div>iOS Calendar</div>
                             </div>
                             <label class="switch icon">
                                 <input type="checkbox" x-model="showiOSCalendar" @change='fireEvent(startDateInput);'>
