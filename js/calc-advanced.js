@@ -5,6 +5,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 layout.calculator_advanced = function () {
     return `
+                <nav class="bottom right-align transparent">
+                    <button class="circle large yellow10" @click="advancedDlgIsOpen = !advancedDlgIsOpen;">
+                        <i>settings</i>
+                    </button>
+                </nav>
+
                 <article x-show="showTestDataAccuracy">
                     <div class="row right-align">
                         <button class="transparent circle large" @click="showTestDataAccuracy = false">
@@ -89,6 +95,7 @@ layout.calculator_advanced = function () {
                             <p>
                                 Activate a calendar below so that you can add fasting dates to that calendar.
                                 Adding to the different calendars may or may unfortunately not work depending on your device.
+                                Please try different devices and browsers to find out which is best suitable for adding the fasting dates to your calendar.
                             </p>
                             <p>
                                 If you want your calendar to notify you about the fasting at a specific time, turn off "Fasting Day as All Day Event".
@@ -315,7 +322,6 @@ layout.calculator_advanced = function () {
                             advancedDlgIsOpen = false;
                             fireEvent(startDateInput);'>Compare</button>
                     </article>
-
                 </dialog>
 `}
 

@@ -24,7 +24,7 @@ layout.head = function () {
 
 layout.header = function () {
   return `
-  <nav class="top yellow2">
+<nav class="top yellow2">
   <a href="index.html">
     <i><img src="media/android-chrome-192x192.png"></i>
     <div>Calendar</div>

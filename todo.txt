@@ -1,5 +1,6 @@
 copyable, named anchor links in science.html
-drawer - swipe advanced functions on mobile - also fix mobile scrolling so main page doesn't scroll inside drawer
+fix mobile scrolling so main page doesn't scroll inside drawer
+add unit tests
 verify calculations with other AM websites
 add info on fasting (text and videos from https://india.anandamarga.org/fasting-calendar/ ?)
 github pages root dir (for github user root url): https://github.com/orgs/community/discussions/63631
