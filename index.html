@@ -359,8 +359,7 @@
 			<table class="stripes yellow2" style="border-collapse: collapse;">
 				<tbody>
 					<template x-for="row in rows">
-						<tr xx-data="rowTithiIsNow = nowLuxon() > row.start && nowLuxon() < row.end"
-							:style="{opacity: row.end < nowLuxon() ? '0.6':'1', fontWeight: row.start < nowLuxon() && nowLuxon() < row.end ? 'bold':''}"
+						<tr :style="{opacity: row.fastingDTTZ.endOf('day') < nowLuxon() ? '0.6':'1', fontWeight: row.fastingDTTZ.startOf('day') < nowLuxon() && nowLuxon() < row.fastingDTTZ.endOf('day') ? 'bold':''}"
 							:class="'month-' + row.fastingDTTZ.month">
 							<td x-text="row.tithi.name">
 							</td>
