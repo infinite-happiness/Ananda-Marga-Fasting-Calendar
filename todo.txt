@@ -1,5 +1,6 @@
 copyable, named anchor links in science.html
 fix mobile scrolling so main page doesn't scroll inside drawer
+store files locally (for example css/beer.min.css has https://cdn.jsdelivr.net/npm/beercss@3.6.8/dist/cdn/material-symbols-outlined.woff2)
 add unit tests
 verify calculations with other AM websites
 add info on fasting (text and videos from https://india.anandamarga.org/fasting-calendar/ ?)

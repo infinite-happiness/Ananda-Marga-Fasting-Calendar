@@ -24,7 +24,7 @@ layout.head = function () {
 
 layout.header = function () {
   return `
-<nav class="top yellow2">
+<nav class="yellow2" :class="isInIframe()?'':'top'">
   <a href="index.html">
     <i><img src="media/android-chrome-192x192.png"></i>
     <div>Calendar</div>
@@ -61,9 +61,9 @@ document.body.style.visibility = 'hidden';
 // obfuscate script tag to make js files load: https://stackoverflow.com/a/17542683
 document.write('<script defer src="js/alpine3.min.js"><\/script>');
 
-document.getElementById('header').innerHTML = layout.head() + layout.header();
 document.body.classList.add("yellow1");
 document.addEventListener('DOMContentLoaded', function () {
+  document.getElementById('header').innerHTML = layout.head() + layout.header();
   document.getElementById('bottom_content').innerHTML = layout.bottom_content();
   document.body.style.visibility = "visible";
 }, false);
