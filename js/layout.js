@@ -62,7 +62,7 @@ document.body.style.visibility = 'hidden';
 document.write('<script defer src="js/alpine3.min.js"><\/script>');
 
 function isInIframe() {
-  console.log("isInIframe", window.self !== window.top);
+  //console.log("isInIframe", window.self !== window.top);
   try {
     return window.self !== window.top;
   } catch (e) {
