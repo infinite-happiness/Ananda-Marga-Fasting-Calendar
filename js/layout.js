@@ -61,6 +61,15 @@ document.body.style.visibility = 'hidden';
 // obfuscate script tag to make js files load: https://stackoverflow.com/a/17542683
 document.write('<script defer src="js/alpine3.min.js"><\/script>');
 
+function isInIframe() {
+  console.log("isInIframe", window.self !== window.top);
+  try {
+    return window.self !== window.top;
+  } catch (e) {
+    return true;
+  }
+}
+
 document.body.classList.add("yellow1");
 document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('header').innerHTML = layout.head() + layout.header();

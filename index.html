@@ -142,14 +142,6 @@
 					//console.log(window.localStorage.calendar);
 				},
 
-				isInIframe() {
-					try {
-						return window.self !== window.top;
-					} catch (e) {
-						return true;
-					}
-				},
-
 				getMobileOperatingSystem() {
 					var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
@@ -290,7 +282,7 @@
 
 	<main class="responsive">
 		<div id="calculator" x-data="calculator()">
-			<h1 :style="{marginTop:isInIframe()?'':'100px', fontSize:isInIframe()?'1rem':'1.1rem'}">
+			<h1 :style="{marginTop:isInIframe()?'':'100px', fontSize:isInIframe()?'1.1rem':'1.7rem'}">
 				<i class="margin"><img src="media/android-chrome-192x192.png"></i>
 				Ananda Marga Upavasa Fasting Calendar
 			</h1>
@@ -482,7 +474,7 @@
 			</ul>
 
 			<div id="bottom_content"></div>
-			<header id="header"></header>
+			<header id="header" style="background:transparent;"></header>
 		</div>
 	</main>
 </body>
