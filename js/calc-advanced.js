@@ -5,11 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 layout.calculator_advanced = function () {
     return `
-                <nav class="bottom right-align transparent">
-                    <button class="circle large yellow10" @click="advancedDlgIsOpen = !advancedDlgIsOpen;">
-                        <i>settings</i>
-                    </button>
-                </nav>
+                <button class="circle large yellow10" style="position:fixed; right:10px; bottom:10px; z-index:9;" @click="advancedDlgIsOpen = !advancedDlgIsOpen;">
+                    <i>settings</i>
+                </button>
 
                 <article x-show="showTestDataAccuracy">
                     <div class="row right-align">
