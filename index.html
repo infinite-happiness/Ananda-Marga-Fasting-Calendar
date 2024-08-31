@@ -101,6 +101,7 @@
 				showiOSCalendar: storageObject.showiOSCalendar || false,
 				//worldCities: World_Cities, // slow, only load if needed
 				gettingLocation: false,
+				myCurrentLocationAllowed: true,
 				myCurrentLocationSelected: false,
 				varanasiCoords: varanasiCoords,
 				latitude: storageObject.latitude === undefined ? varanasiCoords.latitude : storageObject.latitude, // numbers can be 0, so can't just do storageObject.latitude || 25.321684
@@ -290,6 +291,7 @@
 								(error) => {
 									console.log(error);
 									context.gettingLocation = false;
+									context.myCurrentLocationAllowed = false;
 									fireEvent(startDateInput); // note that this fires async, ie after position has failed
 								}
 							);
@@ -334,9 +336,16 @@
 						<div>Selected Location: My Current Location</div>
 					</div>
 				</template>
-				<div class="small-divider"></div>
 
-				<template x-if="navigator.geolocation && (!myCurrentLocationSelected || !myCurrentTimezoneSelected())">
+				<template x-if="!myCurrentLocationAllowed">
+					<div>
+						<div class="small-divider"></div>
+						<div>Open full calendar to allow access to your location</div>
+					</div>
+				</template>
+
+				<template
+					x-if="myCurrentLocationAllowed && (!myCurrentLocationSelected || !myCurrentTimezoneSelected())">
 					<button @click="getMyLocation(); getMyTimeZone();" class="yellow10 responsive small-margin">
 						Use My Location and Time Zone
 						<template x-if="gettingLocation">
