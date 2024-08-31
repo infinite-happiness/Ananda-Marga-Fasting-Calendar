@@ -289,8 +289,8 @@
 								// error
 								(error) => {
 									console.log(error);
-									this.gettingLocation = false;
-
+									context.gettingLocation = false;
+									fireEvent(startDateInput); // note that this fires async, ie after position has failed
 								}
 							);
 
