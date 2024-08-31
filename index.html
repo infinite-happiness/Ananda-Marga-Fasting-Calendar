@@ -336,7 +336,7 @@
 				</template>
 				<div class="small-divider"></div>
 
-				<template x-if="!myCurrentLocationSelected || !myCurrentTimezoneSelected()">
+				<template x-if="navigator.geolocation && (!myCurrentLocationSelected || !myCurrentTimezoneSelected())">
 					<button @click="getMyLocation(); getMyTimeZone();" class="yellow10 responsive small-margin">
 						Use My Location and Time Zone
 						<template x-if="gettingLocation">
