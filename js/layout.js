@@ -24,7 +24,7 @@ layout.head = function () {
 
 layout.header = function () {
   return `
-<nav class="yellow2" :class="isInIframe()?'padding':'top'">
+<nav id="navbar_main" class="yellow2" :class="isInIframe()?'padding':'top'">
   <a href="index.html">
     <i><img src="media/android-chrome-192x192.png"></i>
     <div>Calendar</div>
@@ -75,4 +75,5 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('header').innerHTML = layout.head() + layout.header();
   document.getElementById('bottom_content').innerHTML = layout.bottom_content();
   document.body.style.visibility = "visible";
+
 }, false);

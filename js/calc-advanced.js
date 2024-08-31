@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 layout.calculator_advanced = function () {
     return `
-                <button class="circle large yellow10" style="position:fixed; right:10px; bottom:10px; z-index:9;" @click="advancedDlgIsOpen = !advancedDlgIsOpen;">
+                <button class="circle large yellow10" style="position:fixed; right:10px; bottom:10px; z-index:9;" @click="optionsToggle();">
                     <i>settings</i>
                 </button>
 
@@ -45,7 +45,8 @@ layout.calculator_advanced = function () {
                     </table>
                 </article>
 
-				<dialog class="left yellow1" x-bind:class="advancedDlgIsOpen?'active':''" click.outside="if (advancedDlgIsOpenedAt != 0 && Date.now() > advancedDlgIsOpenedAt + 500) advancedDlgIsOpen = false">
+				<dialog id="calendar_options" class="left yellow1" x-bind:class="advancedDlgIsOpen?'active':''"
+                                click.outside="if (advancedDlgIsOpenedAt != 0 && Date.now() > advancedDlgIsOpenedAt + 500) advancedDlgIsOpen = false">
                     <div class="row right-align">
                         <button class="transparent circle large" @click="advancedDlgIsOpen = !advancedDlgIsOpen;">
 									<i>close</i>

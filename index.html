@@ -142,6 +142,19 @@
 					//console.log(window.localStorage.calendar);
 				},
 
+				optionsToggle() {
+					this.advancedDlgIsOpen = !this.advancedDlgIsOpen;
+					this.advancedDlgIsOpenedAt = Date.now();
+					const navbar = document.getElementById('navbar_main');
+					if (navbar !== null) {
+						const calendar_options = document.getElementById('calendar_options');
+						//document.body.style.marginTop = `${navbarHeight}px`; // done by beercss (js?)
+						calendar_options.style.marginTop = `${navbar.offsetHeight - 15}px`;
+						calendar_options.style.paddingBottom = `${navbar.offsetHeight + 10}px`;
+					}
+
+				},
+
 				getMobileOperatingSystem() {
 					var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
@@ -349,8 +362,7 @@
 					Use My Location and Time Zone
 					<i>Location_On</i>
 				</button>
-				<button @click="advancedDlgIsOpen = !advancedDlgIsOpen; advancedDlgIsOpenedAt=Date.now();"
-					class="yellow10 responsive">
+				<button @click="optionsToggle();" class="yellow10 responsive">
 					More Options
 					<i>settings</i>
 				</button>
