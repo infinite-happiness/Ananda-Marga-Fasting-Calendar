@@ -302,45 +302,6 @@
 			<a x-show="isInIframe()" class="yellow10-text" :href="site.url" target="_blank">
 				<i class="margin">Open_In_New</i>Open Full Calendar</a>
 
-			<div class="field label border">
-				<label for="start_date" class="active">Start Date</label>
-				<input type="date" id="start_date" class="active"
-					@change="update($refs.start_date.value, $refs.end_date.value)"
-					x-init="update($refs.start_date.value, $refs.end_date.value)" x-ref="start_date" />
-			</div>
-
-			<div class="field label border">
-				<label for="end_date" class="active">End Date</label>
-				<input type="date" id="end_date" class="active"
-					@change="update($refs.start_date.value, $refs.end_date.value)" x-ref="end_date" />
-			</div>
-			<!--<small style="display:block; width:250px;">Please note! If you select a long time span this page may be
-				unresponsive for
-				some time!</small>-->
-			<script>
-				/*
-				The date inputs in the gui should be understood as representing the selected time zone.
-				However, DateTimes and time zones are handled elsewhere, as date type inputs use date strings as values.
-				Below, make sure endDateInput is always a dater later than startDateInput.
-				*/
-				const startDateInput = document.getElementById('start_date');
-				const endDateInput = document.getElementById('end_date');
-				startDateInput.value = new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toISOString().substring(0, 10);
-				endDateInput.value = new Date(Date.now() + 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10);
-
-				// ensure end date is always after start date
-				const handleDateRangeChange = () => {
-					const maxDate = new Date(endDateInput.value);
-					const minDate = new Date(startDateInput.value);
-					maxDate.setHours(maxDate.getHours() - 24);
-					startDateInput.max = maxDate.toISOString().substring(0, 10);
-					minDate.setHours(minDate.getHours() + 24);
-					endDateInput.min = minDate.toISOString().substring(0, 10);
-				};
-				handleDateRangeChange();
-				startDateInput.addEventListener('change', handleDateRangeChange);
-				endDateInput.addEventListener('change', handleDateRangeChange);
-			</script>
 			<article class="border margin yellow2">
 				<div>Selected Time Zone: <span x-text="selectedTimeZone"></span></div>
 				<template
@@ -452,6 +413,46 @@
 					</template>
 				</tbody>
 			</table>
+
+			<div class="field label border">
+				<label for="start_date" class="active">Start Date</label>
+				<input type="date" id="start_date" class="active"
+					@change="update($refs.start_date.value, $refs.end_date.value)"
+					x-init="update($refs.start_date.value, $refs.end_date.value)" x-ref="start_date" />
+			</div>
+
+			<div class="field label border">
+				<label for="end_date" class="active">End Date</label>
+				<input type="date" id="end_date" class="active"
+					@change="update($refs.start_date.value, $refs.end_date.value)" x-ref="end_date" />
+			</div>
+			<!--<small style="display:block; width:250px;">Please note! If you select a long time span this page may be
+							unresponsive for
+							some time!</small>-->
+			<script>
+				/*
+				The date inputs in the gui should be understood as representing the selected time zone.
+				However, DateTimes and time zones are handled elsewhere, as date type inputs use date strings as values.
+				Below, make sure endDateInput is always a dater later than startDateInput.
+				*/
+				const startDateInput = document.getElementById('start_date');
+				const endDateInput = document.getElementById('end_date');
+				startDateInput.value = new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toISOString().substring(0, 10);
+				endDateInput.value = new Date(Date.now() + 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10);
+
+				// ensure end date is always after start date
+				const handleDateRangeChange = () => {
+					const maxDate = new Date(endDateInput.value);
+					const minDate = new Date(startDateInput.value);
+					maxDate.setHours(maxDate.getHours() - 24);
+					startDateInput.max = maxDate.toISOString().substring(0, 10);
+					minDate.setHours(minDate.getHours() + 24);
+					endDateInput.min = minDate.toISOString().substring(0, 10);
+				};
+				handleDateRangeChange();
+				startDateInput.addEventListener('change', handleDateRangeChange);
+				endDateInput.addEventListener('change', handleDateRangeChange);
+			</script>
 
 			<h1 style="margin-top:100px;">Ánanda Márga Fasting Calendar</h1>
 			<p>This is a fasting chart for Ánanda Márga upavása with ekádashii, and amávasyá (new moon) and
