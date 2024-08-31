@@ -39,12 +39,14 @@
 		let Interval = luxon.Interval;
 
 		// https://stackoverflow.com/a/2856602
-		function fireEvent(element) {
+		function fireEvent(element, context = "") {
+			if (context != "") console.log("fireEvent started:", context)
 			// set element to startDateInput to re-calculate tithis
 			if ("createEvent" in document) {
 				var evt = document.createEvent("HTMLEvents"); evt.initEvent("change", false, true);
 				element.dispatchEvent(evt);
 			} else element.fireEvent("onchange");
+			if (context != "") console.log("fireEvent ended:", context)
 		}
 
 		function calculator() {
@@ -98,6 +100,7 @@
 				showAndroidCalendar: storageObject.showAndroidCalendar || false,
 				showiOSCalendar: storageObject.showiOSCalendar || false,
 				//worldCities: World_Cities, // slow, only load if needed
+				gettingLocation: false,
 				myCurrentLocationSelected: false,
 				varanasiCoords: varanasiCoords,
 				latitude: storageObject.latitude === undefined ? varanasiCoords.latitude : storageObject.latitude, // numbers can be 0, so can't just do storageObject.latitude || 25.321684
@@ -260,24 +263,38 @@
 					return url;
 				},
 
+				myCurrentTimezoneSelected() {
+					return this.selectedTimeZone == Intl.DateTimeFormat().resolvedOptions().timeZone;
+				},
+
 				getMyTimeZone() {
 					this.selectedTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 				},
 				getMyLocation() {
+					let context = this;
+					this.gettingLocation = true;
 					if (navigator.geolocation) {
-						navigator.geolocation.getCurrentPosition(
-							// show position
-							(position) => {
-								console.log("Got my position:", position);
-								this.latitude = position.coords.latitude;
-								this.longitude = position.coords.longitude;
-								this.elevation = position.coords.altitude || 0;
-								this.myCurrentLocationSelected = true;
-								fireEvent(startDateInput); // note that this fires async, ie after position has been acquired
-							},
-							// error
-							(error) => { console.log(error) }
-						);
+						setTimeout(function () {
+							navigator.geolocation.getCurrentPosition(
+								// show position
+								(position) => {
+									console.log("Got my position:", position);
+									context.latitude = position.coords.latitude;
+									context.longitude = position.coords.longitude;
+									context.elevation = position.coords.altitude || 0;
+									context.myCurrentLocationSelected = true;
+									context.gettingLocation = false;
+									fireEvent(startDateInput); // note that this fires async, ie after position has been acquired
+								},
+								// error
+								(error) => {
+									console.log(error);
+									this.gettingLocation = false;
+
+								}
+							);
+
+						}, 0)
 					}
 				},
 
@@ -319,10 +336,18 @@
 				</template>
 				<div class="small-divider"></div>
 
-				<button @click="getMyLocation(); getMyTimeZone();" class="yellow10 responsive small-margin">
-					Use My Location and Time Zone
-					<i>Location_On</i>
-				</button>
+				<template x-if="!myCurrentLocationSelected || !myCurrentTimezoneSelected()">
+					<button @click="getMyLocation(); getMyTimeZone();" class="yellow10 responsive small-margin">
+						Use My Location and Time Zone
+						<template x-if="gettingLocation">
+							<progress class="yellow10 circle small" style="color:white;"></progress>
+						</template>
+						<template x-if="!gettingLocation">
+							<i>Location_On</i>
+						</template>
+					</button>
+				</template>
+
 				<button @click="optionsToggle();" class="yellow10 responsive">
 					More Options
 					<i>settings</i>
@@ -492,8 +517,8 @@
 			<header id="header" style="background:transparent;"></header>
 		</div>
 	</main>
-	<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-	<script>eruda.init();</script>
+	<!--<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+	<script>eruda.init();</script>-->
 </body>
 
 </html>
