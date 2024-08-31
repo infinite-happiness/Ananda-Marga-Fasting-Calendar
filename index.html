@@ -271,7 +271,8 @@
 				getMyTimeZone() {
 					this.selectedTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 				},
-				getMyLocation() {
+
+				getMyLocation(getMyTimeZoneIfSucceed = false) {
 					let context = this;
 					this.gettingLocation = true;
 					if (navigator.geolocation) {
@@ -285,13 +286,14 @@
 									context.elevation = position.coords.altitude || 0;
 									context.myCurrentLocationSelected = true;
 									context.gettingLocation = false;
+									if (getMyTimeZoneIfSucceed) getMyTimeZone();
 									fireEvent(startDateInput); // note that this fires async, ie after position has been acquired
 								},
 								// error
 								(error) => {
 									console.log(error);
 									context.gettingLocation = false;
-									context.myCurrentLocationAllowed = false;
+									if (isInIframe()) context.myCurrentLocationAllowed = false;
 									fireEvent(startDateInput); // note that this fires async, ie after position has failed
 								}
 							);
@@ -338,15 +340,15 @@
 				</template>
 
 				<template x-if="!myCurrentLocationAllowed">
-					<div>
-						<div class="small-divider"></div>
-						<div>Open full calendar to allow access to your location</div>
-					</div>
+					<a :href="site.url" target="_blank" class="button error responsive small-margin">
+						Open full calendar to access your location
+						<i class="margin">Open_In_New</i>
+					</a>
 				</template>
 
 				<template
 					x-if="myCurrentLocationAllowed && (!myCurrentLocationSelected || !myCurrentTimezoneSelected())">
-					<button @click="getMyLocation(); getMyTimeZone();" class="yellow10 responsive small-margin">
+					<button @click="getMyLocation(true);" class="yellow10 responsive small-margin">
 						Use My Location and Time Zone
 						<template x-if="gettingLocation">
 							<progress class="yellow10 circle small" style="color:white;"></progress>
