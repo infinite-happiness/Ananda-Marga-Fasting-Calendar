@@ -286,7 +286,7 @@
 									context.elevation = position.coords.altitude || 0;
 									context.myCurrentLocationSelected = true;
 									context.gettingLocation = false;
-									if (getMyTimeZoneIfSucceed) getMyTimeZone();
+									if (getMyTimeZoneIfSucceed) context.getMyTimeZone();
 									fireEvent(startDateInput); // note that this fires async, ie after position has been acquired
 								},
 								// error
@@ -341,7 +341,7 @@
 
 				<template x-if="!myCurrentLocationAllowed">
 					<a :href="site.url" target="_blank" class="button error responsive small-margin">
-						Access my location
+						Failed! Open Full
 					</a>
 				</template>
 
@@ -497,7 +497,7 @@
 
 			<h2>Features</h2>
 			<ul class="padding">
-				<li>Look up any fasting dates, any year</li>
+				<li>Look up any fasting days, any year</li>
 				<li>Add fasting dates to your calendar (see More Options for alternatives) </li>
 				<li>Automatically updated - this calendar doesn't depend on someone else hosting a website, or updating
 					the calendar </li>
