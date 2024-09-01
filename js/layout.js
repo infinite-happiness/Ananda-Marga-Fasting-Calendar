@@ -10,6 +10,8 @@ site.urlEncodedTitle = encodeURIComponent(site.title);
 site.urlEncodedUrl = encodeURIComponent(site.url);
 site.urlEncodedImage = encodeURIComponent(site.imageUrl);
 site.urlEncodedTags = encodeURIComponent(site.imageUrl);
+const urlParams = new URLSearchParams(window.location.search);
+
 
 layout.head = function () {
   if (document.title == "") document.title = site.title;
@@ -60,6 +62,9 @@ layout.bottom_content = function () {
 document.body.style.visibility = 'hidden';
 // obfuscate script tag to make js files load: https://stackoverflow.com/a/17542683
 document.write('<script defer src="js/alpine3.min.js"><\/script>');
+if (urlParams.has('d') || urlParams.has('debug')) {
+  document.write('<script src="js/eruda.js"><\/script>');
+}
 
 function isInIframe() {
   //console.log("isInIframe", window.self !== window.top);
@@ -75,5 +80,9 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('header').innerHTML = layout.head() + layout.header();
   document.getElementById('bottom_content').innerHTML = layout.bottom_content();
   document.body.style.visibility = "visible";
+
+  if (urlParams.has('d') || urlParams.has('debug')) {
+    eruda.init();
+  }
 
 }, false);
