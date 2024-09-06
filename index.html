@@ -293,7 +293,7 @@
 								(error) => {
 									console.log(error);
 									context.gettingLocation = false;
-									if (isInIframe()) context.myCurrentLocationAllowed = false;
+									context.myCurrentLocationAllowed = false;
 									fireEvent(startDateInput); // note that this fires async, ie after position has failed
 								}
 							);
@@ -339,12 +339,16 @@
 					</div>
 				</template>
 
-				<template x-if="!myCurrentLocationAllowed">
+				<template x-if="!myCurrentLocationAllowed && isInIframe()">
 					<a :href="site.url" target="_blank" class="button error responsive small-margin">
 						Failed! Open Full...
 					</a>
 				</template>
-
+				<template x-if="!myCurrentLocationAllowed && !isInIframe()">
+					<a :href="site.url" target="_blank" class="button error responsive small-margin">
+						Failed! Please Allow Location in Browser
+					</a>
+				</template>
 				<template
 					x-if="myCurrentLocationAllowed && (!myCurrentLocationSelected || !myCurrentTimezoneSelected())">
 					<button @click="getMyLocation(true);" class="yellow10 responsive small-margin">
@@ -518,7 +522,7 @@
 				<li>One source of complete truth - since there are many fasting dates around, the full source of truth
 					here is fully transparent and defined.</li>
 				<li>Collaborative and interpersonal project. Anyone can continue, change or reimplement this project by
-					using the git code. Now or far into the future.</li>
+					using the git code. Now or far into the future. (This does not suggest a free licence).</li>
 			</ul>
 
 			<h4>Synonyms and Keywords (for SEO)</h4>
