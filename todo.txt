@@ -1,3 +1,4 @@
+bug with de-highlighting passed dates after selecting local time zone and location
 copyable, named anchor links in science.html
 fix mobile scrolling so main page doesn't scroll inside drawer
 store files locally (for example css/beer.min.css has https://cdn.jsdelivr.net/npm/beercss@3.6.8/dist/cdn/material-symbols-outlined.woff2)
