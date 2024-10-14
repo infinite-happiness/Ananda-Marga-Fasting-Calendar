@@ -35,6 +35,10 @@ layout.header = function () {
     <i>share</i>
     <div>Share</div>
   </a>
+  <a href="fasting.html">
+    <i>no_meals</i>
+    <div>Fasting</div>
+  </a>
   <a href="science.html">
     <i>routine</i>
     <div>Science</div>
@@ -53,7 +57,8 @@ layout.bottom_content = function () {
     Created 2024 by Rámanuja - Robin Manoli - Sweden<br>
     AMSFC Website: <a class="yellow10-text" href="` + site.url + `">` + site.url + `</a><br>
     AMSFC GitHub: <a class="yellow10-text" href="` + site.githubUrl + `" target="_blank" rel="nofollow noopener">` + site.githubUrl + `</a><br>
-    <a class="button yellow10-text yellow10-border border responsive margin" href="` + site.downloadUrl + `" rel="nofollow noopener">Download AMSFC to Your Computer</a>
+    <a class="yellow10-text" href="` + site.url + `/sitemap.xml">Sitemap</a><br>
+    <a class="button yellow10-text yellow10-border border responsive margin" href="` + site.downloadUrl + `" rel="nofollow noopener">Download AMSFC to Your Computer</a><br>
   </p>
 `;
 }

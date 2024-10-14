@@ -33,5 +33,9 @@ def generate_sitemap(base_url, files):
 # Replace 'your_directory' with the actual directory path
 generate_sitemap(
     "https://infinite-happiness.github.io/Ananda-Marga-Fasting-Calendar/",
-    ["index.html", "science.html"],
+    [
+        "index.html",
+        "science.html",
+        # "fasting.html", # should be added here later, but for now it's better that the root page is displayed on Google, which could otherwise display the fasting page for ananda marga fasting searches
+    ],
 )
