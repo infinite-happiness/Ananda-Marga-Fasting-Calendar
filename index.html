@@ -204,7 +204,7 @@
 				googleCalendarUrl(tithi, fastingDTTZ) {
 					// https://github.com/InteractionDesignFoundation/add-event-to-calendar-docs/blob/main/services/google.md
 					// this is not working on google calendar apps on samsung/huawei, but it does work on ios
-					let url = "https://calendar.google.com/calendar/r/eventedit?action=TEMPLATE&text=" + encodeURIComponent(tithi.name);
+					let url = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(tithi.name);
 					let start, end;
 
 					if (this.fastingDayAsAllDayEvent) {
