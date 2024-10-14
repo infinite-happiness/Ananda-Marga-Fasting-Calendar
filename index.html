@@ -3,8 +3,8 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Ananda Marga Upavasa Fasting Calendar</title>
-	<meta property="og:title" content="Ananda Marga Upavasa Fasting Calendar" />
+	<title>Ananda Marga Scientific Fasting Calendar</title>
+	<meta property="og:title" content="Ananda Marga Scientific Fasting Calendar" />
 	<meta property="og:description" content="Automatically calculate fasting days for any location and time zone!" />
 	<meta property="og:image"
 		content="https://infinite-happiness.github.io/Ananda-Marga-Fasting-Calendar/media/Moon-Paths-Ekadashii-Amavasya-Purnima.min.png" />
@@ -203,7 +203,8 @@
 				},
 				googleCalendarUrl(tithi, fastingDTTZ) {
 					// https://github.com/InteractionDesignFoundation/add-event-to-calendar-docs/blob/main/services/google.md
-					let url = "https://calendar.google.com/calendar/r/eventedit?text=" + encodeURIComponent(tithi.name);
+					// this is not working on google calendar apps on samsung/huawei, but it does work on ios
+					let url = "https://calendar.google.com/calendar/r/eventedit?action=TEMPLATE&text=" + encodeURIComponent(tithi.name);
 					let start, end;
 
 					if (this.fastingDayAsAllDayEvent) {
@@ -213,6 +214,9 @@
 						end = d.toISOString().substring(0, 10).replaceAll("-", "");
 					}
 					else {
+						// url working on google calendar apps on samsung/huawei:
+						//url = "https://calendar.google.com/calendar/event?action=TEMPLATE&pprop=eid..&dates=20241023T130000%2F20241023T140000&text=...&location=...&ctok=...&details=..."
+
 						const { minute, hour } = DateTime.fromFormat(this.fastingEventStartTime, 'hh:mm').toObject();
 						//console.log(minute, hour);
 						// this uses the time zone of the calculator, whereas for the notification the user probably wants their own local time
@@ -318,7 +322,7 @@
 		<div id="calculator" x-data="calculator()">
 			<h1 :style="{marginTop:isInIframe()?'':'100px', fontSize:isInIframe()?'1.1rem':'1.7rem'}">
 				<i class="margin"><img src="media/android-chrome-192x192.png"></i>
-				Ananda Marga Upavasa Fasting Calendar
+				Ananda Marga Scientific Fasting Calendar
 			</h1>
 			<a x-show="isInIframe()" class="yellow10-text" :href="site.url" target="_blank">
 				<i class="margin">Open_In_New</i>Open Full Calendar</a>
@@ -496,17 +500,24 @@
 			</script>
 
 			<h1 style="margin-top:100px;">Ánanda Márga Fasting Calendar</h1>
-			<p>This is a fasting chart for Ánanda Márga upavása with ekádashii, and amávasyá (new moon) and
-				púrńimá (full moon) dates.</p>
+			<p>This is an upavasa fasting chart for Ánanda Márga upavása with ekádashii, and amávasyá (new moon)
+				and púrńimá (full moon) dates.</p>
 
 			<h2>Features</h2>
 			<ul class="padding">
-				<li>Look up any fasting days, any year, from any location using any time zone and locale (date format).
+				<li>Look up any upavasa fasting days, any year, from any location using any time zone and locale (date
+					format).
 				</li>
 				<li>Add fasting dates to your calendar (Google Calendar, Outlook Calendar, Office 365 Calendar, Android
 					Calendar and iOS Calendar).</li>
 				<li>Choose your desired definition of sunrise (astronomical dawn, nautical dawn, civil dawn, top of sun
-					peeks above horizon or sun at center of horizon).</li>
+					peeks above horizon or sun at center of horizon). You can also use this feature if you are very far
+					north, or very far south, adjusting the sunrise to happen closer to the actual morning. For example,
+					in the winter of the far north, certain types of sunrise never occur. In that case the calculator is
+					using the sun's lowest position as the sunrise, which will be near midnight. Another definition of
+					sunrise may still occur. So you can adjust the calendar settings of Day Start, and turn on Show
+					Tithi Details, and see which start of the day to use. This may make the breaking of fast occur at a
+					practically possible time after sunrise in some cases.</li>
 				<li>Automatically updated - this calendar doesn't depend on someone else hosting a website, or updating
 					the calendar </li>
 				<li>There is no need to use another website or API for the astronomical calculations</li>
