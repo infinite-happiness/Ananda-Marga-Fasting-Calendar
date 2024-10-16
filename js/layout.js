@@ -58,7 +58,7 @@ layout.bottom_content = function () {
     <a class="yellow10-text" href="code.html" target="_blank" rel="nofollow noopener">Code Guide</a><br>
     <a class="yellow10-text" href="` + site.githubUrl + `" target="_blank" rel="nofollow noopener">GitHub</a><br>
     <a class="yellow10-text" href="` + site.url + `/sitemap.xml" target="_blank">Sitemap</a><br>
-    You can run AMSFC locally from your computer without an internet connection, by downloading it:
+    You can run AMSFC locally from your computer without an internet connection, by downloading it. Then unzip it, and open index.html with your browser.
     <a class="button yellow10-text yellow10-border border responsive margin" href="` + site.downloadUrl + `" rel="nofollow noopener">Download AMSFC to Your Computer</a><br>
   </p>
 `;
