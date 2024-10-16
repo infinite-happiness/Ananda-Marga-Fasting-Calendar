@@ -52,7 +52,7 @@ layout.bottom_content = function () {
   <p>
     Created 2024 by Rámanuja - Robin Manoli - Sweden<br>
     AMSFC Website: <a class="yellow10-text" href="` + site.url + `">` + site.url + `</a><br>
-    <a class="yellow10-text" href="share.html" target="_blank" rel="nofollow noopener">Share or Embed</a><br>
+    <a class="yellow10-text" href="share.html" target="_blank" rel="nofollow noopener">Share / Embed / Download</a><br>
     <a class="yellow10-text" href="fasting.html" target="_blank" rel="nofollow noopener">Fasting System</a><br>
     <a class="yellow10-text" href="science.html" target="_blank" rel="nofollow noopener">Astronomical Science of Fasting Days</a><br>
     <a class="yellow10-text" href="code.html" target="_blank" rel="nofollow noopener">Code Guide</a><br>

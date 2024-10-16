@@ -109,13 +109,14 @@
 
 
         <h2>Embed</h2>
-        You can embed the calendar on your website like this:
+        You can embed the calendar on your website by adding this html code:
         <div class="field textarea border suffix fill">
             <textarea onclick="this.select()" id="textareaWebsiteEmbed"
                 x-text='`<iframe src="` + site.url + `" width="` +iframeWidth+ `" height="` +iframeHeight+ `"></iframe>`'></textarea>
             <i class="front" onclick="clipboardCopy('#textareaWebsiteEmbed')">Content_Copy</i>
         </div>
 
+        Adjust the size of the embedding here:
         <div class="field middle-align">
             <label class="slider">
                 <input type="range" value="640" min="200" max="1500" x-model="iframeWidth">
