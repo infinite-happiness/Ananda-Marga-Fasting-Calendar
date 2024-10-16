@@ -43,10 +43,6 @@ layout.header = function () {
     <i>routine</i>
     <div>Science</div>
   </a>
-  <a href="code.html">
-    <i>code</i>
-    <div>Code</div>
-  </a>
 </nav>
 `;
 }
@@ -56,8 +52,13 @@ layout.bottom_content = function () {
   <p>
     Created 2024 by Rámanuja - Robin Manoli - Sweden<br>
     AMSFC Website: <a class="yellow10-text" href="` + site.url + `">` + site.url + `</a><br>
-    AMSFC GitHub: <a class="yellow10-text" href="` + site.githubUrl + `" target="_blank" rel="nofollow noopener">` + site.githubUrl + `</a><br>
+    <a class="yellow10-text" href="share.html" target="_blank" rel="nofollow noopener">Share or Embed</a><br>
+    <a class="yellow10-text" href="fasting.html" target="_blank" rel="nofollow noopener">Fasting System</a><br>
+    <a class="yellow10-text" href="science.html" target="_blank" rel="nofollow noopener">Astronomical Science of Fasting Days</a><br>
+    <a class="yellow10-text" href="code.html" target="_blank" rel="nofollow noopener">Code Guide</a><br>
+    <a class="yellow10-text" href="` + site.githubUrl + `" target="_blank" rel="nofollow noopener">GitHub</a><br>
     <a class="yellow10-text" href="` + site.url + `/sitemap.xml" target="_blank">Sitemap</a><br>
+    You can run AMSFC locally from your computer without an internet connection, by downloading it:
     <a class="button yellow10-text yellow10-border border responsive margin" href="` + site.downloadUrl + `" rel="nofollow noopener">Download AMSFC to Your Computer</a><br>
   </p>
 `;
