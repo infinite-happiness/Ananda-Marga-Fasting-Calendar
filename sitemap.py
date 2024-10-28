@@ -23,8 +23,10 @@ def generate_sitemap(base_url, files):
         else:
             url = base_url + filename
 
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        file_path = os.path.join(dir_path, filename)
         last_modified = datetime.datetime.fromtimestamp(
-            os.path.getmtime(filename)
+            os.path.getmtime(file_path)
         ).strftime("%Y-%m-%dT%H:%M:%SZ")
         if set_lastmod_to_now:
             last_modified = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
