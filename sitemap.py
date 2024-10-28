@@ -11,6 +11,8 @@ def generate_sitemap(base_url, files):
     """
 
     sitemap = ET.Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    output_path_filename = os.path.join(dir_path, "sitemap.xml")
 
     for file in files:
         filename = file[0]
@@ -23,7 +25,6 @@ def generate_sitemap(base_url, files):
         else:
             url = base_url + filename
 
-        dir_path = os.path.dirname(os.path.realpath(__file__))
         file_path = os.path.join(dir_path, filename)
         last_modified = datetime.datetime.fromtimestamp(
             os.path.getmtime(file_path)
@@ -39,7 +40,7 @@ def generate_sitemap(base_url, files):
         # Add other elements like <changefreq> and <priority> if needed
 
     tree = ET.ElementTree(sitemap)
-    tree.write("sitemap.xml", encoding="utf-8", xml_declaration=True)
+    tree.write(output_path_filename, encoding="utf-8", xml_declaration=True)
 
 
 # Replace 'your_directory' with the actual directory path
