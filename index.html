@@ -56,7 +56,14 @@
 			let localeList = ['en-US', 'en-UK', 'en-IN'];
 			let userLanguage = navigator.userLanguage || (navigator.languages && navigator.languages.length && navigator.languages[0]) || navigator.language || navigator.browserLanguage || navigator.systemLanguage;
 			if (userLanguage && !localeList.includes(userLanguage)) localeList.push(userLanguage);
-			let timeZoneList = Intl.supportedValuesOf('timeZone');
+			
+			let timeZoneList;
+			
+			if (Intl.supportedValuesOf){
+				timeZoneList = Intl.supportedValuesOf('timeZone');
+			} else {
+				timeZoneList = [Intl.DateTimeFormat().resolvedOptions().timeZone];
+			}
 			timeZoneList.push('UTC');
 			let varanasiTimeZone = timeZoneList.includes("Asia/Kolkata") ? "Asia/Kolkata" : "Asia/Calcutta";
 			// default to varanasi - https://en.wikipedia.org/wiki/Varanasi
