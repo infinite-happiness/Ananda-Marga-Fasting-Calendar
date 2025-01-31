@@ -56,10 +56,10 @@
 			let localeList = ['en-US', 'en-UK', 'en-IN'];
 			let userLanguage = navigator.userLanguage || (navigator.languages && navigator.languages.length && navigator.languages[0]) || navigator.language || navigator.browserLanguage || navigator.systemLanguage;
 			if (userLanguage && !localeList.includes(userLanguage)) localeList.push(userLanguage);
-			
+
 			let timeZoneList;
-			
-			if (Intl.supportedValuesOf){
+
+			if (Intl.supportedValuesOf) {
 				timeZoneList = Intl.supportedValuesOf('timeZone');
 			} else {
 				timeZoneList = [Intl.DateTimeFormat().resolvedOptions().timeZone];
@@ -543,7 +543,15 @@
 					using the git code. Now or far into the future. (This does not suggest a free licence).</li>
 			</ul>
 
-			<h4>Synonyms and Keywords (for SEO)</h4>
+			<h2>Android</h2>
+			A user has created an Android version of this project. Check it out here:
+			<a class="yellow10-text" href="https://github.com/glowinthedark/Ananda-Marga-Fasting-Calendar-Android"
+				target="_blank"
+				rel="nofollow noopener">https://github.com/glowinthedark/Ananda-Marga-Fasting-Calendar-Android</a>
+
+
+			<h2>Ananda Marga Fasting Days</h2>
+			Synonyms and Keywords (for SEO)
 			<ul>
 				<li>Anand Marg Upavasa Chart (List)</li>
 				<li>Ánanda Márga Pracáraka Saḿgha Ekadashi Schedule (Table)</li>
