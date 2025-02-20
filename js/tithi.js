@@ -5,10 +5,10 @@ let tithi = {};
 
 // tithis in order of highest starting angle last
 tithi.tithis = [];
-tithi.tithis.push({ start: 120, end: 132, name: "Ekádashii", asciiName: "Ekadashii" });
-tithi.tithis.push({ start: 168, end: 180, name: "Púrńimá", asciiName: "Purnima" });
-tithi.tithis.push({ start: 300, end: 312, name: "Ekádashii", asciiName: "Ekadashii" });
-tithi.tithis.push({ start: 348, end: 0, name: "Amávasyá", asciiName: "Amavasya" });
+tithi.tithis.push({ start: 120, end: 132, name: "Ekádashii 🌒", asciiName: "Ekadashii" });
+tithi.tithis.push({ start: 168, end: 180, name: "Púrńimá 🌕", asciiName: "Purnima" });
+tithi.tithis.push({ start: 300, end: 312, name: "Ekádashii 🌘", asciiName: "Ekadashii" });
+tithi.tithis.push({ start: 348, end: 0, name: "Amávasyá 🌑", asciiName: "Amavasya" });
 
 tithi.getNextTithi = function (currentTithi) {
     i = tithi.tithis.indexOf(currentTithi);
