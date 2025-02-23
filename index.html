@@ -128,6 +128,10 @@
 					this.startingDate = DateTime.fromISO(startDate).setLocale(this.selectedLocale);
 					this.endingDate = DateTime.fromISO(endDate).setLocale(this.selectedLocale);
 
+					// update input date object if dates are changed elsewhere
+					this.$refs.start_date.value = this.startingDate.toISODate();
+					this.$refs.end_date.value = this.endingDate.toISODate();
+
 					let storageObject = {};
 					localStorage.removeItem('calendar');
 					if (this.saveSettingsInBrowser) {
@@ -399,6 +403,10 @@
 			<h3 class="capitalize" style="margin:25px 0 10px 0;"
 				x-text="'Fasting Dates ' + startingDate.monthLong + ' ' + startingDate.year + ' - ' + endingDate.monthLong + ' ' + endingDate.year">
 			</h3>
+			<button class="border small-round responsive"
+				@click="update(DateTime.fromISO(startingDate).minus({days:29}), $refs.end_date.value)">
+				Earlier
+			</button>
 			<table class="stripes yellow2" style="border-collapse: collapse;">
 				<tbody>
 					<template x-for="row in rows">
@@ -479,6 +487,10 @@
 					</template>
 				</tbody>
 			</table>
+			<button class="border small-round responsive"
+				@click="update($refs.start_date.value, DateTime.fromISO(endingDate).plus({days:29}))">
+				More
+			</button>
 
 			<div class="field label border">
 				<label for="start_date" class="active">Start Date</label>
