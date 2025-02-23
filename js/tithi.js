@@ -25,7 +25,6 @@ tithi.getFastingDTTZ = function (selectedTimeZone, nextTithiStart, nextTithiEnd,
     // (if sunrise is near noon or midnight in polar regions, or if an unmatching time zone is selected, which isn't considered in this code)
     // so if it's after noon it will be treated as the sunrise of next day
     if (fastingDTTZ.hour > 11) fastingDTTZ = fastingDTTZ.plus({ days: 1 });
-    ;
     // console.log("tithi.getFastingDTTZ", selectedTimeZone, nextTithiStart, nextTithiEnd, sunrise_date, fastingDate, fastingDTLocal, fastingDTTZ, fastingDTTZ.toISODate());
 
     return fastingDTTZ;
@@ -141,6 +140,15 @@ tithi.calculateTithis = function (selectedLocale, selectedTimeZone, selectedDayS
             let startTZ = DateTime.fromJSDate(nextTithiStart.date).setZone(selectedTimeZone).setLocale(selectedLocale);
             let endTZ = DateTime.fromJSDate(nextTithiEnd.date).setZone(selectedTimeZone).setLocale(selectedLocale);
             let sunriseTZ = DateTime.fromJSDate(sunrise_date).setZone(selectedTimeZone).setLocale(selectedLocale);
+
+            if (nextTithi.asciiName == 'Amavasya' && startTZ.endOf('day').plus({ days: 1 }).ts == endTZ.endOf('day').ts) {
+                // this should trigger if exactly one midnight exists between Amavasya start and end
+                // as 2nd night is the midnight that falls between amavasya start and end) of amavasya
+                let firstNightDTTZ = fastingDTTZ.minus({ days: 1 }).toLocaleString(DateTime.DATE_HUGE);
+                // for not breaking anything: add an extra amavasya row, but add the first night
+                rows.push({ firstNightDTTZ: firstNightDTTZ, start: startTZ, end: endTZ, tithi: nextTithi, sunrise: sunriseTZ, sunriseType: sunriseType, fastingDTTZ: fastingDTTZ, matchesTestData: matchesTestData, testDataValue: testDataValue }); // js datetimes (local time)
+            }
+
 
             //rows.push({ start: nextTithiStart, end: nextTithiEnd, tithi: nextTithi, sunrise: sunrise, fastingDateString: fastingDateString, matchesTestData: matchesTestData, testDataValue: testDataValue }); // js datetimes (local time)
             rows.push({ start: startTZ, end: endTZ, tithi: nextTithi, sunrise: sunriseTZ, sunriseType: sunriseType, fastingDTTZ: fastingDTTZ, matchesTestData: matchesTestData, testDataValue: testDataValue }); // js datetimes (local time)

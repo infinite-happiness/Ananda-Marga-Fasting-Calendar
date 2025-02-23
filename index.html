@@ -404,12 +404,11 @@
 					<template x-for="row in rows">
 						<tr :style="{opacity: row.fastingDTTZ.endOf('day') < nowLuxon() ? '0.6':'1', fontWeight: row.fastingDTTZ.startOf('day') < nowLuxon() && nowLuxon() < row.fastingDTTZ.endOf('day') ? 'bold':''}"
 							:class="'month-' + row.fastingDTTZ.month">
-							<td x-text="row.tithi.name"></td>
+							<td x-text="row.firstNightDTTZ ? '1st Night': row.tithi.name"></td>
 							<td>
-								<span x-text="row.fastingDTTZ.toLocaleString(DateTime.DATE_HUGE)"></span>
-							</td>
-							<td>
-								<span x-text="firstNightText(row)"></span>
+								<span x-text="row.firstNightDTTZ ?
+									row.firstNightDTTZ.toLocaleString(DateTime.DATE_HUGE)
+									:row.fastingDTTZ.toLocaleString(DateTime.DATE_HUGE)"></span>
 							</td>
 							<td style="text-align: right; padding-right:1rem;">
 								<a x-show="showGoogleCalendar" :href="googleCalendarUrl(row.tithi, row.fastingDTTZ)"
