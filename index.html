@@ -195,6 +195,16 @@
 					d += 's';
 					return d;
 				},
+				tithiText(row) {
+					//console.log(row, row.start.endOf('day').plus({ days: 1 }), row.end.endOf('day'))
+					if (row.tithi.asciiName == 'Amavasya' && row.start.endOf('day').plus({ days: 1 }).ts == row.end.endOf('day').ts) {
+						// this should trigger if exactly one midnight exists between Amavasya start and end
+						// as 2nd night is the midnight that falls between amavasya start and end
+						return row.tithi.name + " 2nd Night"
+					}
+					if (row.tithi.asciiName == 'Amavasya') console.log("2nd night could not be determined.")
+					return row.tithi.name
+				},
 
 				iOSCalendarUrl(tithi, fastingDTTZ) {
 					// https://medium.com/@duhseekoh/need-to-open-the-os-calendar-at-a-specific-date-in-react-native-55f3a085cf8e
@@ -391,8 +401,7 @@
 					<template x-for="row in rows">
 						<tr :style="{opacity: row.fastingDTTZ.endOf('day') < nowLuxon() ? '0.6':'1', fontWeight: row.fastingDTTZ.startOf('day') < nowLuxon() && nowLuxon() < row.fastingDTTZ.endOf('day') ? 'bold':''}"
 							:class="'month-' + row.fastingDTTZ.month">
-							<td x-text="row.tithi.name">
-							</td>
+							<td x-text="tithiText(row)"></td>
 							<td>
 								<span x-text="row.fastingDTTZ.toLocaleString(DateTime.DATE_HUGE)"></span><br>
 							</td>
