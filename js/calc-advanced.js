@@ -38,7 +38,11 @@ layout.calculator_advanced = function () {
 											<!--<td x-text="row.start"></td>
 											<td x-text="row.sunrise"></td>
 											<td x-text="Interval.fromDateTimes(row.start, row.sunrise)"></td>-->
-                                            <td x-text="Interval.fromDateTimes(row.start, row.sunrise).toDuration(['hours', 'minutes', 'seconds']).minus(Interval.fromDateTimes(row.sunrise, row.end).toDuration(['hours', 'minutes', 'seconds'])).toFormat('h\\'h\\'m\\'m\\'s\\'s\\'')"></td>
+                                            <td x-text="
+                                                Interval.fromDateTimes(row.start, row.sunrise).isValid && Interval.fromDateTimes(row.sunrise, row.end).isValid ?
+                                                    Interval.fromDateTimes(row.start, row.sunrise).toDuration(['hours', 'minutes', 'seconds']).minus(Interval.fromDateTimes(row.sunrise, row.end).toDuration(['hours', 'minutes', 'seconds'])).toFormat('h\\'h\\'m\\'m\\'s\\'s\\'')
+                                                    :''
+                                                "></td>
                                     </tr>
                                 </template>
                         </template>
