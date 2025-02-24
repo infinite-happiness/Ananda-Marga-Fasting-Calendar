@@ -141,11 +141,33 @@ tithi.calculateTithis = function (selectedLocale, selectedTimeZone, selectedDayS
             let endTZ = DateTime.fromJSDate(nextTithiEnd.date).setZone(selectedTimeZone).setLocale(selectedLocale);
             let sunriseTZ = DateTime.fromJSDate(sunrise_date).setZone(selectedTimeZone).setLocale(selectedLocale);
 
-            if (nextTithi.asciiName == 'Amavasya' && startTZ.endOf('day').plus({ days: 1 }).ts == endTZ.endOf('day').ts) {
-                // this should trigger if exactly one midnight exists between Amavasya start and end
-                // as 2nd night is the midnight that falls between amavasya start and end) of amavasya
-                let firstNightDTTZ = fastingDTTZ.minus({ days: 1 }).toLocaleString(DateTime.DATE_HUGE);
+            if (nextTithi.asciiName == 'Amavasya') {
+                let firstNightDTTZ;
+                let startDayPlus0 = startTZ.endOf('day').ts;
+                let endDay = endTZ.endOf('day').ts;
+                let startDayPlus1 = startTZ.endOf('day').plus({ days: 1 }).ts;
+                let startDayPlus2 = startTZ.endOf('day').plus({ days: 2 }).ts;
+
+                // 2nd night is the midnight that falls between amavasya start and end
                 // for not breaking anything: add an extra amavasya row, but add the first night
+                if (startDayPlus0 == endDay) {
+                    // triggers when amavasya start and end are the same day, no midnight occurrs during amavasya
+                    console.log("1st night not sure: amavasya starts and ends same day", fastingDTTZ.toISODate())
+                    //firstNightDTTZ = fastingDTTZ.minus({ days: 1 });
+                }
+                else if (startDayPlus1 == endDay) {
+                    // normal case, triggers if exactly one midnight exists between Amavasya start and end
+                    //firstNightDTTZ = fastingDTTZ.minus({ days: 1 });
+                }
+                else if (startDayPlus2 == endDay) {
+                    console.log("1st night not sure: amavasya starts and ends with two midnights in between", fastingDTTZ.toISODate())
+                    //firstNightDTTZ = fastingDTTZ.minus({ days: 1 });
+                }
+                else {
+                    console.log("Amavasya 1st night error - this should never happen", fastingDTTZ.toISODate())
+                    //firstNightDTTZ = fastingDTTZ.minus({ days: 1 });
+                }
+                firstNightDTTZ = endTZ.minus({ days: 2 })
                 rows.push({ firstNightDTTZ: firstNightDTTZ, start: startTZ, end: endTZ, tithi: nextTithi, sunrise: sunriseTZ, sunriseType: sunriseType, fastingDTTZ: fastingDTTZ, matchesTestData: matchesTestData, testDataValue: testDataValue }); // js datetimes (local time)
             }
 
