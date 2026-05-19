@@ -1,4 +1,5 @@
 add calendar link actually working with app such as in email from ms teams emails
+add og tags to science.html, fasting.html
 add journal, so that users can enter when they actually did fast, and keep track of how much lemon water and water they drank
 for displaying tithi details, show all sunrises so that you can always see their times, but make the in-use sunrise highlighted. this is because when fasting in far north, you may have to break fast before sunrise, so you can break fast at an earlier sunrise definition than normally
 bug with de-highlighting passed dates after selecting local time zone and location
@@ -9,3 +10,5 @@ add unit tests
 verify calculations with other AM websites
 add info on fasting (text and videos from https://india.anandamarga.org/fasting-calendar/ ?)
 github pages root dir (for github user root url): https://github.com/orgs/community/discussions/63631
+
+lunar phases: https://github.com/lfos/calcurse/issues/307
