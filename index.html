@@ -400,9 +400,14 @@
 
 			<div id="calculator_advanced" style="padding:0;"></div>
 
-			<h3 class="capitalize" style="margin:25px 0 10px 0;"
-				x-text="'Fasting Dates ' + startingDate.monthLong + ' ' + startingDate.year + ' - ' + endingDate.monthLong + ' ' + endingDate.year">
-			</h3>
+			<div class="row middle-align margin" style="margin:25px 0 10px 0;">
+				<h3 class="capitalize max no-margin"
+					x-text="'Fasting Dates ' + startingDate.monthLong + ' ' + startingDate.year + ' - ' + endingDate.monthLong + ' ' + endingDate.year">
+				</h3>
+				<a href="export.html" class="button yellow10 small-round">
+					<i>download</i> Export
+				</a>
+			</div>
 			<button class="border small-round responsive"
 				@click="update(DateTime.fromISO(startingDate).minus({days:29}), $refs.end_date.value)">
 				Earlier

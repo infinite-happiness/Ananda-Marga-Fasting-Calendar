@@ -12,3 +12,5 @@ add info on fasting (text and videos from https://india.anandamarga.org/fasting-
 github pages root dir (for github user root url): https://github.com/orgs/community/discussions/63631
 
 lunar phases: https://github.com/lfos/calcurse/issues/307
+
+use Ephemerides for higher accuracy

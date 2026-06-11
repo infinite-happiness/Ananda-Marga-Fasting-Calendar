@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Ananda Marga Fasting Calendar - Export</title>
+	<meta property="og:title" content="Ananda Marga Fasting Calendar - Export" />
+	<meta property="og:description" content="Export fasting days for any location and time zone to ICS, CSV, or TSV!" />
+	<meta property="og:url" content="https://infinite-happiness.github.io/Ananda-Marga-Fasting-Calendar/export.html" />
+	<meta property="og:type" content="website" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="canonical" href="https://infinite-happiness.github.io/Ananda-Marga-Fasting-Calendar/export.html" />
+	<script src="js/luxon.min.js"></script>
+	<script src="js/astronomy.browser.js"></script>
+	<link rel="icon" href="favicon.ico">
+</head>
+
+<body style="visibility:hidden;">
+	<script src="js/layout.js"></script>
+	<script src="js/tithi.js?v1"></script>
+	<script src="js/helpers.js"></script>
+
+	<main class="responsive">
+		<div id="exporter" x-data="exporter()">
+			<h1 :style="{marginTop:isInIframe()?'':'100px', fontSize:isInIframe()?'1.1rem':'1.7rem'}">
+				<i class="margin"><img src="media/android-chrome-192x192.png"></i>
+				Ananda Marga Fasting Calendar - Export - Experimental
+			</h1>
+			<a x-show="isInIframe()" class="yellow10-text" :href="site.url" target="_blank">
+				<i class="margin">Open_In_New</i>Open Full Export</a>
+
+			<article class="border margin yellow2">
+				<div>Selected Time Zone: <span x-text="selectedTimeZone"></span></div>
+				<template x-if="latitude == varanasiCoords.latitude && longitude == varanasiCoords.longitude && elevation == varanasiCoords.elevation">
+					<div><div class="small-divider"></div><div>Selected Location: Varanasi</div></div>
+				</template>
+				<template x-if="myCurrentLocationSelected">
+					<div><div class="small-divider"></div><div>Selected Location: My Current Location</div></div>
+				</template>
+				<template x-if="!myCurrentLocationAllowed && isInIframe()">
+					<a :href="site.url" target="_blank" class="button error responsive small-margin">Failed! Open Full...</a>
+				</template>
+				<template x-if="!myCurrentLocationAllowed && !isInIframe()">
+					<a :href="site.url" target="_blank" class="button error responsive small-margin">Failed! Please Allow Location in Browser</a>
+				</template>
+				<template x-if="myCurrentLocationAllowed && (!myCurrentLocationSelected || !myCurrentTimezoneSelected())">
+					<button @click="getMyLocation(true);" class="yellow10 responsive small-margin">
+						Use My Location and Time Zone
+						<template x-if="gettingLocation"><progress class="yellow10 circle small" style="color:white;"></progress></template>
+						<template x-if="!gettingLocation"><i>Location_On</i></template>
+					</button>
+				</template>
+			</article>
+
+			<article class="border margin yellow2">
+				<h5 style="margin:0 0 25px 0;">Settings</h5>
+
+				<label class="switch">
+					<input type="checkbox" x-model="saveSettingsInBrowser" @change="saveSettings()">
+					<span>&nbsp; Save Settings In Browser</span>
+				</label>
+
+
+				<div class="field label suffix border">
+					<select @change="update($refs.start_date.value, $refs.end_date.value)" x-model="selectedTimeZone">
+						<template x-for="tz in timeZoneList"><option :value="tz" :selected="tz === selectedTimeZone" x-text="tz"></option></template>
+					</select>
+					<label class="active">Time Zone</label>
+					<i>arrow_drop_down</i>
+				</div>
+
+				<div class="grid">
+					<div class="s4">
+						<div class="field label border">
+							<input type="number" step="any" x-model="latitude" @change="update($refs.start_date.value, $refs.end_date.value)" />
+							<label class="active">Latitude</label>
+						</div>
+					</div>
+					<div class="s4">
+						<div class="field label border">
+							<input type="number" step="any" x-model="longitude" @change="update($refs.start_date.value, $refs.end_date.value)" />
+							<label class="active">Longitude</label>
+						</div>
+					</div>
+					<div class="s4">
+						<div class="field label border">
+							<input type="number" step="any" x-model="elevation" @change="update($refs.start_date.value, $refs.end_date.value)" />
+							<label class="active">Elevation (m)</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="field label suffix border">
+					<select @change="update($refs.start_date.value, $refs.end_date.value)" x-model="selectedDayStart">
+						<template x-for="ds in dayStartList"><option :value="ds" :selected="ds === selectedDayStart" x-text="ds"></option></template>
+					</select>
+					<label class="active">Day Start Definition</label>
+					<i>arrow_drop_down</i>
+				</div>
+
+				<div class="field label suffix border">
+					<select @change="update($refs.start_date.value, $refs.end_date.value)" x-model="selectedLocale">
+						<template x-for="loc in localeList"><option :value="loc" :selected="loc === selectedLocale" x-text="loc"></option></template>
+					</select>
+					<label class="active">Language / Date Format</label>
+					<i>arrow_drop_down</i>
+				</div>
+
+				<label class="switch">
+					<input type="checkbox" x-model="fastingDayAsAllDayEvent" @change="saveSettings()">
+					<span>&nbsp; Fasting Day as All-Day Event</span>
+				</label>
+
+				<template x-if="!fastingDayAsAllDayEvent">
+					<div class="grid">
+						<div class="s6">
+							<div class="field label border">
+								<input type="time" x-model="fastingEventStartTime" @change="saveSettings()" />
+								<label class="active">Event Start Time</label>
+							</div>
+						</div>
+						<div class="s6">
+							<div class="field label border">
+								<input type="number" min="1" x-model.number="fastingEventDuration" @change="saveSettings()" />
+								<label class="active">Event Duration (minutes)</label>
+							</div>
+						</div>
+					</div>
+				</template>
+
+			</article>
+
+			<article class="border margin yellow2">
+				<template x-for="type in eventTypes" :key="type">
+					<nav class="tiny-margin">
+						<div class="max" x-text="type"></div>
+						<label class="switch icon">
+							<input type="checkbox" :checked="!filters[type]" @change="toggleFilter(type)">
+							<span></span>
+						</label>
+					</nav>
+				</template>
+			</article>
+
+
+
+            <div class="space"></div>
+			<div class="field label border">
+				<label for="start_date" class="active">Start Date</label>
+				<input type="date" id="start_date" class="active"
+					@change="update($refs.start_date.value, $refs.end_date.value)"
+					x-init="$nextTick(() => update($refs.start_date.value, $refs.end_date.value))" x-ref="start_date" />
+			</div>
+			<div class="field label border">
+				<label for="end_date" class="active">End Date</label>
+				<input type="date" id="end_date" class="active"
+					@change="update($refs.start_date.value, $refs.end_date.value)" x-ref="end_date" />
+			</div>
+
+			<script>
+				const startDateInput = document.getElementById('start_date');
+				const endDateInput = document.getElementById('end_date');
+				startDateInput.value = new Date(Date.now() - 1000 * 60 * 60 * 24 * 7).toISOString().substring(0, 10);
+				endDateInput.value = new Date(Date.now() + 1000 * 60 * 60 * 24 * 60).toISOString().substring(0, 10);
+				const handleDateRangeChange = () => {
+					const maxDate = new Date(endDateInput.value);
+					const minDate = new Date(startDateInput.value);
+					maxDate.setHours(maxDate.getHours() - 24);
+					startDateInput.max = maxDate.toISOString().substring(0, 10);
+					minDate.setHours(minDate.getHours() + 24);
+					endDateInput.min = minDate.toISOString().substring(0, 10);
+				};
+				handleDateRangeChange();
+				startDateInput.addEventListener('change', handleDateRangeChange);
+				endDateInput.addEventListener('change', handleDateRangeChange);
+			</script>
+
+			<div class="row middle-align margin">
+				<h3 class="capitalize max no-margin"
+					x-text="'Fasting Dates ' + startingDate.monthLong + ' ' + startingDate.year + ' - ' + endingDate.monthLong + ' ' + endingDate.year"></h3>
+			</div>
+
+			<table class="stripes yellow2" style="border-collapse: collapse;">
+				<thead><tr><th>Event</th><th>Date</th><th style="text-align:right;">Include</th></tr></thead>
+<tbody>
+    <template x-for="row in exportRows" :key="row.dateTime.toISO() + '|' + row.name">
+        <template x-if="!row.excluded">
+            <tr>
+                <td x-text="row.name"></td>
+                <td x-text="row.dateTime.toLocaleString(DateTime.DATE_HUGE)"></td>
+                <td style="text-align:right;">
+                    <label class="switch">
+                        <input type="checkbox" :checked="!row.excluded" @change="row.excluded = !row.excluded">
+                        <span></span>
+                    </label>
+                </td>
+            </tr>
+        </template>
+    </template>
+</tbody>
+			</table>
+
+
+			<div class="margin-y-2">
+				<div class="grid">
+					<div class="s12 m6 l4 padding"><button @click="doExport('csv')" class="responsive yellow10"><i>download</i> Download CSV</button></div>
+					<div class="s12 m6 l4 padding"><button @click="doExport('tsv')" class="responsive yellow10"><i>download</i> Download TSV</button></div>
+					<div class="s12 m6 l4 padding"><button @click="doExport('ics')" class="responsive yellow10"><i>download</i> Download ICS</button></div>
+					<div class="s12 m6 l4 padding"><button @click="doExport('copy-csv')" class="responsive yellow10"><i>content_copy</i> Copy CSV</button></div>
+					<div class="s12 m6 l4 padding"><button @click="doExport('copy-tsv')" class="responsive yellow10"><i>content_copy</i> Copy TSV</button></div>
+					<div class="s12 m6 l4 padding"><button @click="doExport('copy-excel')" class="responsive yellow10"><i>content_copy</i> Copy for Excel</button></div>
+				</div>
+				<div x-show="copyStatus" x-text="copyStatus" class="small-margin yellow2 padding small-round" style="display:inline-block;"></div>
+			</div>
+
+			<div id="bottom_content"></div>
+			<header id="header" style="background:transparent;"></header>
+		</div>
+	</main>
+</body>
+
+</html>
