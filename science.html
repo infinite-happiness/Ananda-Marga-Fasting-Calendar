@@ -106,6 +106,16 @@
         <p>Moon phases are always the same all over earth, and most tithi calculations around the web just
             differ with a few minutes of time (and are usually displayed in India Standard Time).
         </p>
+
+        <h3>Calendar Systems</h3>
+        <p>
+            As pointed out by <a class="yellow10-text" href="https://github.com/glowinthedark" target="_blank">Vasudeva</a> (Spain),
+            there are different systems for calculating ekádashii.
+            Two of the main systems are Smārta and Vaiṣṇava (Vaishnava).
+            Read more
+            <a class="yellow10-text" href="https://dekhopanchang.com/te/learn/smarta-vaishnava" target="_blank" rel="nofollow noopener">here</a>.
+        </p>
+
         <h3>The Relevant Tithis for Ananda Marga Upavasa Fasting</h3>
         <ul class="margin">
             <li>Ekádashii (11 tithis/lunar days after new/full moon): occurs at angles 120° - 132° and 300° -
@@ -347,7 +357,7 @@
             Baba had instructed him so he could publish them in the annual Ananda Marga diary.
         </article>
 
-        <h2>Accuracy of the Ananda Marga Fasting Calendar (AMSFC)</h2>
+        <h2>Accuracy of the Ananda Marga Scientific Fasting Calendar (AMSFC)</h2>
         <p>This software is based on <a class="yellow10-text" href="https://github.com/cosinekitty/astronomy/"
                 target="_blank" rel="nofollow noopener">Astronomy Engine</a>, a software engine accurate to
             within ±1
@@ -368,48 +378,22 @@
             would if the Earth had no atmosphere. Astronomy Engine uses a correction of 34 arcminutes. Real-world
             refraction varies based on air temperature, pressure, and humidity, which are not taken into
             account.</p>
-        <h3>Einstein's Theory of Relativity</h3>
-        <p>Einstein's theory of relativity does have some subtle effects on the motion of celestial bodies,
-            including the Moon. One effect is called relativistic precession, which causes the Moon's orbit to slowly
-            wobble over time. However, the magnitude of these relativistic effects is incredibly small. They have a
-            negligible impact on the overall geometry of the Earth-Sun-Moon system, which determines the Moon's phases.
-            For most astronomical applications, including calculating lunar phases, the influence of relativity is
-            insignificant. The high precision of models like VSOP (within 1 arcsecond for thousands of years) already
-            accounts for the vast majority of the Moon's motion.</p>
-        <p>The impact of relativity on sunrise and dawn calculations is also negligible for most purposes. Due
-            to Earth's rotation, different parts of the Earth experience slightly different gravitational
-            strengths. According to relativity, time runs slower in weaker gravity. This effect is minuscule but can
-            cause a slight time difference in sunrise depending on your location. Gravity can bend light slightly. This
-            effect is extremely weak, but it can theoretically cause the Sun to appear a tiny bit higher above the
-            horizon during sunrise and sunset compared to a purely Newtonian calculation.</p>
-        <h3>Higher Accuracy</h3>
-        <p>To achieve higher accuracy, the exact location for the observation of the sunrise has to be used, as
-            well as a definition of what counts as sunrise. Perhaps these methods could be used for higher accuracy in
-            sunrise and tithi calculations: </p>
-        <ul class="margin">
-            <li>
-                <a class="yellow10-text" href="https://github.com/variar/elp2000-82b" target="_blank"
-                    rel="nofollow noopener">https://github.com/variar/elp2000-82b</a>
 
-            </li>
-            <li>
-                Eclipse Predictions by Fred Espenak: This model provides highly accurate predictions for lunar
-                phases and eclipses, taking into account various perturbations and corrections.
-            </li>
-            <li>Solar and Lunar Almanac (SAA): This model includes detailed algorithms for calculating sunrise
-                and sunset times, considering the Earth’s axial tilt and orbital eccentricity. NOAA Solar
-                Calculator: The National Oceanic and Atmospheric Administration provides a solar calculator that
-                accounts for atmospheric refraction and other factors to give precise sunrise and sunset times. These
-                models incorporate more detailed corrections and perturbations, making them suitable for high-precision
-                astronomical calculations.</li>
-            <li><a class="yellow10-text"
-                    href="https://www.researchgate.net/publication/228789607_Comparison_between_high_precision_precession_models_for_the_ecliptic_and_the_equator"
-                    target="_blank"
-                    rel="nofollow noopener">https://www.researchgate.net/publication/228789607_Comparison_between_high_precision_precession_models_for_the_ecliptic_and_the_equator</a>
-            </li>
-        </ul>
+        <h3>Acheving Higher Accuracy</h3>
+        <p>
+           As pointed out by <a class="yellow10-text" href="https://github.com/glowinthedark" target="_blank">Vasudeva</a> (Spain),
+           a more precise calendar could be created using precomputed ephemeris (plural: ephemerides) data,
+           such as the <a class="yellow10-text" href="https://www.astro.com/swisseph/sweph_e.htm" target="_blank" rel="nofollow noopener">Swiss Ephemeris</a>.
+           The Swiss Ephemeris is a high precision ephemeris developed by Astrodienst, largely based upon the DExxx ephemerides from NASA's JPL.
+           Since May 2026, it is based on DE441, released by JPL in in Februry 2022.
+        </p>
 
-        <h2>Conclusion</h2>
+        <p>
+            Precomputing the exact lunar data required should significantly reduce the size of the project.
+            For the sunrise/start of the day data, precomputing can be done for certain locations only on the relevant days and types of start of the day.
+        </p>
+
+        <h2>Defaults</h2>
         <p>
             The default position of Varanasi is taken from <a class="yellow10-text"
                 href="https://en.wikipedia.org/wiki/Varanasi" target="_blank" rel="nofollow noopener">WikiPedia:</a>
